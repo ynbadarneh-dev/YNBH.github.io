@@ -118,45 +118,7 @@
             transition: all 0.4s ease; position: relative; overflow: hidden;
         }
 
-        /* تنسيق قسم اللقاء المميز (صورة وشرح تفصيلي) */
-        .featured-meeting {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            align-items: center;
-        }
-        @media(min-width: 768px) {
-            .featured-meeting {
-                flex-direction: row;
-                align-items: center;
-            }
-        }
-        .featured-img {
-            flex: 1;
-            width: 100%;
-            max-width: 400px;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid var(--border-gold);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-        }
-        .featured-info {
-            flex: 1.5;
-        }
-        .featured-info h3 {
-            font-family: 'Amiri', serif;
-            color: var(--accent-gold-light);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        .featured-info p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        /* معرض الصور العام */
+        /* معرض الصور لللقاءات الرسمية */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -245,45 +207,73 @@
     <!-- Main Container -->
     <div class="container">
 
-        <!-- Section 1: Featured Official Meeting (صورة لقاء مع شرح تفصيلي) -->
-        <section id="featured-meeting">
-            <h2 data-ar="محطة وطنية بارزة" data-en="Key National Milestone">محطة وطنية بارزة</h2>
-            <div class="card">
-                <div class="featured-meeting">
-                    <!-- استبدل meeting-highlight.jpg بصورة اللقاء الفعلي لديك -->
-                    <img src="meeting-highlight.jpg" alt="اللقاء الرسمي" class="featured-img" onerror="this.src='https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=600&auto=format&fit=crop'">
-                    <div class="featured-info">
-                        <h3 data-ar="الحوار الاستراتيجي واللقاءات القيادية العليا" data-en="Strategic Dialogue & High-Level Leadership Meetings">الحوار الاستراتيجي واللقاءات القيادية العليا</h3>
-                        <p data-ar="لقاءات رسمية ومباحثات معمقة مع قيادات وشخصيات وطنية رفيعة المستوى لمناقشة أبرز التحديات التي تواجه الشباب الأردني، ووضع رؤى استراتيجية وحلول جذرية تعزز من التنمية المستدامة، القيادة الرقمية، والمشاركة الفاعلة في مسيرة التحديث الوطني." data-en="Official meetings and in-depth discussions with high-level national figures to address key challenges facing Jordanian youth, formulating strategic visions and radical solutions to enhance sustainable development, digital leadership, and active participation in modernization.">لقاءات رسمية ومباحثات معمقة مع قيادات وشخصيات وطنية رفيعة المستوى لمناقشة أبرز التحديات التي تواجه الشباب الأردني، ووضع رؤى استراتيجية وحلول جذرية تعزز من التنمية المستدامة، القيادة الرقمية، والمشاركة الفاعلة في مسيرة التحديث الوطني.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 2: Official Meetings Gallery -->
+        <!-- Section 1: Official Meetings & Milestones Gallery -->
         <section id="meetings">
             <h2 data-ar="معرض اللقاءات والفعاليات الوطنية" data-en="National Meetings & Events Gallery">معرض اللقاءات والفعاليات الوطنية</h2>
             <div class="card">
                 <div class="gallery-grid">
+                    
                     <div class="gallery-item">
-                        <img src="meeting-1.jpg" alt="اللقاءات الرسمية" onerror="this.src='https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400&auto=format&fit=crop'">
-                        <p data-ar="اللقاءات والمحطات الفكرية الكبرى مع الشخصيات الوطنية" data-en="Major intellectual meetings with national figures">اللقاءات والمحطات الفكرية الكبرى مع الشخصيات الوطنية</p>
+                        <img src="photo1.jpg" alt="ضحكة عفوية مع سمو الامير الحسن بن طلال" onerror="this.src='https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="ضحكة عفوية مع سمو الامير الحسن بن طلال خلال تخريج فوج سابلة الحسن 2025" data-en="Spontaneous laughter with HRH Prince El Hassan bin Talal during the El Hassan Youth Award graduation 2025">ضحكة عفوية مع سمو الامير الحسن بن طلال خلال تخريج فوج سابلة الحسن 2025</p>
                     </div>
+
                     <div class="gallery-item">
-                        <img src="meeting-2.jpg" alt="التمثيل الشبابي" onerror="this.src='https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=400&auto=format&fit=crop'">
-                        <p data-ar="التمثيل الشبابي والمشاركة في الفعاليات المؤسسية الكبرى" data-en="Youth representation and institutional events">التمثيل الشبابي والمشاركة في الفعاليات المؤسسية الكبرى</p>
+                        <img src="photo2.jpg" alt="صورة ودية مع دولة الدكتور عدنان بدران" onerror="this.src='https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="صورة ودية مع دولة الدكتور عدنان بدران و سعادة السفير السابق الصادق الفقيه و الدكتور ابراهيم بدران" data-en="Friendly photo with HE Dr. Adnan Badran, HE former Ambassador Al-Sadiq Al-Faqih, and Dr. Ibrahim Badran">صورة ودية مع دولة الدكتور عدنان بدران و سعادة السفير السابق الصادق الفقيه و الدكتور ابراهيم بدران</p>
                     </div>
+
+                    <div class="gallery-item">
+                        <img src="photo3.jpg" alt="لقاء صاحب السمو الملكي الامير الحسن بن طلال" onerror="this.src='https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="لقاء صاحب السمو الملكي الامير الحسن بن طلال خلال مؤتمر الفكري السنوي الثاني 'الدولة الوطنية : افقا عربيا' في منتدى الفكر العربي" data-en="Meeting HRH Prince El Hassan bin Talal during the 2nd Annual Intellectual Conference at the Arab Thought Forum">لقاء صاحب السمو الملكي الامير الحسن بن طلال خلال مؤتمر الفكري السنوي الثاني "الدولة الوطنية : افقا عربيا" في منتدى الفكر العربي</p>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="photo4.jpg" alt="من دعوة سمو الامير الحسن بن طلال" onerror="this.src='https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="من دعوة سمو الامير الحسن بن طلال الى جامعة الحسين بن طلال في معان" data-en="From the invitation of HRH Prince El Hassan bin Talal to Al-Hussein Bin Talal University in Ma'an">من دعوة سمو الامير الحسن بن طلال الى جامعة الحسين بن طلال في معان</p>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="photo5.jpg" alt="صورة من لقاء عطوفة رئيس الديوان الملكي" onerror="this.src='https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="صورة من لقاء عطوفة رئيس الديوان الملكي يوسف العيسوي" data-en="Photo from the meeting with HE Chief of the Royal Hashemite Court Youssef Al-Issawi">صورة من لقاء عطوفة رئيس الديوان الملكي يوسف العيسوي</p>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="photo6.jpg" alt="بدعوة خاصة من سفير المملكة المتحدة" onerror="this.src='https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="بدعوة خاصة من سفير المملكة المتحدة لبريطانيا العظمى وإيرلندا الشمالية فيليب هول (Philip Hall) في منزلة - عمان. بحفل استقبال لوفد جائزة دوق أدنبرة الدولية وأمينها العام السيد مارتن. وبحضور العديد من الشخصيات المرموقة معالي الوزير السابق ايمن مفلح والدكتورة خولة الحسن" data-en="Special invitation from UK Ambassador Philip Hall in Amman, reception for the Duke of Edinburgh's International Award delegation">بدعوة خاصة من سفير المملكة المتحدة لبريطانيا العظمى وإيرلندا الشمالية فيليب هول (Philip Hall) في منزلة - عمان. 🇬🇧 بحفل استقبال لوفد جائزة دوق أدنبرة الدولية وأمينها العام السيد مارتن. وبحضور العديد من الشخصيات المرموقة معالي الوزير السابق ايمن مفلح والدكتورة خولة الحسن</p>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="photo7.jpg" alt="لقطة تذكارية من سابلة الحسن 2024" onerror="this.src='https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="لقطة تذكارية من سابلة الحسن 2024" data-en="Souvenir snapshot from El Hassan Youth Award 2024">لقطة تذكارية من سابلة الحسن 2024</p>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="photo8.jpg" alt="في اعلى قمة جبلية في الاردن" onerror="this.src='https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="في اعلى قمة جبلية في الاردن 'جبل ام الدامي' الذي يرتفع عن سطح البحر 1854م بعد تسلق دام 3 ساعات" data-en="At the highest mountain peak in Jordan 'Jabal Um Dami' (1854m) after a 3-hour climb">في اعلى قمة جبلية في الاردن "جبل ام الدامي" الذي يرتفع عن سطح البحر 1854م بعد تسلق دام 3 ساعات</p>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="photo9.jpg" alt="حوار بيني و بين سمو الامير الحسن" onerror="this.src='https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="حوار بيني و بين سمو الامير الحسن خلال تخريج فوج سابلة الحسن 2025 وطرح فكرة بودكاست على صاحب السمو الملكي" data-en="Dialogue between me and HRH Prince El Hassan during the graduation 2025, pitching a podcast idea">حوار بيني و بين سمو الامير الحسن خلال تخريج فوج سابلة الحسن 2025 وطرح فكرة بودكاست على صاحب السمو الملكي</p>
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="photo10.jpg" alt="من داخل قبة البرلمان الاردني" onerror="this.src='https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=400&auto=format&fit=crop'">
+                        <p data-ar="من داخل قبة البرلمان الاردني في زيارة خاصة" data-en="Inside the Jordanian Parliament dome on a special visit">من داخل قبة البرلمان الاردني في زيارة خاصة</p>
+                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: PDF Certificates & Documents Viewer -->
+        <!-- Section 2: PDF Certificates & Documents Viewer -->
         <section id="pdf-viewer-section">
             <h2 data-ar="تصفح الشهادات والمستندات الرسمية" data-en="Browse Certificates & Official Documents">تصفح الشهادات والمستندات الرسمية</h2>
             <div class="card pdf-container">
                 <p style="color: var(--text-muted); margin-bottom: 20px;" data-ar="يمكنك تصفح الملف والشهادات المعتمدة مباشرة عبر النافذة أدناه بسلاسة تامة دون مغادرة الصفحة:" data-en="You can browse the attached document and certified certificates directly through the window below seamlessly without leaving the page:">يمكنك تصفح الملف والشهادات المعتمدة مباشرة عبر النافذة أدناه بسلاسة تامة دون مغادرة الصفحة:</p>
                 
-                <!-- نافذة عرض ملف الـ مباشرة -->
+                <!-- نافذة عرض ملف الـ PDF مباشرة -->
                 <iframe src="yazan badarneh cv.pdf" class="pdf-viewer-box">
                     متصفحك لا يدعم عرض ملفات الـ PDF مباشرة. يمكنك تحميله من الزر أدناه.
                 </iframe>
