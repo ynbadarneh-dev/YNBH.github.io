@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>يزن هشام بدارنة | Yazan Badarneh - مهندس أنظمة ومفكر استراتيجي</title>
+    <title id="page-title">يزن هشام بدارنة | Yazan Badarneh - مهندس أنظمة ومفكر استراتيجي</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -37,7 +37,7 @@
             position: relative;
         }
 
-        /* خلفية الرخام الأسود والذهبي المحلية مع طبقة عزل خفيفة لوضوح النصوص */
+        /* خلفية الرخام الأسود والذهبي المحلية */
         body::before {
             content: "";
             position: fixed;
@@ -74,10 +74,16 @@
             letter-spacing: 1.5px;
         }
 
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
 
         nav ul li a {
@@ -90,6 +96,25 @@
 
         nav ul li a:hover {
             color: var(--accent-gold);
+        }
+
+        /* زر تغيير اللغة الفاخر */
+        .lang-btn {
+            background: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 5px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
         }
 
         /* Hero Section */
@@ -190,7 +215,7 @@
             margin: 12px auto 0;
         }
 
-        /* Interactive Story Cards */
+        /* Cards */
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -210,6 +235,11 @@
             top: 0; right: 0; width: 4px; height: 100%;
             background: var(--accent-gold);
             opacity: 0.8;
+        }
+
+        html[dir="ltr"] .card::before {
+            right: auto;
+            left: 0;
         }
 
         .card:hover {
@@ -307,7 +337,6 @@
             letter-spacing: 1px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             nav ul { display: none; }
@@ -318,16 +347,19 @@
 
     <!-- Header -->
     <header>
-        <div class="logo">يزن بدارنة</div>
-        <nav>
-            <ul>
-                <li><a href="#about">القصة</a></li>
-                <li><a href="#experience">المسار المهني</a></li>
-                <li><a href="#initiatives">الوعي والمبادرات</a></li>
-                <li><a href="#skills">المهارات</a></li>
-                <li><a href="#contact">التواصل</a></li>
-            </ul>
-        </nav>
+        <div class="logo" data-ar="يزن بدارنة" data-en="Yazan Badarneh">يزن بدارنة</div>
+        <div class="nav-container">
+            <nav>
+                <ul>
+                    <li><a href="#about" data-ar="القصة" data-en="Story">القصة</a></li>
+                    <li><a href="#experience" data-ar="المسار المهني" data-en="Experience">المسار المهني</a></li>
+                    <li><a href="#initiatives" data-ar="الوعي والمبادرات" data-en="Initiatives">الوعي والمبادرات</a></li>
+                    <li><a href="#skills" data-ar="المهارات" data-en="Skills">المهارات</a></li>
+                    <li><a href="#contact" data-ar="التواصل" data-en="Contact">التواصل</a></li>
+                </ul>
+            </nav>
+            <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
+        </div>
     </header>
 
     <!-- Hero Section -->
@@ -335,9 +367,9 @@
         <div class="hero-img-container">
             <img src="your-photo.jpg" alt="يزن هشام بدارنة" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop'">
         </div>
-        <h1>يزن هشام يوسف بدارنة</h1>
-        <p>مهندس أنظمة الذكاء الاصطناعي، رائد أعمال، وصانع وعي فكري يدمج بين الدقة التقنية والأصالة القيادية في الأردن.</p>
-        <a href="#about" class="btn">استكشف رحلتي</a>
+        <h1 data-ar="يزن هشام يوسف بدارنة" data-en="Yazan Hisham Badarneh">يزن هشام يوسف بدارنة</h1>
+        <p data-ar="مهندس أنظمة الذكاء الاصطناعي، رائد أعمال، وصانع وعي فكري يدمج بين الدقة التقنية والأصالة القيادية في الأردن." data-en="AI Systems Engineer, Entrepreneur, and Intellectual Content Creator bridging technical precision and leadership in Jordan.">مهندس أنظمة الذكاء الاصطناعي، رائد أعمال، وصانع وعي فكري يدمج بين الدقة التقنية والأصالة القيادية في الأردن.</p>
+        <a href="#about" class="btn" data-ar="استكشف رحلتي" data-en="Explore My Journey">استكشف رحلتي</a>
     </section>
 
     <!-- Main Container -->
@@ -345,74 +377,74 @@
 
         <!-- About / Story Section -->
         <section id="about">
-            <h2>فلسفة البداية والترميم الذهبي</h2>
+            <h2 data-ar="فلسفة البداية والترميم الذهبي" data-en="The Philosophy of Origins & Golden Restoration">فلسفة البداية والترميم الذهبي</h2>
             <div class="card">
-                <h3>الأصول والرؤية الاستراتيجية</h3>
-                <p>تبدأ القصة من شغف عميق بفهم عراقة الفكر الإنساني والأنظمة التقنية المتقدمة. كخريج حاسوب من جامعة عجلون الوطنية بتخصص دقيق في تحليل البيانات وإدارة الشبكات، أؤمن تماماً أن الكسور والشقوق الداخلية لا تُخفى، بل تُعالج وتُطلى بأثمن المعايير الصلبة لتصبح علامة فارقة للقوة والتألق الاستراتيجي.</p>
+                <h3 data-ar="الأصول والرؤية الاستراتيجية" data-en="Origins & Strategic Vision">الأصول والرؤية الاستراتيجية</h3>
+                <p data-ar="تبدأ القصة من شغف عميق بفهم عراقة الفكر الإنساني والأنظمة التقنية المتقدمة. كخريج حاسوب من جامعة عجلون الوطنية بتخصص دقيق في تحليل البيانات وإدارة الشبكات، أؤمن تماماً أن الكسور والشقوق الداخلية لا تُخفى، بل تُعالج وتُطلى بأثمن المعايير الصلبة لتصبح علامة فارقة للقوة والتألق الاستراتيجي." data-en="The story begins from a profound passion for understanding human thought and advanced tech systems. As a Computer Science graduate from Ajloun National University specializing in Data Analysis and Network Administration, I firmly believe that inner fractures are never concealed; rather, they are mended with the finest solid standards to become a hallmark of strategic brilliance and strength.">تبدأ القصة من شغف عميق بفهم عراقة الفكر الإنساني والأنظمة التقنية المتقدمة. كخريج حاسوب من جامعة عجلون الوطنية بتخصص دقيق في تحليل البيانات وإدارة الشبكات، أؤمن تماماً أن الكسور والشقوق الداخلية لا تُخفى، بل تُعالج وتُطلى بأثمن المعايير الصلبة لتصبح علامة فارقة للقوة والتألق الاستراتيجي.</p>
             </div>
         </section>
 
         <!-- Experience Section -->
         <section id="experience">
-            <h2>المسار المهني والميداني</h2>
+            <h2 data-ar="المسار المهني والميداني" data-en="Professional & Field Experience">المسار المهني والميداني</h2>
             
             <div class="card">
-                <span class="date">2025 - الآن</span>
-                <h3>محلل ومصمم أنظمة الذكاء الاصطناعي</h3>
-                <p>تطوير أطر عمل تحليل البيانات المتقدمة، هندسة لوحات المعلومات باستخدام Python, SQL و Power BI، وتشغيل منصة الوساطة التجارية الحديثة <strong>"Mazzado"</strong> لتطوير رحلات العملاء والحلول التشغيلية الذكية.</p>
+                <span class="date">2025 - <span data-ar="الآن" data-en="Present">الآن</span></span>
+                <h3 data-ar="محلل ومصمم أنظمة الذكاء الاصطناعي" data-en="AI Systems Analyst & Designer">محلل ومصمم أنظمة الذكاء الاصطناعي</h3>
+                <p data-ar="تطوير أطر عمل تحليل البيانات المتقدمة، هندسة لوحات المعلومات باستخدام Python, SQL و Power BI، وتشغيل منصة الوساطة التجارية الحديثة <strong>'Mazzado'</strong> لتطوير رحلات العملاء والحلول التشغيلية الذكية." data-en="Developing advanced data analysis frameworks, engineering executive dashboards using Python, SQL, and Power BI, and operating the modern commercial brokerage platform <strong>'Mazzado'</strong>.">تطوير أطر عمل تحليل البيانات المتقدمة، هندسة لوحات المعلومات باستخدام Python, SQL و Power BI، وتشغيل منصة الوساطة التجارية الحديثة <strong>"Mazzado"</strong> لتطوير رحلات العملاء والحلول التشغيلية الذكية.</p>
             </div>
 
             <div class="card">
-                <span class="date">خبرة 15 شهراً</span>
-                ### إدارة قواعد البيانات وأنظمة الحسابات - شركة FACT
-                <p>معالجة وحل المشكلات البرمجية المعقدة الخاصة بنظام تطبيق بنك الإسلامي الأردني، إجراء عمليات تدقيق قواعد البيانات لضمان أمن المعلومات، والامتثال لمعايير الجودة المصرفية.</p>
+                <span class="date" data-ar="خبرة 15 شهراً" data-en="15 Months Experience">خبرة 15 شهراً</span>
+                <h3 data-ar="إدارة قواعد البيانات وأنظمة الحسابات - شركة FACT" data-en="Database & Financial Systems Admin - FACT">إدارة قواعد البيانات وأنظمة الحسابات - شركة FACT</h3>
+                <p data-ar="معالجة وحل المشكلات البرمجية المعقدة الخاصة بنظام تطبيق بنك الإسلامي الأردني، إجراء عمليات تدقيق قواعد البيانات لضمان أمن المعلومات، والامتثال لمعايير الجودة المصرفية." data-en="Resolving complex software issues concerning Jordan Islamic Bank’s application system, conducting database audits to ensure data security and banking compliance.">معالجة وحل المشكلات البرمجية المعقدة الخاصة بنظام تطبيق بنك الإسلامي الأردني، إجراء عمليات تدقيق قواعد البيانات لضمان أمن المعلومات، والامتثال لمعايير الجودة المصرفية.</p>
             </div>
 
             <div class="card">
-                <span class="date">خبرة ميدانية متقدمة</span>
-                <h3>الإدارة والمبيعات الكبرى (متاجر Max)</h3>
-                <p>العمل الاحترافي في متاجر "Max" لمدة 4 أشهر، والذي توّج بتميز استثنائي أسفر عن الترشيح السريع لاستلام إدارة قسم كامل بفضل الكفاءة التشغيلية والقيادية العالية.</p>
+                <span class="date" data-ar="خبرة ميدانية متقدمة" data-en="Advanced Field Experience">خبرة ميدانية متقدمة</span>
+                <h3 data-ar="الإدارة والمبيعات الكبرى (متاجر Max)" data-en="Advanced Sales & Management (Max Stores)">الإدارة والمبيعات الكبرى (متاجر Max)</h3>
+                <p data-ar="العمل الاحترافي في متاجر 'Max' لمدة 4 أشهر، والذي توّج بتميز استثنائي أسفر عن الترشيح السريع لاستلام إدارة قسم كامل بفضل الكفاءة التشغيلية والقيادية العالية." data-en="Professional tenure at 'Max' stores for 4 months, achieving exceptional performance leading to a rapid nomination for department management.">العمل الاحترافي في متاجر "Max" لمدة 4 أشهر، والذي توّج بتميز استثنائي أسفر عن الترشيح السريع لاستلام إدارة قسم كامل بفضل الكفاءة التشغيلية والقيادية العالية.</p>
             </div>
         </section>
 
         <!-- Initiatives & Honors Section -->
         <section id="initiatives">
-            <h2>صناعة الوعي والمبادرات الوطنية</h2>
+            <h2 data-ar="صناعة الوعي والمبادرات الوطنية" data-en="Cognitive Awareness & National Initiatives">صناعة الوعي والمبادرات الوطنية</h2>
 
             <div class="card">
-                <span class="date">التميز الوطني والملكي</span>
-                <h3>التكريمات والمشاركات الرفيعة</h3>
-                <p>حائز على <strong>وسام اليوبيل الفضي</strong> كذكرى تذكارية رفيعة المستوى مُهداة من الديوان الملكي الهاشمي. وحققت <strong>المركز الثاني على مستوى المملكة</strong> في الانتخابات النيابية التجريبية (ديسمبر 2023).</p>
+                <span class="date" data-ar="التميز الوطني والملكي" data-en="National & Royal Recognition">التميز الوطني والملكي</span>
+                <h3 data-ar="التكريمات والمشاركات الرفيعة" data-en="High-Level Honors & Participations">التكريمات والمشاركات الرفيعة</h3>
+                <p data-ar="حائز على <strong>وسام اليوبيل الفضي</strong> كذكرى تذكارية رفيعة المستوى مُهداة من الديوان الملكي الهاشمي. وحققت <strong>المركز الثاني على مستوى المملكة</strong> في الانتخابات النيابية التجريبية (ديسمبر 2023)." data-en="Honored with the <strong>Silver Jubilee Medal</strong> as a prestigious commemorative token from the Royal Hashemite Court. Achieved <strong>2nd place nationwide</strong> in Jordan's National Mock Parliamentary Elections (Dec 2023).">حائز على <strong>وسام اليوبيل الفضي</strong> كذكرى تذكارية رفيعة المستوى مُهداة من الديوان الملكي الهاشمي. وحققت <strong>المركز الثاني على مستوى المملكة</strong> في الانتخابات النيابية التجريبية (ديسمبر 2023).</p>
             </div>
 
             <div class="card">
-                <span class="date">الفكر والمجتمع</span>
-                <h3>صناعة الوعي والمبادرات المرشحة مؤسسياً</h3>
-                <p>إنتاج محتوى مرئي وهادف عبر منصات التواصل الاجتماعي يستهدف تحفيز التفكير البشري العميق والوعي المعرفي. قيادة وتأسيس مبادرات وطنية بارزة تم ترشيحها ملكياً ومؤسسياً مثل <strong>"ذوي فكر"</strong> و<strong>"في فكر الحسن"</strong>.</p>
+                <span class="date" data-ar="الفكر والمجتمع" data-en="Thought & Society">الفكر والمجتمع</span>
+                <h3 data-ar="صناعة الوعي والمبادرات المرشحة مؤسسياً" data-en="Awareness Creation & Institutional Initiatives">صناعة الوعي والمبادرات المرشحة مؤسسياً</h3>
+                <p data-ar="إنتاج محتوى مرئي وهادف عبر منصات التواصل الاجتماعي يستهدف تحفيز التفكير البشري العميق والوعي المعرفي. قيادة وتأسيس مبادرات وطنية بارزة تم ترشيحها ملكياً ومؤسسياً مثل <strong>'ذوي فكر'</strong> و<strong>'في فكر الحسن'</strong>." data-en="Producing purposeful visual content across social media targeting deep human thinking and cognitive awareness. Spearheaded and co-founded prominent national initiatives such as <strong>'Thawi Fikr'</strong> and <strong>'Fi Fikr Al-Hassan'</strong>.">إنتاج محتوى مرئي وهادف عبر منصات التواصل الاجتماعي يستهدف تحفيز التفكير البشري العميق والوعي المعرفي. قيادة وتأسيس مبادرات وطنية بارزة تم ترشيحها ملكياً ومؤسسياً مثل <strong>"ذوي فكر"</strong> و<strong>"في فكر الحسن"</strong>.</p>
             </div>
         </section>
 
         <!-- Skills Section -->
         <section id="skills">
-            <h2>المهارات والخبرات التخصصية</h2>
+            <h2 data-ar="المهارات والخبرات التخصصية" data-en="Core Competencies">المهارات والخبرات التخصصية</h2>
             <div class="skills-grid">
-                <div class="skill-badge">تصميم وهندسة أنظمة الذكاء الاصطناعي</div>
-                <div class="skill-badge">تحليل البيانات الضخمة (Big Data)</div>
+                <div class="skill-badge" data-ar="تصميم وهندسة أنظمة الذكاء الاصطناعي" data-en="AI Systems Design & Architecture">تصميم وهندسة أنظمة الذكاء الاصطناعي</div>
+                <div class="skill-badge" data-ar="تحليل البيانات الضخمة (Big Data)" data-en="Big Data Analytics">تحليل البيانات الضخمة (Big Data)</div>
                 <div class="skill-badge">Python, SQL & Power BI</div>
-                <div class="skill-badge">التسويق الاستراتيجي وإدارة المبيعات</div>
-                <div class="skill-badge">صناعة المحتوى الفكري والتوعوي</div>
-                <div class="skill-badge">إدارة المشاريع والتخطيط</div>
-                <div class="skill-badge">بناء العلاقات المؤسسية والقيادية</div>
-                <div class="skill-badge">التفكير النقدي وحل المشكلات</div>
+                <div class="skill-badge" data-ar="التسويق الاستراتيجي وإدارة المبيعات" data-en="Strategic Marketing & Sales">التسويق الاستراتيجي وإدارة المبيعات</div>
+                <div class="skill-badge" data-ar="صناعة المحتوى الفكري والتوعوي" data-en="Cognitive Content Creation">صناعة المحتوى الفكري والتوعوي</div>
+                <div class="skill-badge" data-ar="إدارة المشاريع والتخطيط" data-en="Project & Operations Management">إدارة المشاريع والتخطيط</div>
+                <div class="skill-badge" data-ar="بناء العلاقات المؤسسية والقيادية" data-en="Institutional & Leadership Relations">بناء العلاقات المؤسسية والقيادية</div>
+                <div class="skill-badge" data-ar="التفكير النقدي وحل المشكلات" data-en="Critical Thinking & Problem Solving">التفكير النقدي وحل المشكلات</div>
             </div>
         </section>
 
         <!-- Contact Section -->
         <section id="contact">
-            <h2>تواصل معي</h2>
+            <h2 data-ar="تواصل معي" data-en="Get In Touch">تواصل معي</h2>
             <div class="card contact-content">
-                <p>أرحب دائماً بالتعاون في المشاريع التقنية المبتكرة، الاستشارات الاستراتيجية، والنقاشات الفكرية العميقة.</p>
-                <a href="mailto:YZNBADARNEH@GMAIL.COM" class="btn">راسلني عبر البريد الإلكتروني</a>
+                <p data-ar="أرحب دائماً بالتعاون في المشاريع التقنية المبتكرة، الاستشارات الاستراتيجية، والنقاشات الفكرية العميقة." data-en="Always open to collaborations in innovative tech projects, strategic consulting, and deep intellectual dialogues.">أرحب دائماً بالتعاون في المشاريع التقنية المبتكرة، الاستشارات الاستراتيجية، والنقاشات الفكرية العميقة.</p>
+                <a href="mailto:YZNBADARNEH@GMAIL.COM" class="btn" data-ar="راسلني عبر البريد الإلكتروني" data-en="Email Me Directly">راسلني عبر البريد الإلكتروني</a>
                 <div class="social-links">
                     <a href="mailto:YZNBADARNEH@GMAIL.COM" title="البريد الإلكتروني"><i class="fas fa-envelope"></i></a>
                     <a href="https://www.instagram.com/7glvy" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
@@ -424,8 +456,43 @@
 
     <!-- Footer -->
     <footer>
-        <p>جميع الحقوق محفوظة © 2026 | يزن هشام بدارنة</p>
+        <p data-ar="جميع الحقوق محفوظة © 2026 | يزن هشام بدارنة" data-en="All Rights Reserved © 2026 | Yazan Hisham Badarneh">جميع الحقوق محفوظة © 2026 | يزن هشام بدارنة</p>
     </footer>
+
+    <!-- JavaScript للتبديل الفوري للغة -->
+    <script>
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            const htmlRoot = document.getElementById('html-root');
+            const langBtn = document.getElementById('langToggle');
+            const elements = document.querySelectorAll('[data-ar]');
+
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                htmlRoot.setAttribute('lang', 'en');
+                htmlRoot.setAttribute('dir', 'ltr');
+                langBtn.textContent = 'AR';
+
+                elements.forEach(el => {
+                    if (el.dataset.en) {
+                        el.innerHTML = el.dataset.en;
+                    }
+                });
+            } else {
+                currentLang = 'ar';
+                htmlRoot.setAttribute('lang', 'ar');
+                htmlRoot.setAttribute('dir', 'rtl');
+                langBtn.textContent = 'EN';
+
+                elements.forEach(el => {
+                    if (el.dataset.ar) {
+                        el.innerHTML = el.dataset.ar;
+                    }
+                });
+            }
+        }
+    </script>
 
 </body>
 </html>
