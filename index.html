@@ -72,6 +72,7 @@
             color: var(--accent-gold);
             font-weight: 700;
             letter-spacing: 1.5px;
+            text-decoration: none;
         }
 
         .nav-container {
@@ -272,69 +273,6 @@
             font-size: 1.02rem;
         }
 
-        /* Video Grid Section */
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-
-        .video-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-gold);
-            border-radius: 6px;
-            overflow: hidden;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            box-shadow: var(--shadow-lux);
-            display: block;
-        }
-
-        .video-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--accent-gold-light);
-            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.3);
-        }
-
-        .video-thumbnail {
-            width: 100%;
-            height: 180px;
-            background: #111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-gold);
-            font-size: 2.5rem;
-            border-bottom: 1px solid var(--border-gold);
-            position: relative;
-        }
-
-        .video-thumbnail i {
-            transition: transform 0.3s ease;
-        }
-
-        .video-card:hover .video-thumbnail i {
-            transform: scale(1.2);
-        }
-
-        .video-info {
-            padding: 20px;
-        }
-
-        .video-info h3 {
-            font-family: 'Amiri', serif;
-            color: var(--accent-gold-light);
-            font-size: 1.25rem;
-            margin-bottom: 8px;
-        }
-
-        .video-info p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
         /* Skills Tags */
         .skills-grid {
             display: flex;
@@ -410,16 +348,16 @@
 
     <!-- Header -->
     <header>
-        <div class="logo" data-ar="يزن بدارنة" data-en="Yazan Badarneh">يزن بدارنة</div>
+        <a href="index.html" class="logo" data-ar="يزن بدارنة" data-en="Yazan Badarneh">يزن بدارنة</a>
         <div class="nav-container">
             <nav>
                 <ul>
-                    <li><a href="#about" data-ar="القصة" data-en="Story">القصة</a></li>
-                    <li><a href="#experience" data-ar="المسار المهني" data-en="Experience">المسار المهني</a></li>
-                    <li><a href="#videos-section" data-ar="الفيديوهات" data-en="Videos">الفيديوهات</a></li>
-                    <li><a href="#initiatives" data-ar="الوعي والمبادرات" data-en="Initiatives">الوعي والمبادرات</a></li>
-                    <li><a href="#skills" data-ar="المهارات" data-en="Skills">المهارات</a></li>
-                    <li><a href="#contact" data-ar="التواصل" data-en="Contact">التواصل</a></li>
+                    <li><a href="index.html#about" data-ar="القصة" data-en="Story">القصة</a></li>
+                    <li><a href="index.html#experience" data-ar="المسار المهني" data-en="Experience">المسار المهني</a></li>
+                    <li><a href="videos.html" data-ar="الفيديوهات" data-en="Videos">الفيديوهات</a></li>
+                    <li><a href="index.html#initiatives" data-ar="الوعي والمبادرات" data-en="Initiatives">الوعي والمبادرات</a></li>
+                    <li><a href="index.html#skills" data-ar="المهارات" data-en="Skills">المهارات</a></li>
+                    <li><a href="index.html#contact" data-ar="التواصل" data-en="Contact">التواصل</a></li>
                 </ul>
             </nav>
             <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
@@ -433,7 +371,7 @@
         </div>
         <h1 data-ar="يزن هشام يوسف بدارنة" data-en="Yazan Hisham Badarneh">يزن هشام يوسف بدارنة</h1>
         <p data-ar="مهندس أنظمة الذكاء الاصطناعي، رائد أعمال، وصانع وعي فكري يدمج بين الدقة التقنية والأصالة القيادية في الأردن." data-en="AI Systems Engineer, Entrepreneur, and Intellectual Content Creator bridging technical precision and leadership in Jordan.">مهندس أنظمة الذكاء الاصطناعي، رائد أعمال، وصانع وعي فكري يدمج بين الدقة التقنية والأصالة القيادية في الأردن.</p>
-        <a href="#about" class="btn" data-ar="استكشف رحلتي" data-en="Explore My Journey">استكشف رحلتي</a>
+        <a href="index.html#about" class="btn" data-ar="استكشف رحلتي" data-en="Explore My Journey">استكشف رحلتي</a>
     </section>
 
     <!-- Main Container -->
@@ -468,45 +406,6 @@
                 <span class="date" data-ar="خبرة ميدانية متقدمة" data-en="Advanced Field Experience">خبرة ميدانية متقدمة</span>
                 <h3 data-ar="الإدارة والمبيعات الكبرى (متاجر Max)" data-en="Advanced Sales & Management (Max Stores)">الإدارة والمبيعات الكبرى (متاجر Max)</h3>
                 <p data-ar="العمل الاحترافي في متاجر 'Max' لمدة 4 أشهر، والذي توّج بتميز استثنائي أسفر عن الترشيح السريع لاستلام إدارة قسم كامل بفضل الكفاءة التشغيلية والقيادية العالية." data-en="Professional tenure at 'Max' stores for 4 months, achieving exceptional performance leading to a rapid nomination for department management.">العمل الاحترافي في متاجر "Max" لمدة 4 أشهر، والذي توّج بتميز استثنائي أسفر عن الترشيح السريع لاستلام إدارة قسم كامل بفضل الكفاءة التشغيلية والقيادية العالية.</p>
-            </div>
-        </section>
-
-        <!-- Videos Section (New) -->
-        <section id="videos-section">
-            <h2 data-ar="مكتبة الفيديوهات الفكرية" data-en="Intellectual Video Library">مكتبة الفيديوهات الفكرية</h2>
-            <div class="videos-grid">
-                <!-- الفيديو الأول -->
-                <a href="https://www.instagram.com/7glvy" target="_blank" class="video-card">
-                    <div class="video-thumbnail">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div class="video-info">
-                        <h3 data-ar="الفيديو الأول: العمليات العصبية والذاكرة" data-en="Video 1: Neural Processes & Memory">الفيديو الأول: العمليات العصبية والذاكرة</h3>
-                        <p data-ar="شاهد كيف يعالج الدماغ الذاكرة والوعي المعرفي." data-en="Watch how the brain processes memory and cognitive awareness.">شاهد كيف يعالج الدماغ الذاكرة والوعي المعرفي.</p>
-                    </div>
-                </a>
-
-                <!-- الفيديو الثاني -->
-                <a href="https://www.instagram.com/7glvy" target="_blank" class="video-card">
-                    <div class="video-thumbnail">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div class="video-info">
-                        <h3 data-ar="الفيديو الثاني: فلسفة التفكير الاستراتيجي" data-en="Video 2: Philosophy of Strategic Thought">الفيديو الثاني: فلسفة التفكير الاستراتيجي</h3>
-                        <p data-ar="نقاشات عميقة حول اتخاذ القرار وبناء الأنماط الذهنية." data-en="Deep discussions on decision making and building mental models.">نقاشات عميقة حول اتخاذ القرار وبناء الأنماط الذهنية.</p>
-                    </div>
-                </a>
-
-                <!-- الفيديو الثالث -->
-                <a href="https://www.instagram.com/7glvy" target="_blank" class="video-card">
-                    <div class="video-thumbnail">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div class="video-info">
-                        <h3 data-ar="الفيديو الثالث: الوعي البشري والتقنية" data-en="Video 3: Human Consciousness & Tech">الفيديو الثالث: الوعي البشري والتقنية</h3>
-                        <p data-ar="دمج الذكاء الاصطناعي مع المفاهيم الإنسانية العريقة." data-en="Integrating artificial intelligence with ancient human concepts.">دمج الذكاء الاصطناعي مع المفاهيم الإنسانية العريقة.</p>
-                    </div>
-                </a>
             </div>
         </section>
 
