@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">مكتبة الفيديوهات | يزن هشام بدارنة</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #030406;
+            --card-bg: rgba(10, 14, 19, 0.90);
+            --card-hover: rgba(16, 22, 30, 0.95);
+            --accent-gold: #c5a059;
+            --accent-gold-light: #dfc17f;
+            --text-main: #f4f0ea;
+            --text-muted: #abb4be;
+            --border-gold: rgba(197, 160, 89, 0.45);
+            --shadow-lux: 0 15px 35px rgba(0, 0, 0, 0.9);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Amiri', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.9;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* خلفية الرخام الأسود والذهبي المحلية */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                linear-gradient(to bottom, rgba(3, 4, 6, 0.75), rgba(3, 4, 6, 0.92)),
+                url('marble-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(3, 4, 6, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-gold);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+        }
+
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--accent-gold);
+        }
+
+        /* زر تغيير اللغة الفاخر */
+        .lang-btn {
+            background: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 5px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.4);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 140px auto 60px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        h2 {
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 45px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 2px;
+            background: var(--accent-gold);
+            margin: 12px auto 0;
+        }
+
+        /* Video Grid Section */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 6px;
+            overflow: hidden;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-lux);
+            display: block;
+            position: relative;
+        }
+
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 4px; height: 100%;
+            background: var(--accent-gold);
+            opacity: 0.8;
+        }
+
+        html[dir="ltr"] .video-card::before {
+            right: auto;
+            left: 0;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-gold-light);
+            background: var(--card-hover);
+            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.3);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: #090c10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 3rem;
+            border-bottom: 1px solid var(--border-gold);
+            position: relative;
+        }
+
+        .video-thumbnail i {
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .video-thumbnail i {
+            transform: scale(1.2);
+        }
+
+        .video-info {
+            padding: 25px;
+        }
+
+        .video-info h3 {
+            font-family: 'Amiri', serif;
+            color: var(--accent-gold-light);
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+        }
+
+        .video-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* زر العودة */
+        .back-btn-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--accent-gold);
+            border: 1px solid var(--accent-gold);
+            padding: 12px 35px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 35px;
+            background: #020304;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-gold);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="logo" data-ar="يزن بدارنة" data-en="Yazan Badarneh">يزن بدارنة</a>
+        <div class="nav-container">
+            <nav>
+                <ul>
+                    <li><a href="index.html#about" data-ar="القصة" data-en="Story">القصة</a></li>
+                    <li><a href="index.html#experience" data-ar="المسار المهني" data-en="Experience">المسار المهني</a></li>
+                    <li><a href="videos.html" class="active" data-ar="الفيديوهات" data-en="Videos">الفيديوهات</a></li>
+                    <li><a href="index.html#initiatives" data-ar="الوعي والمبادرات" data-en="Initiatives">الوعي والمبادرات</a></li>
+                    <li><a href="index.html#skills" data-ar="المهارات" data-en="Skills">المهارات</a></li>
+                    <li><a href="index.html#contact" data-ar="التواصل" data-en="Contact">التواصل</a></li>
+                </ul>
+            </nav>
+            <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">EN</button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h2 data-ar="مكتبة الفيديوهات الفكرية" data-en="Intellectual Video Library">مكتبة الفيديوهات الفكرية</h2>
+        
+        <div class="videos-grid">
+            <!-- الفيديو الأول -->
+            <a href="https://www.instagram.com/7glvy" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="video-info">
+                    <h3 data-ar="الفيديو الأول: العمليات العصبية والذاكرة" data-en="Video 1: Neural Processes & Memory">الفيديو الأول: العمليات العصبية والذاكرة</h3>
+                    <p data-ar="شاهد كيف يعالج الدماغ الذاكرة والوعي المعرفي." data-en="Watch how the brain processes memory and cognitive awareness.">شاهد كيف يعالج الدماغ الذاكرة والوعي المعرفي.</p>
+                </div>
+            </a>
+
+            <!-- الفيديو الثاني -->
+            <a href="https://www.instagram.com/7glvy" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="video-info">
+                    <h3 data-ar="الفيديو الثاني: فلسفة التفكير الاستراتيجي" data-en="Video 2: Philosophy of Strategic Thought">الفيديو الثاني: فلسفة التفكير الاستراتيجي</h3>
+                    <p data-ar="نقاشات عميقة حول اتخاذ القرار وبناء الأنماط الذهنية." data-en="Deep discussions on decision making and building mental models.">نقاشات عميقة حول اتخاذ القرار وبناء الأنماط الذهنية.</p>
+                </div>
+            </a>
+
+            <!-- الفيديو الثالث -->
+            <a href="https://www.instagram.com/7glvy" target="_blank" class="video-card">
+                <div class="video-thumbnail">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="video-info">
+                    <h3 data-ar="الفيديو الثالث: الوعي البشري والتقنية" data-en="Video 3: Human Consciousness & Tech">الفيديو الثالث: الوعي البشري والتقنية</h3>
+                    <p data-ar="دمج الذكاء الاصطناعي مع المفاهيم الإنسانية العريقة." data-en="Integrating artificial intelligence with ancient human concepts.">دمج الذكاء الاصطناعي مع المفاهيم الإنسانية العريقة.</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="back-btn-container">
+            <a href="index.html" class="btn" data-ar="العودة للصفحة الرئيسية" data-en="Back to Home">العودة للصفحة الرئيسية</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p data-ar="جميع الحقوق محفوظة © 2026 | يزن هشام بدارنة" data-en="All Rights Reserved © 2026 | Yazan Hisham Badarneh">جميع الحقوق محفوظة © 2026 | يزن هشام بدارنة</p>
+    </footer>
+
+    <!-- JavaScript للتبديل الفوري للغة -->
+    <script>
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            const htmlRoot = document.getElementById('html-root');
+            const langBtn = document.getElementById('langToggle');
+            const elements = document.querySelectorAll('[data-ar]');
+
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                htmlRoot.setAttribute('lang', 'en');
+                htmlRoot.setAttribute('dir', 'ltr');
+                langBtn.textContent = 'AR';
+
+                elements.forEach(el => {
+                    if (el.dataset.en) {
+                        el.innerHTML = el.dataset.en;
+                    }
+                });
+            } else {
+                currentLang = 'ar';
+                htmlRoot.setAttribute('lang', 'ar');
+                htmlRoot.setAttribute('dir', 'rtl');
+                langBtn.textContent = 'EN';
+
+                elements.forEach(el => {
+                    if (el.dataset.ar) {
+                        el.innerHTML = el.dataset.ar;
+                    }
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
