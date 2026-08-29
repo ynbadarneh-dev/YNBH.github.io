@@ -118,7 +118,45 @@
             transition: all 0.4s ease; position: relative; overflow: hidden;
         }
 
-        /* معرض الصور لللقاءات الرسمية */
+        /* تنسيق قسم اللقاء المميز (صورة وشرح تفصيلي) */
+        .featured-meeting {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            align-items: center;
+        }
+        @media(min-width: 768px) {
+            .featured-meeting {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+        .featured-img {
+            flex: 1;
+            width: 100%;
+            max-width: 400px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+        }
+        .featured-info {
+            flex: 1.5;
+        }
+        .featured-info h3 {
+            font-family: 'Amiri', serif;
+            color: var(--accent-gold-light);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        .featured-info p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* معرض الصور العام */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -207,9 +245,24 @@
     <!-- Main Container -->
     <div class="container">
 
-        <!-- Section 1: Official Meetings Gallery -->
+        <!-- Section 1: Featured Official Meeting (صورة لقاء مع شرح تفصيلي) -->
+        <section id="featured-meeting">
+            <h2 data-ar="محطة وطنية بارزة" data-en="Key National Milestone">محطة وطنية بارزة</h2>
+            <div class="card">
+                <div class="featured-meeting">
+                    <!-- استبدل meeting-highlight.jpg بصورة اللقاء الفعلي لديك -->
+                    <img src="meeting-highlight.jpg" alt="اللقاء الرسمي" class="featured-img" onerror="this.src='https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=600&auto=format&fit=crop'">
+                    <div class="featured-info">
+                        <h3 data-ar="الحوار الاستراتيجي واللقاءات القيادية العليا" data-en="Strategic Dialogue & High-Level Leadership Meetings">الحوار الاستراتيجي واللقاءات القيادية العليا</h3>
+                        <p data-ar="لقاءات رسمية ومباحثات معمقة مع قيادات وشخصيات وطنية رفيعة المستوى لمناقشة أبرز التحديات التي تواجه الشباب الأردني، ووضع رؤى استراتيجية وحلول جذرية تعزز من التنمية المستدامة، القيادة الرقمية، والمشاركة الفاعلة في مسيرة التحديث الوطني." data-en="Official meetings and in-depth discussions with high-level national figures to address key challenges facing Jordanian youth, formulating strategic visions and radical solutions to enhance sustainable development, digital leadership, and active participation in modernization.">لقاءات رسمية ومباحثات معمقة مع قيادات وشخصيات وطنية رفيعة المستوى لمناقشة أبرز التحديات التي تواجه الشباب الأردني، ووضع رؤى استراتيجية وحلول جذرية تعزز من التنمية المستدامة، القيادة الرقمية، والمشاركة الفاعلة في مسيرة التحديث الوطني.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Official Meetings Gallery -->
         <section id="meetings">
-            <h2 data-ar="اللقاءات الرسمية والوطنية" data-en="Official & National Meetings">اللقاءات الرسمية والوطنية</h2>
+            <h2 data-ar="معرض اللقاءات والفعاليات الوطنية" data-en="National Meetings & Events Gallery">معرض اللقاءات والفعاليات الوطنية</h2>
             <div class="card">
                 <div class="gallery-grid">
                     <div class="gallery-item">
@@ -224,13 +277,13 @@
             </div>
         </section>
 
-        <!-- Section 2: PDF Certificates & Documents Viewer -->
+        <!-- Section 3: PDF Certificates & Documents Viewer -->
         <section id="pdf-viewer-section">
             <h2 data-ar="تصفح الشهادات والمستندات الرسمية" data-en="Browse Certificates & Official Documents">تصفح الشهادات والمستندات الرسمية</h2>
             <div class="card pdf-container">
                 <p style="color: var(--text-muted); margin-bottom: 20px;" data-ar="يمكنك تصفح الملف والشهادات المعتمدة مباشرة عبر النافذة أدناه بسلاسة تامة دون مغادرة الصفحة:" data-en="You can browse the attached document and certified certificates directly through the window below seamlessly without leaving the page:">يمكنك تصفح الملف والشهادات المعتمدة مباشرة عبر النافذة أدناه بسلاسة تامة دون مغادرة الصفحة:</p>
                 
-                <!-- نافذة عرض ملف الـ PDF مباشرة (تأكد من مطابقة اسم الملف الموجود في المجلد) -->
+                <!-- نافذة عرض ملف الـ مباشرة -->
                 <iframe src="yazan badarneh cv.pdf" class="pdf-viewer-box">
                     متصفحك لا يدعم عرض ملفات الـ PDF مباشرة. يمكنك تحميله من الزر أدناه.
                 </iframe>
