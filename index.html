@@ -163,7 +163,14 @@
             font-size: 1.15rem;
             color: var(--text-muted);
             max-width: 750px;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
 
         .btn {
@@ -177,6 +184,7 @@
             font-weight: 600;
             letter-spacing: 1px;
             transition: all 0.4s ease;
+            min-width: 220px;
         }
 
         .btn:hover {
@@ -371,7 +379,11 @@
         </div>
         <h1 data-ar="يزن هشام يوسف بدارنة" data-en="Yazan Hisham Badarneh">يزن هشام يوسف بدارنة</h1>
         <p data-ar="مهندس أنظمة الذكاء الاصطناعي، رائد أعمال، وصانع وعي فكري يدمج بين الدقة التقنية والأصالة القيادية في الأردن." data-en="AI Systems Engineer, Entrepreneur, and Intellectual Content Creator bridging technical precision and leadership in Jordan.">مهندس أنظمة الذكاء الاصطناعي، رائد أعمال، وصانع وعي فكري يدمج بين الدقة التقنية والأصالة القيادية في الأردن.</p>
-        <a href="index.html#about" class="btn" data-ar="استكشف رحلتي" data-en="Explore My Journey">استكشف رحلتي</a>
+        
+        <div class="hero-btns">
+            <a href="#about" class="btn" data-ar="استكشف رحلتي" data-en="Explore My Journey">استكشف رحلتي</a>
+            <a href="videos.html" class="btn" data-ar="الرحلة الفكرية" data-en="Intellectual Journey">الرحلة الفكرية</a>
+        </div>
     </section>
 
     <!-- Main Container -->
