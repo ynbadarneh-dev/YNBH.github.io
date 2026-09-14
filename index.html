@@ -282,6 +282,100 @@
             font-size: 1.02rem;
         }
 
+        /* تصميم قسم أحدث الأخبار (News Grid Section) */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 6px;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-lux);
+            position: relative;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 4px; height: 100%;
+            background: var(--accent-gold);
+            opacity: 0.8;
+            z-index: 2;
+        }
+
+        html[dir="ltr"] .news-card::before {
+            right: auto;
+            left: 0;
+        }
+
+        .news-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-gold-light);
+            background: var(--card-hover);
+            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.3);
+        }
+
+        .news-img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-gold);
+            transition: transform 0.4s ease;
+        }
+
+        .news-card:hover .news-img {
+            transform: scale(1.05);
+        }
+
+        .news-content {
+            padding: 22px;
+        }
+
+        .news-date {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            display: block;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .news-content h3 {
+            font-family: 'Amiri', serif;
+            color: var(--accent-gold-light);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .news-content p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s ease;
+        }
+
+        .news-card:hover .read-more {
+            gap: 10px;
+            color: var(--accent-gold-light);
+        }
+
         /* Skills Tags */
         .skills-grid {
             display: flex;
@@ -365,6 +459,7 @@
                     <li><a href="index.html#experience" data-ar="المسار المهني" data-en="Experience">المسار المهني</a></li>
                     <li><a href="certificates.html" data-ar="الشهادات واللقاءات" data-en="Certificates & Meetings">الشهادات واللقاءات الرسمية</a></li>
                     <li><a href="videos.html" data-ar="الفيديوهات" data-en="Videos">الفيديوهات</a></li>
+                    <li><a href="index.html#news" data-ar="الأخبار" data-en="News">الأخبار</a></li>
                     <li><a href="index.html#initiatives" data-ar="الوعي والمبادرات" data-en="Initiatives">الوعي والمبادرات</a></li>
                     <li><a href="index.html#skills" data-ar="المهارات" data-en="Skills">المهارات</a></li>
                     <li><a href="index.html#contact" data-ar="التواصل" data-en="Contact">التواصل</a></li>
@@ -398,6 +493,47 @@
             <div class="card">
                 <h3 data-ar="الأصول والرؤية الاستراتيجية" data-en="Origins & Strategic Vision">الأصول والرؤية الاستراتيجية</h3>
                 <p data-ar="تبدأ القصة من شغف عميق بفهم عراقة الفكر الإنساني والأنظمة التقنية المتقدمة. كخريج حاسوب من جامعة عجلون الوطنية بتخصص دقيق في تحليل البيانات وإدارة الشبكات، أؤمن تماماً أن الكسور والشقوق الداخلية لا تُخفى، بل تُعالج وتُطلى بأثمن المعايير الصلبة لتصبح علامة فارقة للقوة والتألق الاستراتيجي." data-en="The story begins from a profound passion for understanding human thought and advanced tech systems. As a Computer Science graduate from Ajloun National University specializing in Data Analysis and Network Administration, I firmly believe that inner fractures are never concealed; rather, they are mended with the finest solid standards to become a hallmark of strategic brilliance and strength.">تبدأ القصة من شغف عميق بفهم عراقة الفكر الإنساني والأنظمة التقنية المتقدمة. كخريج حاسوب من جامعة عجلون الوطنية بتخصص دقيق في تحليل البيانات وإدارة الشبكات، أؤمن تماماً أن الكسور والشقوق الداخلية لا تُخفى، بل تُعالج وتُطلى بأثمن المعايير الصلبة لتصبح علامة فارقة للقوة والتألق الاستراتيجي.</p>
+            </div>
+        </section>
+
+        <!-- News Section (أحدث الأخبار) -->
+        <section id="news">
+            <h2 data-ar="أحدث الأخبار والمستجدات" data-en="Latest News & Updates">أحدث الأخبار والمستجدات</h2>
+            <div class="news-grid">
+                
+                <!-- الخبر الأول -->
+                <a href="https://example.com/news1" target="_blank" class="news-card">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop" alt="خبر 1" class="news-img">
+                    <div class="news-content">
+                        <span class="news-date" data-ar="سبتمبر 2026" data-en="September 2026">سبتمبر 2026</span>
+                        <h3 data-ar="إطلاق النسخة المحدثة من منصة الوساطة التجارية" data-en="Launching the Updated Version of Mazzado">إطلاق النسخة المحدثة من منصة الوساطة التجارية</h3>
+                        <p data-ar="تطويرات جذرية في أحدث أطر عمل منصة Mazzado لتوفير حلول تشغيلية وذكية متقدمة." data-en="Radical developments in Mazzado framework to provide advanced smart operational solutions.">تطويرات جذرية في أحدث أطر عمل منصة Mazzado لتوفير حلول تشغيلية وذكية متقدمة.</p>
+                        <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
+                    </div>
+                </a>
+
+                <!-- الخبر الثاني -->
+                <a href="https://example.com/news2" target="_blank" class="news-card">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop" alt="خبر 2" class="news-img">
+                    <div class="news-content">
+                        <span class="news-date" data-ar="أغسطس 2026" data-en="August 2026">أغسطس 2026</span>
+                        <h3 data-ar="مبادرات الوعي الفكري والتحول الرقمي" data-en="Cognitive Awareness & Digital Transformation">مبادرات الوعي الفكري والتحول الرقمي</h3>
+                        <p data-ar="التوسع في إنتاج المحتوى الرقمي الموجه لتحفيز التفكير البشري العميق والوعي المعرفي." data-en="Expanding digital content production aimed at stimulating deep human thought and cognitive awareness.">التوسع في إنتاج المحتوى الرقمي الموجه لتحفيز التفكير البشري العميق والوعي المعرفي.</p>
+                        <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
+                    </div>
+                </a>
+
+                <!-- الخبر الثالث -->
+                <a href="https://example.com/news3" target="_blank" class="news-card">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" alt="خبر 3" class="news-img">
+                    <div class="news-content">
+                        <span class="news-date" data-ar="يوليو 2026" data-en="July 2026">يوليو 2026</span>
+                        <h3 data-ar="المشاركة في ورش العمل الاستراتيجية الكبرى" data-en="Participation in Major Strategic Workshops">المشاركة في ورش العمل الاستراتيجية الكبرى</h3>
+                        <p data-ar="حضور اجتماعات وورش عمل متقدمة في مجالات التسجيل المؤسسي والحلول القانونية." data-en="Attending advanced workshops and meetings in corporate registration and legal solutions.">حضور اجتماعات وورش عمل متقدمة في مجالات التسجيل المؤسسي والحلول القانونية.</p>
+                        <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
+                    </div>
+                </a>
+
             </div>
         </section>
 
