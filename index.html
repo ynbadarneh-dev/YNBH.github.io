@@ -345,15 +345,41 @@
             background: var(--card-hover);
             box-shadow: 0 20px 40px rgba(197, 160, 89, 0.3);
         }
-
-.news-img {
+/* صندوق حاوية الصورة لتحigon التأثير المزدوج */
+.news-img-wrapper {
+    position: relative;
     width: 100%;
-    height: 220px;
-    object-fit: cover; /* لملء المساحة بالكامل وجعل التصميم متناسقاً */
-    object-position: top center; /* التثبيت نحو الأعلى لضمان ظهور الوجوه والملامح بوضوح تام ودون قص */
+    height: 210px;
+    overflow: hidden;
     background-color: #030406;
     border-bottom: 1px solid var(--border-gold);
+}
+
+/* الخلفية الضبابية لملء الفراغات الجانبية أو العلوية بأناقة */
+.news-img-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: var(--bg-img);
+    background-size: cover;
+    background-position: center;
+    filter: blur(12px) brightness(0.5); /* تغشية وتعتيم لتكون الخلفية هادئة */
+    transform: scale(1.2); /* تكبير بسيط لمنع حواف الغواش من الظهور */
+    z-index: 1;
+}
+
+/* الصورة الأساسية التي تظهر كاملة وواضحة في المنتصف */
+.news-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* تضمن ظهور الصورة كاملة بجميع أبعادها دون أي قص */
+    z-index: 2;
     transition: transform 0.4s ease;
+}
+
+.news-card:hover .news-img {
+    transform: scale(1.03);
 }
         .news-card:hover .news-img {
             transform: scale(1.05);
