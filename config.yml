@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: ynbadarneh-dev/YNBH.github.io  # (اسم المستخدم واسم المستودع الحالي تماماً)
+  branch: main
+
+media_folder: "images" # المجلد الذي ستحفظ فيه صور الأخبار المرفوعة تلقائياً
+public_folder: "/images"
+
+collections:
+  - name: "news"
+    label: "الأخبار"
+    folder: "_news" # مجلد سيحفظ فيه النظام كل خبر تكتبه كملف مستقل
+    create: true
+    fields:
+      - {label: "عنوان الخبر بالعربية", name: "title_ar", widget: "string"}
+      - {label: "English Title", name: "title_en", widget: "string"}
+      - {label: "تاريخ الخبر", name: "date", widget: "string"}
+      - {label: "صورة الخبر", name: "image", widget: "image"}
+      - {label: "رابط الخبر الخارجي", name: "link", widget: "string"}
+      - {label: "ملخص الخبر بالعربية", name: "summary_ar", widget: "text"}
+      - {label: "English Summary", name: "summary_en", widget: "text"}
