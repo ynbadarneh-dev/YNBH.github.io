@@ -346,11 +346,12 @@
             box-shadow: 0 20px 40px rgba(197, 160, 89, 0.3);
         }
 
-  .news-img {
+.news-img {
     width: 100%;
-    height: 200px;
-    object-fit: contain; /* يضمن إظهار الصورة كاملة دون قص أي جزء */
-    background-color: #030406; /* يملأ الفراغات الجانبية بلون الخلفية الفاخر للموقع لتختفي أي عيوب */
+    height: 220px;
+    object-fit: cover; /* لملء المساحة بالكامل وجعل التصميم متناسقاً */
+    object-position: top center; /* التثبيت نحو الأعلى لضمان ظهور الوجوه والملامح بوضوح تام ودون قص */
+    background-color: #030406;
     border-bottom: 1px solid var(--border-gold);
     transition: transform 0.4s ease;
 }
