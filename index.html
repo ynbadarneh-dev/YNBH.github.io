@@ -690,26 +690,45 @@
         }
     </script>
 <script>
-    // رابط جدول البيانات الخاص بك بعد نشره على الويب (CSV أو Google Sheet API)
-    // سنستخدم طريقة بسيطة لجلب البيانات من جدول جوجل عبر SheetDB أو واجهة برمجة مباشرة
-    async function loadNewsFromSheet() {
+    async function fetchGoogleSheetNews() {
         const slider = document.getElementById('newsSlider');
         if (!slider) return;
 
+        // رابط تحويل جدول جوجل الخاص بك إلى JSON عبر SheetDB (أو يمكنك استخدام رابط واجهة جاهز)
+        // معرف الجدول الخاص بك هو: 1t78_RhUXX0EiGYu48P4SkbIdVBLV4T0ZNakrRZSfGmU
+        const sheetID = '1t78_RhUXX0EiGYu48P4SkbIdVBLV4T0ZNakrRZSfGmU';
+        const url = `https://opensheet.elk.sh/${sheetID}/1`; // السطر الأول يحتوي على الأعمدة والبيانات
+
         try {
-            // استبدل هذا الرابط برابط نشر جدولك أو خدمة مجانية مثل SheetDB
-            // أو سنستخدم الطريقة الأبسط عبر Google Apps Script 
-            // ضع رابط جدولك هنا:
-            const sheetApiUrl = 'رابط_نشر_جدول_البيانات_هنا'; 
-            
-            // مؤقتاً، إذا لم ترفع الرابط، سيبقى النظام محافظاً على الأخبار الثابتة حتى تربطه بالجدول
+            const response = await fetch(url);
+            const rows = await response.json();
+
+            if (rows && rows.length > 0) {
+                slider.innerHTML = ''; // تفريغ الأخبار القديمة الثابتة
+
+                rows.forEach(row => {
+                    // الاعتماد على أسماء الأعمدة التي حددناها: title, summary, link, image, date
+                    const newsCard = `
+                        <a href="${row.link || '#'}" target="_blank" class="news-card">
+                            <img src="${row.image || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop'}" alt="خبر" class="news-img">
+                            <div class="news-content">
+                                <span class="news-date">${row.date || ''}</span>
+                                <h3>${row.title || ''}</h3>
+                                <p>${row.summary || ''}</p>
+                                <span class="read-more">اقرأ الخبر كاملاً ←</span>
+                            </div>
+                        </a>
+                    `;
+                    slider.innerHTML += newsCard;
+                });
+            }
         } catch (error) {
-            console.error('خطأ في جلب الأخبار:', error);
+            console.error('تعذر جلب الأخبار من جدول البيانات، سيتم عرض النسخة الاحتياتية.', error);
         }
     }
 
-    // تشغيل الدالة عند تحميل الصفحة
-    window.addEventListener('DOMContentLoaded', loadNewsFromSheet);
+    // تنفيذ الدالة فور تحميل الصفحة
+    window.addEventListener('DOMContentLoaded', fetchGoogleSheetNews);
 </script>
 </body>
 </html>
