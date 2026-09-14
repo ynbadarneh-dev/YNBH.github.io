@@ -689,6 +689,27 @@
             }
         }
     </script>
+<script>
+    // رابط جدول البيانات الخاص بك بعد نشره على الويب (CSV أو Google Sheet API)
+    // سنستخدم طريقة بسيطة لجلب البيانات من جدول جوجل عبر SheetDB أو واجهة برمجة مباشرة
+    async function loadNewsFromSheet() {
+        const slider = document.getElementById('newsSlider');
+        if (!slider) return;
 
+        try {
+            // استبدل هذا الرابط برابط نشر جدولك أو خدمة مجانية مثل SheetDB
+            // أو سنستخدم الطريقة الأبسط عبر Google Apps Script 
+            // ضع رابط جدولك هنا:
+            const sheetApiUrl = 'رابط_نشر_جدول_البيانات_هنا'; 
+            
+            // مؤقتاً، إذا لم ترفع الرابط، سيبقى النظام محافظاً على الأخبار الثابتة حتى تربطه بالجدول
+        } catch (error) {
+            console.error('خطأ في جلب الأخبار:', error);
+        }
+    }
+
+    // تشغيل الدالة عند تحميل الصفحة
+    window.addEventListener('DOMContentLoaded', loadNewsFromSheet);
+</script>
 </body>
 </html>
