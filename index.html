@@ -197,7 +197,7 @@
 
         /* Container */
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 80px 20px;
         }
@@ -282,21 +282,44 @@
             font-size: 1.02rem;
         }
 
-        /* تصميم قسم أحدث الأخبار (News Grid Section) */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        /* تصميم شريط الأخبار الأفقي المتحرك (Horizontal News Slider) */
+        .news-slider-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .news-slider {
+            display: flex;
             gap: 25px;
-            margin-top: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding-bottom: 20px;
+            width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-gold) rgba(255,255,255,0.05);
+        }
+
+        .news-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .news-slider::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 10px;
         }
 
         .news-card {
+            flex: 0 0 330px;
+            scroll-snap-align: start;
             background: var(--card-bg);
             border: 1px solid var(--border-gold);
             border-radius: 6px;
             overflow: hidden;
             text-decoration: none;
-            display: block;
+            display: flex;
+            flex-direction: column;
             transition: all 0.4s ease;
             box-shadow: var(--shadow-lux);
             position: relative;
@@ -337,6 +360,9 @@
 
         .news-content {
             padding: 22px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .news-date {
@@ -359,6 +385,7 @@
             color: var(--text-muted);
             font-size: 0.92rem;
             margin-bottom: 15px;
+            flex: 1;
         }
 
         .read-more {
@@ -369,6 +396,7 @@
             align-items: center;
             gap: 5px;
             transition: gap 0.3s ease;
+            margin-top: auto;
         }
 
         .news-card:hover .read-more {
@@ -496,44 +524,58 @@
             </div>
         </section>
 
-        <!-- News Section (أحدث الأخبار) -->
+        <!-- News Section (أحدث الأخبار الأفقية) -->
         <section id="news">
             <h2 data-ar="أحدث الأخبار والمستجدات" data-en="Latest News & Updates">أحدث الأخبار والمستجدات</h2>
-            <div class="news-grid">
-                
-                <!-- الخبر الأول -->
-                <a href="https://example.com/news1" target="_blank" class="news-card">
-                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop" alt="خبر 1" class="news-img">
-                    <div class="news-content">
-                        <span class="news-date" data-ar="سبتمبر 2026" data-en="September 2026">سبتمبر 2026</span>
-                        <h3 data-ar="إطلاق النسخة المحدثة من منصة الوساطة التجارية" data-en="Launching the Updated Version of Mazzado">إطلاق النسخة المحدثة من منصة الوساطة التجارية</h3>
-                        <p data-ar="تطويرات جذرية في أحدث أطر عمل منصة Mazzado لتوفير حلول تشغيلية وذكية متقدمة." data-en="Radical developments in Mazzado framework to provide advanced smart operational solutions.">تطويرات جذرية في أحدث أطر عمل منصة Mazzado لتوفير حلول تشغيلية وذكية متقدمة.</p>
-                        <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
-                    </div>
-                </a>
+            
+            <div class="news-slider-container">
+                <div class="news-slider" id="newsSlider">
+                    
+                    <!-- الخبر الأول -->
+                    <a href="https://example.com/news1" target="_blank" class="news-card">
+                        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop" alt="خبر 1" class="news-img">
+                        <div class="news-content">
+                            <span class="news-date" data-ar="سبتمبر 2026" data-en="September 2026">سبتمبر 2026</span>
+                            <h3 data-ar="إطلاق النسخة المحدثة من منصة الوساطة التجارية" data-en="Launching the Updated Version of Mazzado">إطلاق النسخة المحدثة من منصة الوساطة التجارية</h3>
+                            <p data-ar="تطويرات جذرية في أحدث أطر عمل منصة Mazzado لتوفير حلول تشغيلية وذكية متقدمة." data-en="Radical developments in Mazzado framework to provide advanced smart operational solutions.">تطويرات جذرية في أحدث أطر عمل منصة Mazzado لتوفير حلول تشغيلية وذكية متقدمة.</p>
+                            <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
+                        </div>
+                    </a>
 
-                <!-- الخبر الثاني -->
-                <a href="https://example.com/news2" target="_blank" class="news-card">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop" alt="خبر 2" class="news-img">
-                    <div class="news-content">
-                        <span class="news-date" data-ar="أغسطس 2026" data-en="August 2026">أغسطس 2026</span>
-                        <h3 data-ar="مبادرات الوعي الفكري والتحول الرقمي" data-en="Cognitive Awareness & Digital Transformation">مبادرات الوعي الفكري والتحول الرقمي</h3>
-                        <p data-ar="التوسع في إنتاج المحتوى الرقمي الموجه لتحفيز التفكير البشري العميق والوعي المعرفي." data-en="Expanding digital content production aimed at stimulating deep human thought and cognitive awareness.">التوسع في إنتاج المحتوى الرقمي الموجه لتحفيز التفكير البشري العميق والوعي المعرفي.</p>
-                        <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
-                    </div>
-                </a>
+                    <!-- الخبر الثاني -->
+                    <a href="https://example.com/news2" target="_blank" class="news-card">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop" alt="خبر 2" class="news-img">
+                        <div class="news-content">
+                            <span class="news-date" data-ar="أغسطس 2026" data-en="August 2026">أغسطس 2026</span>
+                            <h3 data-ar="مبادرات الوعي الفكري والتحول الرقمي" data-en="Cognitive Awareness & Digital Transformation">مبادرات الوعي الفكري والتحول الرقمي</h3>
+                            <p data-ar="التوسع في إنتاج المحتوى الرقمي الموجه لتحفيز التفكير البشري العميق والوعي المعرفي." data-en="Expanding digital content production aimed at stimulating deep human thought and cognitive awareness.">التوسع في إنتاج المحتوى الرقمي الموجه لتحفيز التفكير البشري العميق والوعي المعرفي.</p>
+                            <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
+                        </div>
+                    </a>
 
-                <!-- الخبر الثالث -->
-                <a href="https://example.com/news3" target="_blank" class="news-card">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" alt="خبر 3" class="news-img">
-                    <div class="news-content">
-                        <span class="news-date" data-ar="يوليو 2026" data-en="July 2026">يوليو 2026</span>
-                        <h3 data-ar="المشاركة في ورش العمل الاستراتيجية الكبرى" data-en="Participation in Major Strategic Workshops">المشاركة في ورش العمل الاستراتيجية الكبرى</h3>
-                        <p data-ar="حضور اجتماعات وورش عمل متقدمة في مجالات التسجيل المؤسسي والحلول القانونية." data-en="Attending advanced workshops and meetings in corporate registration and legal solutions.">حضور اجتماعات وورش عمل متقدمة في مجالات التسجيل المؤسسي والحلول القانونية.</p>
-                        <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
-                    </div>
-                </a>
+                    <!-- الخبر الثالث -->
+                    <a href="https://example.com/news3" target="_blank" class="news-card">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" alt="خبر 3" class="news-img">
+                        <div class="news-content">
+                            <span class="news-date" data-ar="يوليو 2026" data-en="July 2026">يوليو 2026</span>
+                            <h3 data-ar="المشاركة في ورش العمل الاستراتيجية الكبرى" data-en="Participation in Major Strategic Workshops">المشاركة في ورش العمل الاستراتيجية الكبرى</h3>
+                            <p data-ar="حضور اجتماعات وورش عمل متقدمة في مجالات التسجيل المؤسسي والحلول القانونية." data-en="Attending advanced workshops and meetings in corporate registration and legal solutions.">حضور اجتماعات وورش عمل متقدمة في مجالات التسجيل المؤسسي والحلول القانونية.</p>
+                            <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
+                        </div>
+                    </a>
 
+                    <!-- الخبر الرابع (مثال على إمكانية إضافة عدد غير محدود يتم السحب إليه) -->
+                    <a href="https://example.com/news4" target="_blank" class="news-card">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="خبر 4" class="news-img">
+                        <div class="news-content">
+                            <span class="news-date" data-ar="يونيو 2026" data-en="June 2026">يونيو 2026</span>
+                            <h3 data-ar="تكريمات رفيعة المستوى وإنجازات وطنية" data-en="High-Level Honors & National Achievements">تكريمات رفيعة المستوى وإنجازات وطنية</h3>
+                            <p data-ar="استعراض أبرز المحطات القيادية والمشاركات المؤسسية والوطنية عبر مختلف القطاعات." data-en="Highlighting prominent leadership milestones and institutional contributions across sectors.">استعراض أبرز المحطات القيادية والمشاركات المؤسسية والوطنية عبر مختلف القطاعات.</p>
+                            <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
+                        </div>
+                    </a>
+
+                </div>
             </div>
         </section>
 
@@ -638,6 +680,7 @@
                 htmlRoot.setAttribute('dir', 'rtl');
                 langBtn.textContent = 'EN';
 
+                elements.php = ''; // placeholder safeguard
                 elements.forEach(el => {
                     if (el.dataset.ar) {
                         el.innerHTML = el.dataset.ar;
