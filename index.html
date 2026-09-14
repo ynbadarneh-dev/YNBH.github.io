@@ -345,44 +345,42 @@
             background: var(--card-hover);
             box-shadow: 0 20px 40px rgba(197, 160, 89, 0.3);
         }
-/* صندوق حاوية الصورة لتحigon التأثير المزدوج */
-.news-img-wrapper {
-    position: relative;
-    width: 100%;
-    height: 210px;
-    overflow: hidden;
-    background-color: #030406;
-    border-bottom: 1px solid var(--border-gold);
-}
 
-/* الخلفية الضبابية لملء الفراغات الجانبية أو العلوية بأناقة */
-.news-img-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: var(--bg-img);
-    background-size: cover;
-    background-position: center;
-    filter: blur(12px) brightness(0.5); /* تغشية وتعتيم لتكون الخلفية هادئة */
-    transform: scale(1.2); /* تكبير بسيط لمنع حواف الغواش من الظهور */
-    z-index: 1;
-}
+        /* الحاوية الجديدة بمعالجة الصور الذكية (عمودية وأفقية دون قص) */
+        .news-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background-color: #030406;
+            border-bottom: 1px solid var(--border-gold);
+        }
 
-/* الصورة الأساسية التي تظهر كاملة وواضحة في المنتصف */
-.news-img {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* تضمن ظهور الصورة كاملة بجميع أبعادها دون أي قص */
-    z-index: 2;
-    transition: transform 0.4s ease;
-}
+        /* خلفية ضبابية تلقائية تملأ الفراغات بأناقة تامة */
+        .news-img-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: var(--bg-img);
+            background-size: cover;
+            background-position: center;
+            filter: blur(14px) brightness(0.4);
+            transform: scale(1.2);
+            z-index: 1;
+        }
 
-.news-card:hover .news-img {
-    transform: scale(1.03);
-}
+        /* الصورة الأساسية تظهر بالكامل وبوضوح تام دون أي اقتصاص */
+        .news-img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 2;
+            transition: transform 0.4s ease;
+        }
+
         .news-card:hover .news-img {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
         .news-content {
@@ -557,51 +555,7 @@
             
             <div class="news-slider-container">
                 <div class="news-slider" id="newsSlider">
-                    
-                    <!-- الخبر الأول -->
-                    <a href="https://example.com/news1" target="_blank" class="news-card">
-                        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop" alt="خبر 1" class="news-img">
-                        <div class="news-content">
-                            <span class="news-date" data-ar="سبتمبر 2026" data-en="September 2026">سبتمبر 2026</span>
-                            <h3 data-ar="إطلاق النسخة المحدثة من منصة الوساطة التجارية" data-en="Launching the Updated Version of Mazzado">إطلاق النسخة المحدثة من منصة الوساطة التجارية</h3>
-                            <p data-ar="تطويرات جذرية في أحدث أطر عمل منصة Mazzado لتوفير حلول تشغيلية وذكية متقدمة." data-en="Radical developments in Mazzado framework to provide advanced smart operational solutions.">تطويرات جذرية في أحدث أطر عمل منصة Mazzado لتوفير حلول تشغيلية وذكية متقدمة.</p>
-                            <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
-                        </div>
-                    </a>
-
-                    <!-- الخبر الثاني -->
-                    <a href="https://example.com/news2" target="_blank" class="news-card">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop" alt="خبر 2" class="news-img">
-                        <div class="news-content">
-                            <span class="news-date" data-ar="أغسطس 2026" data-en="August 2026">أغسطس 2026</span>
-                            <h3 data-ar="مبادرات الوعي الفكري والتحول الرقمي" data-en="Cognitive Awareness & Digital Transformation">مبادرات الوعي الفكري والتحول الرقمي</h3>
-                            <p data-ar="التوسع في إنتاج المحتوى الرقمي الموجه لتحفيز التفكير البشري العميق والوعي المعرفي." data-en="Expanding digital content production aimed at stimulating deep human thought and cognitive awareness.">التوسع في إنتاج المحتوى الرقمي الموجه لتحفيز التفكير البشري العميق والوعي المعرفي.</p>
-                            <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
-                        </div>
-                    </a>
-
-                    <!-- الخبر الثالث -->
-                    <a href="https://example.com/news3" target="_blank" class="news-card">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" alt="خبر 3" class="news-img">
-                        <div class="news-content">
-                            <span class="news-date" data-ar="يوليو 2026" data-en="July 2026">يوليو 2026</span>
-                            <h3 data-ar="المشاركة في ورش العمل الاستراتيجية الكبرى" data-en="Participation in Major Strategic Workshops">المشاركة في ورش العمل الاستراتيجية الكبرى</h3>
-                            <p data-ar="حضور اجتماعات وورش عمل متقدمة في مجالات التسجيل المؤسسي والحلول القانونية." data-en="Attending advanced workshops and meetings in corporate registration and legal solutions.">حضور اجتماعات وورش عمل متقدمة في مجالات التسجيل المؤسسي والحلول القانونية.</p>
-                            <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
-                        </div>
-                    </a>
-
-                    <!-- الخبر الرابع (مثال على إمكانية إضافة عدد غير محدود يتم السحب إليه) -->
-                    <a href="https://example.com/news4" target="_blank" class="news-card">
-                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="خبر 4" class="news-img">
-                        <div class="news-content">
-                            <span class="news-date" data-ar="يونيو 2026" data-en="June 2026">يونيو 2026</span>
-                            <h3 data-ar="تكريمات رفيعة المستوى وإنجازات وطنية" data-en="High-Level Honors & National Achievements">تكريمات رفيعة المستوى وإنجازات وطنية</h3>
-                            <p data-ar="استعراض أبرز المحطات القيادية والمشاركات المؤسسية والوطنية عبر مختلف القطاعات." data-en="Highlighting prominent leadership milestones and institutional contributions across sectors.">استعراض أبرز المحطات القيادية والمشاركات المؤسسية والوطنية عبر مختلف القطاعات.</p>
-                            <span class="read-more" data-ar="اقرأ الخبر كاملاً ←" data-en="Read Full News →">اقرأ الخبر كاملاً ←</span>
-                        </div>
-                    </a>
-
+                    <!-- سيتم جلب الأخبار تلقائياً من جدول Google Sheets ديناميكياً هنا -->
                 </div>
             </div>
         </section>
@@ -707,7 +661,6 @@
                 htmlRoot.setAttribute('dir', 'rtl');
                 langBtn.textContent = 'EN';
 
-                elements.php = ''; // placeholder safeguard
                 elements.forEach(el => {
                     if (el.dataset.ar) {
                         el.innerHTML = el.dataset.ar;
@@ -716,46 +669,48 @@
             }
         }
     </script>
-<script>
-    async function fetchGoogleSheetNews() {
-        const slider = document.getElementById('newsSlider');
-        if (!slider) return;
 
-        // رابط تحويل جدول جوجل الخاص بك إلى JSON عبر SheetDB (أو يمكنك استخدام رابط واجهة جاهز)
-        // معرف الجدول الخاص بك هو: 1t78_RhUXX0EiGYu48P4SkbIdVBLV4T0ZNakrRZSfGmU
-        const sheetID = '1t78_RhUXX0EiGYu48P4SkbIdVBLV4T0ZNakrRZSfGmU';
-        const url = `https://opensheet.elk.sh/${sheetID}/1`; // السطر الأول يحتوي على الأعمدة والبيانات
+    <!-- JavaScript لجلب الأخبار ديناميكياً من جدول Google Sheets -->
+    <script>
+        async function fetchGoogleSheetNews() {
+            const slider = document.getElementById('newsSlider');
+            if (!slider) return;
 
-        try {
-            const response = await fetch(url);
-            const rows = await response.json();
+            const sheetID = '1t78_RhUXX0EiGYu48P4SkbIdVBLV4T0ZNakrRZSfGmU';
+            const url = `https://opensheet.elk.sh/${sheetID}/1`; 
 
-            if (rows && rows.length > 0) {
-                slider.innerHTML = ''; // تفريغ الأخبار القديمة الثابتة
+            try {
+                const response = await fetch(url);
+                const rows = await response.json();
 
-                rows.forEach(row => {
-                    // الاعتماد على أسماء الأعمدة التي حددناها: title, summary, link, image, date
-                    const newsCard = `
-                        <a href="${row.link || '#'}" target="_blank" class="news-card">
-                            <img src="${row.image || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop'}" alt="خبر" class="news-img">
-                            <div class="news-content">
-                                <span class="news-date">${row.date || ''}</span>
-                                <h3>${row.title || ''}</h3>
-                                <p>${row.summary || ''}</p>
-                                <span class="read-more">اقرأ الخبر كاملاً ←</span>
-                            </div>
-                        </a>
-                    `;
-                    slider.innerHTML += newsCard;
-                });
+                if (rows && rows.length > 0) {
+                    slider.innerHTML = ''; 
+
+                    rows.forEach(row => {
+                        let imgUrl = row.image || row.img || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop';
+                        
+                        const newsCard = `
+                            <a href="${row.link || '#'}" target="_blank" class="news-card">
+                                <div class="news-img-wrapper" style="--bg-img: url('${imgUrl}');">
+                                    <img src="${imgUrl}" alt="خبر" class="news-img" onerror="this.parentElement.style.setProperty('--bg-img', 'url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop)'); this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop'">
+                                </div>
+                                <div class="news-content">
+                                    <span class="news-date">${row.date || ''}</span>
+                                    <h3>${row.title || ''}</h3>
+                                    <p>${row.summary || ''}</p>
+                                    <span class="read-more">اقرأ الخبر كاملاً ←</span>
+                                </div>
+                            </a>
+                        `;
+                        slider.innerHTML += newsCard;
+                    });
+                }
+            } catch (error) {
+                console.error('تعذر جلب الأخبار من جدول البيانات:', error);
             }
-        } catch (error) {
-            console.error('تعذر جلب الأخبار من جدول البيانات، سيتم عرض النسخة الاحتياتية.', error);
         }
-    }
 
-    // تنفيذ الدالة فور تحميل الصفحة
-    window.addEventListener('DOMContentLoaded', fetchGoogleSheetNews);
-</script>
+        window.addEventListener('DOMContentLoaded', fetchGoogleSheetNews);
+    </script>
 </body>
 </html>
