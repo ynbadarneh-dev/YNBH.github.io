@@ -6,7 +6,20 @@
     <title>لوحة تحكم الموقع | يزن بدارنة</title>
 </head>
 <body>
-    <!-- تحميل نظام لوحة التحكم المجاني Decap CMS -->
+    <!-- تحميل نظام لوحة التحكم Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    
+    <script>
+      // تفعيل إعادة توجيه المصادقة بشكل صحيح لتجنب خطأ Not Found
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
 </body>
 </html>
