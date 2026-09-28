@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>البوصلة الفلسفية | يزن بدارنة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0a0a0c;
+      --card-bg: rgba(18, 18, 22, 0.85);
+      --accent-gold: #c5a059;
+      --accent-gold-light: #e2c08d;
+      --text-main: #f0f0f2;
+      --text-muted: #a0a0aa;
+      --border-color: rgba(197, 160, 89, 0.25);
+      --font-heading: 'Amiri', serif;
+      --font-body: 'Tajawal', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% 20%, rgba(197, 160, 89, 0.08) 0%, transparent 60%);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Header & Branding */
+    header {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    .brand-logo {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--accent-gold);
+      text-decoration: none;
+      letter-spacing: 1px;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .brand-tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Main Container */
+    .quiz-container {
+      width: 100%;
+      max-width: 780px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Intro Screen */
+    .quiz-intro {
+      text-align: center;
+    }
+
+    .quiz-title {
+      font-family: var(--font-heading);
+      font-size: 2.4rem;
+      color: var(--accent-gold);
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+
+    .quiz-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      line-height: 1.7;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #9a7837 100%);
+      color: #000;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+      font-family: var(--font-body);
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(197, 160, 89, 0.5);
+      background: linear-gradient(135deg, var(--accent-gold-light) 0%, var(--accent-gold) 100%);
+    }
+
+    /* Progress Bar */
+    .progress-box {
+      margin-bottom: 30px;
+      display: none;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+
+    /* Question Screen */
+    .question-box {
+      display: none;
+    }
+
+    .question-text {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      color: var(--text-main);
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 16px 20px;
+      color: var(--text-main);
+      text-align: right;
+      font-size: 1rem;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      line-height: 1.5;
+    }
+
+    .option-btn:hover {
+      background: rgba(197, 160, 89, 0.08);
+      border-color: var(--accent-gold);
+      transform: translateX(-4px);
+    }
+
+    /* Result Screen */
+    .result-box {
+      display: none;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .result-badge {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold);
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .result-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      color: var(--accent-gold-light);
+      margin-bottom: 10px;
+    }
+
+    .result-tagline {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 25px;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+      margin: 25px 0;
+    }
+
+    .result-description {
+      line-height: 1.8;
+      color: #d0d0d5;
+      margin-bottom: 25px;
+    }
+
+    .result-list {
+      margin-right: 20px;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .result-list li {
+      margin-bottom: 8px;
+    }
+
+    .result-list strong {
+      color: var(--text-main);
+    }
+
+    /* Figures Grid */
+    .figures-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      color: var(--accent-gold);
+      margin-bottom: 15px;
+    }
+
+    .figures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .figure-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .figure-name {
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .figure-role {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--text-muted);
+      color: var(--text-main);
+      padding: 12px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .quiz-container { padding: 25px 20px; }
+      .quiz-title { font-size: 1.8rem; }
+      .question-text { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="brand-logo">يزن هشام بدارنة</a>
+    <div class="brand-tagline">الفكر هو الأساس</div>
+  </header>
+
+  <main class="quiz-container">
+    
+    <!-- Intro Screen -->
+    <div class="quiz-intro" id="intro-screen">
+      <h1 class="quiz-title">اختبار البوصلة الفلسفية والنمط الفكري</h1>
+      <p class="quiz-subtitle">
+        عبر 20 معضلة وموقفاً تحليلياً، اكتشف المدرسة الفلسفية التي توجّه قراراتك وتحليلك للعالم، ومن تشبه من أعلام الفكر والتاريخ.
+      </p>
+      <button class="btn-gold" onclick="startQuiz()">ابدأ الاختبار الفلسفي</button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-box" id="progress-box">
+      <div class="progress-info">
+        <span id="progress-text">السؤال 1 من 20</span>
+        <span id="progress-percent">5%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- Question Screen -->
+    <div class="question-box" id="question-screen">
+      <h2 class="question-text" id="question-text">جاري تحميل السؤال...</h2>
+      <div class="options-list" id="options-container"></div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="result-box" id="result-screen">
+      <span class="result-badge">نمطك الفكري الغالب</span>
+      <h2 class="result-title" id="result-title">...</h2>
+      <p class="result-tagline" id="result-tagline">...</p>
+      
+      <div class="section-divider"></div>
+      
+      <p class="result-description" id="result-description">...</p>
+
+      <div style="margin-bottom: 20px;">
+        <h4 style="color: var(--accent-gold); margin-bottom: 10px;">أبرز نقاط قوتك:</h4>
+        <ul class="result-list" id="result-strengths"></ul>
+
+        <h4 style="color: var(--accent-gold); margin-bottom: 10px;">انحيازات عليك الانتباه لها:</h4>
+        <ul class="result-list" id="result-biases"></ul>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <h3 class="figures-title">أعلام وشخصيات تتشابه مع نمطك الفكري:</h3>
+      <div class="figures-grid" id="figures-container"></div>
+
+      <div class="action-buttons">
+        <button class="btn-gold" onclick="shareResult()">مشاركة النتيجة</button>
+        <button class="btn-secondary" onclick="resetQuiz()">إعادة الاختبار</button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    حقوق الطبع محفوظة © 2026 | <a href="index.html">العودة للرئيسية</a>
+  </footer>
+
+  <script>
+    // 1. بيانات الأسئلة الـ 20 والخيارات
+    const questions = [
+      {
+        q: "كيف نصل إلى الحقيقة أو المعرفة اليقينية عن العالم؟",
+        options: [
+          { text: "عبر المنطق والاستدلال التحليلي الماليء باليقين الذهني.", profile: "rationalist" },
+          { text: "عبر الملاحظة المباشرة، جمع البيانات، والتجربة الملموسة.", profile: "empiricist" },
+          { text: "لا وجود ليقين مطلق؛ كل معرفة هي مجرد فرضية قابلة للشك والتفنيد.", profile: "existentialist" },
+          { text: "المعرفة الحقيقية هي ما يثبت نجاحه وفائدته العملية في الواقع.", profile: "pragmatist" }
+        ]
+      },
+      {
+        q: "إذا تناقض استدلال عقلي منطقي مع نتيجة تجربة واقعية، أيهما ترجّح؟",
+        options: [
+          { text: "فحص التجربة أولاً، فالحواس والبيانات هي الفيصل النهائي.", profile: "empiricist" },
+          { text: "إعادة مراجعة المنطق والافتراضات الذهنية أولاً قبل الشك في الفكرة.", profile: "rationalist" },
+          { text: "التشكيك في الاثنين معاً والاعتماد على الخيار الأكثر نفعاً في الواقع.", profile: "pragmatist" },
+          { text: "تقبل التناقض والتركيز على موقفك الذهني الشخصي منه.", profile: "stoic" }
+        ]
+      },
+      {
+        q: "كيف تقيّم الأفكار والنظريات الجديدة؟",
+        options: [
+          { text: "بمدى اتساقها الداخلي وخلوها من التناقضات المنطقية.", profile: "rationalist" },
+          { text: "بالأدلة والشواهد الميدانية المدعومة بالأرقام والنتائج.", profile: "empiricist" },
+          { text: "بمدى حلها لمشاكل حقيقية وتأثيرها المباشر في السلوك.", profile: "pragmatist" },
+          { text: "بمدى تعبيرها عن الأصالة والحرية الفردية.", profile: "existentialist" }
+        ]
+      },
+      {
+        q: "هل العقل البشري قادر على فهم جوهر الكون بالكامل؟",
+        options: [
+          { text: "نعم، بمرور الوقت وتطور أدوات التحليل والاستدلال المنهجي.", profile: "rationalist" },
+          { text: "حدوده تقف عند حدود ما يمكن قياسه وملاحظته تجريبياً فقط.", profile: "empiricist" },
+          { text: "إدراكنا محدود بحدود لغتنا وانحيازاتنا، العبرة بالعيش العاقل.", profile: "stoic" },
+          { text: "السؤال ليس في الفهم الكلي، بل في كيفية صناعة المعنى ضمن حدودنا.", profile: "existentialist" }
+        ]
+      },
+      {
+        q: "ما الذي يحدد كون القرار أو الفعل 'أخلاقياً'؟",
+        options: [
+          { text: "تحقيقه لأكبر قدر من الفائدة والنفع الملموس للأغلبية.", profile: "pragmatist" },
+          { text: "التزامه بالمبدأ والواجب الأخلاقي الثابت دون النظر للنتائج.", profile: "rationalist" },
+          { text: "نابع من حرية الفرد وتحمله لمسؤولية اختياره الخاص.", profile: "existentialist" },
+          { text: "قدرته على تعزيز الحكمة والفضيلة وضبط النفس لدى الفرد.", profile: "stoic" }
+        ]
+      },
+      {
+        q: "لو كانت إنقاذ موقف يتطلب التضحية بمبدأ أخلاقي صارم، ماذا تفعل؟",
+        options: [
+          { text: "المبدأ الأخلاقي لا يُكسر تحت أي ظرف كان.", profile: "rationalist" },
+          { text: "أرجح النتيجة والأثر الإيجابي الأكبر على المبدأ الجاف.", profile: "pragmatist" },
+          { text: "أتخذ القرار بناءً على ما يقتضيه الموقف والمسؤولية الشخصية.", profile: "existentialist" },
+          { text: "أركز على ضبط انفعالاتي وتقبل تبعات أي قرار اتخذته.", profile: "stoic" }
+        ]
+      },
+      {
+        q: "ما هو النقد الأساسي الذي تراه في معظم المنظومات الفكرية اليوم؟",
+        options: [
+          { text: "أنها تهمش نتائج الأفعال وتركز على التنظير النظري.", profile: "pragmatist" },
+          { text: "أنها متقلبة وتفتقر إلى قواعد منطقية راسخة.", profile: "rationalist" },
+          { text: "أنها تسلب الفرد حريته في صياغة معناه وقيمه الخاصة.", profile: "existentialist" },
+          { text: "أنها تشجع على الانغماس في المشاعر وتفتقر للانضباط.", profile: "stoic" }
+        ]
+      },
+      {
+        q: "كيف ينبغي للخطاب الموجه للجمهور أن يُخاطب العقل البشري؟",
+        options: [
+          { text: "عبر تقديم حجج عقلانية ومنطقية متماسكة.", profile: "rationalist" },
+          { text: "عبر إبراز الحقائق والأدلة والبيانات الميدانية.", profile: "empiricist" },
+          { text: "عبر إيقاظ المسؤولية الذاتية والحرية الإنسانية.", profile: "existentialist" },
+          { text: "عبر تقديم خطوات عمليّة قابلة للتطبيق اليومي.", profile: "pragmatist" }
+        ]
+      },
+      {
+        q: "ما هو جوهر الوعي البشري في اعتقادك؟",
+        options: [
+          { text: "تفاعلات بيولوجية ومادية معقدة في الدماغ قابلة للقياس.", profile: "empiricist" },
+          { text: "تجربة فريدة تتجاوز التفسير المادي المجرد وتحمل معاني أعمق.", profile: "existentialist" },
+          { text: "أداة تفكير واستدلال لتفكيك البنية المنطقية للوجود.", profile: "rationalist" },
+          { text: "أداة تطورية هدفها التكيف والتغلب على التحديات العملية.", profile: "pragmatist" }
+        ]
+      },
+      {
+        q: "ما الذي يعطي الحياة معناها الحقيقي؟",
+        options: [
+          { text: "المعنى ليس موجوداً مسبقاً، بل يصنعه الفرد بنفسه عبر خياراته.", profile: "existentialist" },
+          { text: "فهم قوانين الطبيعة والكون عبر التفكير والتقصي العميق.", profile: "rationalist" },
+          { text: "إنجاز الأهداف وتطوير حلول حقيقية تُحدث أثراً ملموساً.", profile: "pragmatist" },
+          { text: "تقبل الواقع كما هو والتسامي عن الرغبات والانفعالات.", profile: "stoic" }
+        ]
+      },
+      {
+        q: "كيف تنظر إلى مفهوم 'القدر' أو حتمية الأحداث؟",
+        options: [
+          { text: "كل حادث له سبب مادي محدد وقوانين تحكمه بالكامل.", profile: "empiricist" },
+          { text: "بغض النظر عن الحتمية، الحرية تكمن في طريقة استجابتنا للحدث.", profile: "stoic" },
+          { text: "الإنسان حر تماماً ومسؤول مسؤولية مطلقة عن مسار حياته.", profile: "existentialist" },
+          { text: "التركيز على حتمية الأحداث مجرد جدل عقيم؛ المهم كيف نتعامل مع النتائج.", profile: "pragmatist" }
+        ]
+      },
+      {
+        q: "ما هو الموقف الفكري الأمثل تجاه التساؤلات الكبرى التي لا جواب لها؟",
+        options: [
+          { text: "الاستمرار في البحث والاستدلال العقلاني حتى نصل لليقين.", profile: "rationalist" },
+          { text: "التركيز على ما يمكن استغلاله حركياً وعملياً وإهمال الجدل الجاف.", profile: "pragmatist" },
+          { text: "تقبل الحدود الإنسانية والتركيز على السلام والاتزان الداخلي.", profile: "stoic" },
+          { text: "احتضان الغموض واعتباره مساحة لبناء المعنى الشخصي.", profile: "existentialist" }
+        ]
+      },
+      {
+        q: "عندما تواجه أزمة أو ظروفاً خارجة عن إرادتك، أين تضع تركيزك الذهني؟",
+        options: [
+          { text: "على استجابتي الذهنية والعاطفية (ما يقع تحت سيطرتي فقط).", profile: "stoic" },
+          { text: "على تفكيك أسباب الأزمة والبحث عن حلول عمليّة ومادية.", profile: "pragmatist" },
+          { text: "على التساؤل حول معنى هذه التجربة وما تضيفه لوعيي.", profile: "existentialist" },
+          { text: "على جمع المعطيات وفحص البيانات المتاحة للخروج بمسار عقلاني.", profile: "empiricist" }
+        ]
+      },
+      {
+        q: "كيف تتصرف تجاه المشاعر والأهوّاء القوية (مثل الغضب أو الخوف)؟",
+        options: [
+          { text: "أحللها عقلانياً لتفكيك الأسباب المنطقية التي أدت إليها.", profile: "rationalist" },
+          { text: "أدرب نفسي على ضبطها وعدم السماح لها بتوجيه قراراتي.", profile: "stoic" },
+          { text: "أتقبلها كجزء من التجربة الإنسانية دون كبت وأعبر عنها بأصالة.", profile: "existentialist" },
+          { text: "أوجه طاقتها نحو فعل ملموس يغير من الواقع الذي تسبب فيها.", profile: "pragmatist" }
+        ]
+      },
+      {
+        q: "ما هي القيمة الأكثر أهمية لبناء شخصية متزنة؟",
+        options: [
+          { text: "الاستقلالية والحرية الذاتية في التفكير والخيارات.", profile: "existentialist" },
+          { text: "الانضباط الذاتي والرصانة العقلية أمام التحديات.", profile: "stoic" },
+          { text: "المرونة والقدرة على التكيف والتنفيذ في الواقع.", profile: "pragmatist" },
+          { text: "التفكير النقدي وعدم قبول الأفكار بدون حجج.", profile: "rationalist" }
+        ]
+      },
+      {
+        q: "كيف تنظر إلى الخطأ والفشل في حياتك؟",
+        options: [
+          { text: "كبيانات ومعلومات جديدة لتعديل الاستراتيجية والتطبيق.", profile: "pragmatist" },
+          { text: "كحدث طبيعي خارج عن السيطرة لا يمس جوهر قيمتي الذهنية.", profile: "stoic" },
+          { text: "كفرصة لإعادة اكتشاف الذات واتخاذ خيارات أكثر أصالة.", profile: "existentialist" },
+          { text: "كخلل في التحليل أو الافتراضات يحتاج لإعادة ضبط منطقي.", profile: "rationalist" }
+        ]
+      },
+      {
+        q: "ما هو التوازن الأمثل بين حريات الفرد وسلطة المجتمع؟",
+        options: [
+          { text: "حرية الفرد أولاً، ولا يحق لأي جهة تقييدها إلا لمنع الضرر المباشر.", profile: "existentialist" },
+          { text: "العبرة بالاستقرار والنتائج العملية للسياسات بعيداً عن التنظير.", profile: "pragmatist" },
+          { text: "بناء سياسات قائمة على قواعد عقلانية ومبادئ ثابتة للجميع.", profile: "rationalist" },
+          { text: "التركيز على بناء الفرد الذاتي ليصبح متزناً بغض النظر عن النظام.", profile: "stoic" }
+        ]
+      },
+      {
+        q: "ما الذي يبني مجتمعاً عادلاً وقوياً؟",
+        options: [
+          { text: "تطبيق سيادة القانون والمبادئ العقلانية الصارمة على الجميع.", profile: "rationalist" },
+          { text: "تحقيق أقصى درجات التنمية الملموسة والرفاهية العملية.", profile: "pragmatist" },
+          { text: "تمكين الأفراد من التفكير الحر والاعتماد على الذات.", profile: "existentialist" },
+          { text: "تعزيز قيم الحكمة العقلية والتسامح والانضباط الفردي.", profile: "stoic" }
+        ]
+      },
+      {
+        q: "كيف تقيّم الأفكار والأنظمة الفكرية والسياسية؟",
+        options: [
+          { text: "بتماسكها الفكري واتساقها المنطقي الداخلي.", profile: "rationalist" },
+          { text: "بمدى نجاحها الميداني في تحسين مستوى المعيشة والأمان.", profile: "pragmatist" },
+          { text: "بالأدلة التاريخية والإحصاءات الملموسة لنتائجها.", profile: "empiricist" },
+          { text: "بمدى إتاحتها التعددية والحرية الفردية الأصيلة.", profile: "existentialist" }
+        ]
+      },
+      {
+        q: "ما هو دور الفرد الفاعل في العالم اليوم؟",
+        options: [
+          { text: "السعي نحو السلام الداخلي والحكمة الشخصية ليصبح قدوة.", profile: "stoic" },
+          { text: "الانخراط والمساهمة في بناء حلول ومشاريع ذات أثر ملموس.", profile: "pragmatist" },
+          { text: "صناعة أفكار ومحتوى يفكك الانحيازات ويرفع الوعي المعرفي.", profile: "rationalist" },
+          { text: "العيش بصدق وأصالة وصناعة مساره الخاص دون الانسياق لغيره.", profile: "existentialist" }
+        ]
+      }
+    ];
+
+    // 2. تحليل الأنماط الفكرية والشخصيات
+    const profilesData = {
+      rationalist: {
+        title: "المفكر العقلاني (The Rationalist)",
+        tagline: "\"العقل والمنطق هما الميزان الأول لتفكيك العالم.\"",
+        description: "تعتمد على الاستدلال المنطقي والتفكير التحليلي العميق. ترى أن الحقيقة تُكتشف بالتفكر الفلسفي الخالي من التناقضات والافتراضات المسبقة، ولا تقبل الأفكار الجاهزة إلا إذا كانت قائمة على حجج متماسكة.",
+        strengths: [
+          "القدرة العالية على كشف المغالطات المنطقية والتناقضات.",
+          "التفكير المنهجي المُنظم وربط الأفكار بجذورها.",
+          "الاستقلالية الذهنية والقدرة على التجريد."
+        ],
+        biases: [
+          "الوقوع في 'الفخ النظري' وإهمال الواقع العملي.",
+          "الإفراط في التحليل (Analysis Paralysis) مما يؤخر اتخاذ القرار."
+        ],
+        figures: [
+          { name: "رينيه ديكارت", role: "فيلسوف ورياضي (أبو الفلسفة الحديثة)" },
+          { name: "باروخ سبينوزا", role: "فيلسوف عقلاني ومفكر أخلاقي" },
+          { name: "ألبرت أينشتاين", role: "عالم فيزياء نظرية" }
+        ]
+      },
+      empiricist: {
+        title: "المفكر التجريبي (The Empiricist)",
+        tagline: "\"لا حقيقة بدون شواهد، بيانات، وتجربة ملموسة.\"",
+        description: "تتشكك في النظريات المجرّدة ما لم تكن مدعومة بأدلة وملاحظات من الواقع الملموس. تعتمد على المنهج العلمي والتجريب في اتخاذ قراراتك وتطوير وعيك.",
+        strengths: [
+          "الواقعية الشديدة والابتعاد عن الأوهام.",
+          "الاعتماد الراسخ على البيانات والحقائق المثبتة.",
+          "القدرة على التكيف عندما تظهر معطيات جديدة."
+        ],
+        biases: [
+          "استبعاد الأفكار التجريدية القيمة لعدم إمكانية قياسها فوراً.",
+          "الوقوع في الانحياز التأكيدي للبيانات المتاحة فقط."
+        ],
+        figures: [
+          { name: "جون لوك", role: "فيلسوف المدرسة التجريبية" },
+          { name: "ديفيد هيوم", role: "فيلسوف ومؤرخ تجريبي" },
+          { name: "كارل ساغان", role: "عالم فلك ومروج للمنهج العلمي" }
+        ]
+      },
+      stoic: {
+        title: "المفكر الرواقي (The Stoic)",
+        tagline: "\"الحكمة تكمن في التركيز على ما تملك السيطرة عليه فقط.\"",
+        description: "تمتلك رصانة عقلية وانضباطاً ذاتياً عالياً. تنظر للأحداث والمشاعر بفرز دقيق بين ما يقع تحت إرادتك وما هو خارج عنها، مما يمنحك ثباتاً واستقراراً ذهنياً في الأزمات.",
+        strengths: [
+          "الصلابة النفسية والاستقرار العاطفي عند مواجهة الضغوط.",
+          "التركيز العالي على الفعل الشخصي والانضباط الذاتي.",
+          "القدرة على اتخاذ قرارات هادئة وموضوعية."
+        ],
+        biases: [
+          "الوقوع في فخ 'السلبية الذهنية' تقبلاً للواقع دون محاولة تغييره.",
+          "كبت العواطف أو الظهور بمظهر الحاد/البارد للآخرين."
+        ],
+        figures: [
+          { name: "ماركوس أوريليوس", role: "إمبراطور روماني وفيلسوف رواقي" },
+          { name: "سينيقا", role: "مفكر ورواقي وسياسي" },
+          { name: "فيكطور فرانكل", role: "طبيب نفسي ومؤلف 'الإنسان يبحث عن المعنى'" }
+        ]
+      },
+      existentialist: {
+        title: "المفكر الوجودي (The Existentialist)",
+        tagline: "\"المعنى لا يُكتشف جاهزاً، بل تصنعه عبر حريتك وخياراتك.\"",
+        description: "تقدس الحرية الفردية والمسؤولية الذاتية. ترى أن الإنسان هو من يشكل هويته وقيمته من خلال أفعاله وأصالة قراراته بعيداً عن التبعية الاجتماعية أو الأطر الجاهزة.",
+        strengths: [
+          "الاستقلالية العالية عن التوجهات السائدة.",
+          "البحث الدائم عن الأصالة والمعنى العميق للأفعال.",
+          "الجرأة في اتخاذ القرارات المصيرية وتحمل مسؤلياتها."
+        ],
+        biases: [
+          "القلق الوجودي الزائد من ثقل المسؤولية والتفكير المستمر.",
+          "صعوبة الاندماج مع الأنظمة والقواعد الجماعية الصارمة."
+        ],
+        figures: [
+          { name: "جان بول سارتر", role: "فيلسوف وكاتب وجودي" },
+          { name: "ألبير كامو", role: "كاتب ومفكر فلسفي" },
+          { name: "فيودور دوستويفسكي", role: "روائي ومحلل للنفس البشرية" }
+        ]
+      },
+      pragmatist: {
+        title: "المفكر البراغماتي (The Pragmatist)",
+        tagline: "\"قيمة الفكرة تُقاس بمدى نجاحها وفائدتها التطبيقية في الواقع.\"",
+        description: "لا تشغلك الجدالات النظرية العقيمة؛ ما يهمك هو الحلول العملية والأثر الحقيقي. تقيِّم النظريات والقرارات بمدى نجاحها الميداني وتأثيرها الملموس.",
+        strengths: [
+          "المرونة العالية وحل المشكلات بفعالية ووسائل مبتكرة.",
+          "التركيز الدائم على النتائج والأثر الحقيقي.",
+          "قدرة ممتازة على التكيف التنفيذي والتطوير."
+        ],
+        biases: [
+          "التضحية بالمبادئ طويلة المدى أحياناً لأجل مكاسب سريعة.",
+          "تجاهل الأبعاد النظرية والفلسفية العميقة."
+        ],
+        figures: [
+          { name: "جون ديوي", role: "فيلسوف ومصلح تربوي براغماتي" },
+          { name: "تشارلز بيرس", role: "مؤسس النظرية البراغماتية" },
+          { name: "إيلون ماسك", role: "رائد أعمال ومبتكر تنفيذي" }
+        ]
+      }
+    };
+
+    // 3. إدارة حالة الاختبار (Quiz State)
+    let currentQuestionIndex = 0;
+    const scores = {
+      rationalist: 0,
+      empiricist: 0,
+      stoic: 0,
+      existentialist: 0,
+      pragmatist: 0
+    };
+
+    function startQuiz() {
+      document.getElementById('intro-screen').style.display = 'none';
+      document.getElementById('progress-box').style.display = 'block';
+      document.getElementById('question-screen').style.display = 'block';
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const qData = questions[currentQuestionIndex];
+      
+      // تحديث شريط التقدم
+      const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+      document.getElementById('progress-fill').style.width = `${progress}%`;
+      document.getElementById('progress-text').innerText = `السؤال ${currentQuestionIndex + 1} من ${questions.length}`;
+      document.getElementById('progress-percent').innerText = `${Math.round(progress)}%`;
+
+      // عرض السؤال
+      document.getElementById('question-text').innerText = qData.q;
+      
+      // عرض الخيارات
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+
+      qData.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = opt.text;
+        btn.onclick = () => selectOption(opt.profile);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(profile) {
+      if (scores.hasOwnProperty(profile)) {
+        scores[profile]++;
+      }
+
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        renderResult();
+      }
+    }
+
+    function renderResult() {
+      document.getElementById('progress-box').style.display = 'none';
+      document.getElementById('question-screen').style.display = 'none';
+      document.getElementById('result-screen').style.display = 'block';
+
+      // تحديد النمط الأعلى نقاطاً
+      let winningProfile = 'rationalist';
+      let maxScore = -1;
+
+      for (const [prof, score] of Object.entries(scores)) {
+        if (score > maxScore) {
+          maxScore = score;
+          winningProfile = prof;
+        }
+      }
+
+      const pData = profilesData[winningProfile];
+
+      // تعبئة البيانات في الشاشة
+      document.getElementById('result-title').innerText = pData.title;
+      document.getElementById('result-tagline').innerText = pData.tagline;
+      document.getElementById('result-description').innerText = pData.description;
+
+      // نقاط القوة
+      const strengthsList = document.getElementById('result-strengths');
+      strengthsList.innerHTML = '';
+      pData.strengths.forEach(s => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>•</strong> ${s}`;
+        strengthsList.appendChild(li);
+      });
+
+      // الانحيازات
+      const biasesList = document.getElementById('result-biases');
+      biasesList.innerHTML = '';
+      pData.biases.forEach(b => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>•</strong> ${b}`;
+        biasesList.appendChild(li);
+      });
+
+      // الشخصيات المشابهة
+      const figuresContainer = document.getElementById('figures-container');
+      figuresContainer.innerHTML = '';
+      pData.figures.forEach(fig => {
+        const card = document.createElement('div');
+        card.className = 'figure-card';
+        card.innerHTML = `
+          <div class="figure-name">${fig.name}</div>
+          <div class="figure-role">${fig.role}</div>
+        `;
+        figuresContainer.appendChild(card);
+      });
+    }
+
+    function shareResult() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'نمطي الفكري - البوصلة الفلسفية',
+          text: 'اكتشفت نمطي الفكري عبر اختبار البوصلة الفلسفية للموقع الشخصي يزن بدارنة.',
+          url: window.location.href
+        });
+      } else {
+        alert('تم نسخ رابط الاختبار لمشاركته مع أصدقائك!');
+      }
+    }
+
+    function resetQuiz() {
+      location.reload();
+    }
+  </script>
+</body>
+</html>
