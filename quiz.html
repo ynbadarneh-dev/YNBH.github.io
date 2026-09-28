@@ -44,7 +44,7 @@
         overflow-x: hidden;
     }
 
-    /* خلفية الرخام الأسود والذهبي المحلية المتطابقة مع الرئيسية */
+    /* خلفية الرخام الأسود والذهبي المرتبطة بملف marble-bg.jpg */
     body::before {
         content: "";
         position: fixed;
@@ -198,6 +198,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      margin-bottom: 25px;
     }
 
     .option-btn {
@@ -218,6 +219,33 @@
       background: rgba(197, 160, 89, 0.08);
       border-color: var(--accent-gold-light);
       transform: translateX(-4px);
+    }
+
+    /* أزرار التنقل داخل الأسئلة (السابق) */
+    .question-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      border-top: 1px solid rgba(197, 160, 89, 0.15);
+      padding-top: 20px;
+    }
+
+    .btn-back {
+      background: transparent;
+      border: 1px solid var(--text-muted);
+      color: var(--text-muted);
+      padding: 8px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
     }
 
     /* Result Screen */
@@ -397,6 +425,12 @@
     <div class="question-box" id="question-screen">
       <h2 class="question-text" id="question-text">جاري تحميل السؤال...</h2>
       <div class="options-list" id="options-container"></div>
+      
+      <!-- زر الرجوع للسؤال السابق -->
+      <div class="question-nav">
+        <button class="btn-back" id="prev-btn" onclick="prevQuestion()" style="display: none;">← السؤال السابق</button>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">البوصلة الفلسفية</span>
+      </div>
     </div>
 
     <!-- Result Screen -->
@@ -718,8 +752,9 @@
       }
     };
 
-    // 3. إدارة حالة الاختبار (Quiz State)
+    // 3. إدارة حالة الاختبار
     let currentQuestionIndex = 0;
+    let userAnswers = []; 
     const scores = {
       rationalist: 0,
       empiricist: 0,
@@ -745,6 +780,13 @@
 
       document.getElementById('question-text').innerText = qData.q;
       
+      const prevBtn = document.getElementById('prev-btn');
+      if (currentQuestionIndex > 0) {
+        prevBtn.style.display = 'inline-block';
+      } else {
+        prevBtn.style.display = 'none';
+      }
+
       const optionsContainer = document.getElementById('options-container');
       optionsContainer.innerHTML = '';
 
@@ -758,9 +800,8 @@
     }
 
     function selectOption(profile) {
-      if (scores.hasOwnProperty(profile)) {
-        scores[profile]++;
-      }
+      userAnswers[currentQuestionIndex] = profile;
+      scores[profile]++;
 
       currentQuestionIndex++;
 
@@ -768,6 +809,18 @@
         showQuestion();
       } else {
         renderResult();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestionIndex > 0) {
+        const previousProfile = userAnswers[currentQuestionIndex - 1];
+        if (previousProfile && scores.hasOwnProperty(previousProfile)) {
+          scores[previousProfile]--;
+        }
+
+        currentQuestionIndex--;
+        showQuestion();
       }
     }
 
