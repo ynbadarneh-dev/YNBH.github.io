@@ -43,7 +43,6 @@
         overflow-x: hidden;
     }
 
-    /* خلفية الرخام الأسود والذهبي */
     body::before {
         content: "";
         position: fixed;
@@ -115,10 +114,28 @@
       color: var(--text-muted);
       font-size: 1.15rem;
       line-height: 2;
-      margin-bottom: 35px;
+      margin-bottom: 30px;
       max-width: 650px;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    .music-preference {
+      margin-bottom: 25px;
+      color: var(--accent-gold-light);
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .music-preference input {
+      accent-color: var(--accent-gold);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
     }
 
     .btn-gold {
@@ -146,11 +163,23 @@
     /* Session Screen */
     .session-screen {
       display: none;
-      min-height: 300px;
+      min-height: 320px;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       animation: fadeIn 1s ease forwards;
+    }
+
+    .session-top-info {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 0.95rem;
+      color: var(--accent-gold);
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+      padding-bottom: 10px;
     }
 
     .solitude-question {
@@ -163,13 +192,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .session-counter {
-      font-size: 0.95rem;
-      color: var(--accent-gold);
-      letter-spacing: 1px;
-      margin-bottom: 10px;
     }
 
     .timer-bar-container {
@@ -188,7 +210,6 @@
       transition: width 1s linear;
     }
 
-    /* لوحة أزرار التحكم بالتأمل (إيقاف، تشغيل، التالي، الموسيقى) */
     .session-controls {
       display: flex;
       justify-content: center;
@@ -196,8 +217,6 @@
       gap: 15px;
       flex-wrap: wrap;
       width: 100%;
-      border-top: 1px solid rgba(197, 160, 89, 0.15);
-      padding-top: 20px;
     }
 
     .control-btn {
@@ -345,7 +364,7 @@
 </head>
 <body>
 
-  <!-- عنصر الصوت (موسيقى تأملية هادئة تعمل في الخلفية) -->
+  <!-- مسار الموسيقى التأملية -->
   <audio id="ambientMusic" loop>
     <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf7f6.mp3?filename=meditation-ambient-112502.mp3" type="audio/mpeg">
   </audio>
@@ -357,37 +376,42 @@
 
   <main class="chamber-container">
     
-    <!-- 1. شاشة الترحيب -->
+    <!-- 1. شاشة الترحيب مع خيار الموسيقى -->
     <div class="intro-screen" id="introScreen">
       <h1>محطة العزلة الذهنية</h1>
       <p>
-        "في عالم يعج بالضوضاء، قلّ أن يختلي الإنسان بنقائه الفكري. أنت على وشك دخول محطة عزلة رقمية بتجربة تأملية فريدة.. أغمض عينيك، أنصت للأسئلة، وتفاعل بحرية تامة."
+        "في عالم يعج بالضوضاء، قلّ أن يختلي الإنسان بنقائه الفكري. أنت على وشك دخول محطة عزلة رقمية بتجربة تأملية فريدة.. أنصت للأسئلة، وتفاعل بحرية تامة."
       </p>
-      <button class="btn-gold" onclick="startSolitude()">ابدأ رحلة الخلوة الذهنية</button>
+      
+      <label class="music-preference">
+        <input type="checkbox" id="enableMusic" checked> تشغيل الموسيقى التأملية الهادئة أثناء الخلوة
+      </label>
+
+      <div style="margin-top: 15px;">
+        <button class="btn-gold" onclick="startSolitude()">ابدأ رحلة الخلوة الذهنية</button>
+      </div>
     </div>
 
     <!-- 2. شاشة التأمل والعرض -->
     <div class="session-screen" id="sessionScreen" style="display: none;">
-      <div>
-        <div class="session-counter" id="sessionCounter">السؤال 1 من 4</div>
-        <div class="solitude-question" id="solitudeQuestion">جاري تهيئة العزلة...</div>
+      <div class="session-top-info">
+        <span id="sessionCounter">السؤال 1 من 4</span>
+        <span id="questionTimerDisplay" style="color: var(--accent-gold-light); font-weight: bold;">متبقي: 30 ثانية</span>
       </div>
+
+      <div class="solitude-question" id="solitudeQuestion">جاري تهيئة العزلة...</div>
       
-      <div>
+      <div style="width: 100%;">
         <div class="timer-bar-container">
           <div class="timer-bar-fill" id="timerBarFill"></div>
         </div>
 
-        <!-- أزرار التحكم (إيقاف/تشغيل، السؤال التالي، الموسيقى) -->
         <div class="session-controls">
           <button class="control-btn" id="pausePlayBtn" onclick="togglePausePlay()">
             <i class="fas fa-pause"></i> إيقاف مؤقت
           </button>
           <button class="control-btn" onclick="nextQuestionManual()">
             السؤال التالي <i class="fas fa-arrow-left"></i>
-          </button>
-          <button class="control-btn" id="musicToggleBtn" onclick="toggleMusic()">
-            <i class="fas fa-volume-mute"></i> الموسيقى: صامت
           </button>
         </div>
       </div>
@@ -436,7 +460,6 @@
   </footer>
 
   <script>
-    // بنك أسئلة ضخم ومتنوع (15 سؤالاً فلسفياً ونفسياً عميقاً تضمن عدم تكرارها عشوائياً)
     const questionBank = [
       "في عالم يعج بالآراء الجاهزة.. ما هو المبدأ الوحيد الذي لا يمكنك المساومة عليه أبداً؟",
       "كم من أهدافك الحالية هي رغبتك الشخصية حقاً، وليست إرضاءً لصوت مجتمع يراقبك؟",
@@ -457,29 +480,28 @@
 
     let currentSelectedQuestions = [];
     let currentStep = 0;
-    let timeLeftPerQuestion = 30; // 30 ثانية لكل سؤال
+    let timeLeftPerQuestion = 30; 
     let questionTimer = null;
     let isPaused = false;
     let participantName = "";
-    let musicPlaying = false;
 
-    // دالة لاختيار 4 أسئلة عشوائية فريدة تماماً بدون تكرار
     function getRandomQuestions() {
       let shuffled = [...questionBank].sort(() => 0.5 - Math.random());
       return shuffled.slice(0, 4);
     }
 
     function startSolitude() {
+      // تشغيل الموسيقى فوراً بناءً على ضغطة الزر الصريحة لتجاوز حظر المتصفحات
+      const audio = document.getElementById('ambientMusic');
+      const musicEnabled = document.getElementById('enableMusic').checked;
+      
+      if (musicEnabled) {
+        audio.play().catch(e => console.log("Audio play error:", e));
+      }
+
       document.getElementById('introScreen').style.display = 'none';
       document.getElementById('sessionScreen').style.display = 'flex';
       
-      // تشغيل الموسيقى تلقائياً عند البدء برغبة التأمل
-      const audio = document.getElementById('ambientMusic');
-      audio.play().then(() => {
-        musicPlaying = true;
-        document.getElementById('musicToggleBtn').innerHTML = '<i class="fas fa-volume-up"></i> الموسيقى: تعمل';
-      }).catch(e => console.log('Autoplay prevented:', e));
-
       currentSelectedQuestions = getRandomQuestions();
       currentStep = 0;
       runQuestionSession();
@@ -491,14 +513,14 @@
         document.getElementById('sessionCounter').innerText = `السؤال ${currentStep + 1} من ${currentSelectedQuestions.length}`;
         
         timeLeftPerQuestion = 30;
-        updateTimerBar();
+        updateTimerDisplay();
 
         if (questionTimer) clearInterval(questionTimer);
 
         questionTimer = setInterval(() => {
           if (!isPaused) {
             timeLeftPerQuestion--;
-            updateTimerBar();
+            updateTimerDisplay();
 
             if (timeLeftPerQuestion <= 0) {
               clearInterval(questionTimer);
@@ -512,12 +534,15 @@
       }
     }
 
-    function updateTimerBar() {
+    function updateTimerDisplay() {
+      // تحديث النص العداد الرقمي
+      document.getElementById('questionTimerDisplay').innerText = `متبقي: ${timeLeftPerQuestion} ثانية`;
+      
+      // تحديث شريط التقدم المرئي
       let percent = ((30 - timeLeftPerQuestion) / 30) * 100;
       document.getElementById('timerBarFill').style.width = `${percent}%`;
     }
 
-    // زر الإيقاف والتشغيل المؤقت (Pause / Resume)
     function togglePausePlay() {
       isPaused = !isPaused;
       const btn = document.getElementById('pausePlayBtn');
@@ -528,30 +553,18 @@
       }
     }
 
-    // زر الانتقال اليدوي للسؤال التالي فوراً
     function nextQuestionManual() {
       if (questionTimer) clearInterval(questionTimer);
       currentStep++;
       runQuestionSession();
     }
 
-    // التحكم بتشغيل أو كتم الموسيقى يدوياً
-    function toggleMusic() {
-      const audio = document.getElementById('ambientMusic');
-      const btn = document.getElementById('musicToggleBtn');
-      if (musicPlaying) {
-        audio.pause();
-        musicPlaying = false;
-        btn.innerHTML = '<i class="fas fa-volume-mute"></i> الموسيقى: صامت';
-      } else {
-        audio.play();
-        musicPlaying = true;
-        btn.innerHTML = '<i class="fas fa-volume-up"></i> الموسيقى: تعمل';
-      }
-    }
-
     function endSolitudeSession() {
       if (questionTimer) clearInterval(questionTimer);
+      // إيقاف الموسيقى عند انتهاء التجربة
+      const audio = document.getElementById('ambientMusic');
+      audio.pause();
+
       document.getElementById('sessionScreen').style.display = 'none';
       document.getElementById('leadScreen').style.display = 'block';
     }
@@ -581,7 +594,6 @@
       document.getElementById('finalGreeting').innerText = `أهلاً بك يا ${participantName} في سجل أهل الفكر`;
     }
 
-    // إعادة التجربة بمجموعة أسئلة جديدة كلياً
     function restartSession() {
       document.getElementById('finalScreen').style.display = 'none';
       isPaused = false;
