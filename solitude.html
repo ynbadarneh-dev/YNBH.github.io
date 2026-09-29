@@ -214,7 +214,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       flex-wrap: wrap;
       width: 100%;
     }
@@ -223,15 +223,15 @@
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-gold);
       color: var(--text-main);
-      padding: 10px 22px;
+      padding: 10px 18px;
       border-radius: 4px;
       cursor: pointer;
       font-family: var(--font-body);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .control-btn:hover {
@@ -376,7 +376,7 @@
 
   <main class="chamber-container">
     
-    <!-- 1. شاشة الترحيب مع خيار الموسيقى -->
+    <!-- 1. شاشة الترحيب مع خيار الموسيقى (مفعل افتراضياً) -->
     <div class="intro-screen" id="introScreen">
       <h1>محطة العزلة الذهنية</h1>
       <p>
@@ -412,6 +412,9 @@
           </button>
           <button class="control-btn" onclick="nextQuestionManual()">
             السؤال التالي <i class="fas fa-arrow-left"></i>
+          </button>
+          <button class="control-btn" id="musicControlBtn" onclick="toggleMusicDuringSession()">
+            <i class="fas fa-volume-up"></i> إيقاف الموسيقى
           </button>
         </div>
       </div>
@@ -484,6 +487,7 @@
     let questionTimer = null;
     let isPaused = false;
     let participantName = "";
+    let isMusicPlaying = false;
 
     function getRandomQuestions() {
       let shuffled = [...questionBank].sort(() => 0.5 - Math.random());
@@ -491,12 +495,17 @@
     }
 
     function startSolitude() {
-      // تشغيل الموسيقى فوراً بناءً على ضغطة الزر الصريحة لتجاوز حظر المتصفحات
       const audio = document.getElementById('ambientMusic');
       const musicEnabled = document.getElementById('enableMusic').checked;
       
       if (musicEnabled) {
-        audio.play().catch(e => console.log("Audio play error:", e));
+        audio.play().then(() => {
+          isMusicPlaying = true;
+          document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-up"></i> إيقاف الموسيقى';
+        }).catch(e => console.log("Audio play error:", e));
+      } else {
+        isMusicPlaying = false;
+        document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل الموسيقى';
       }
 
       document.getElementById('introScreen').style.display = 'none';
@@ -505,6 +514,23 @@
       currentSelectedQuestions = getRandomQuestions();
       currentStep = 0;
       runQuestionSession();
+    }
+
+    // زر التحكم بالموسيقى أثناء الخلوة (تشغيل/إيقاف في أي وقت)
+    function toggleMusicDuringSession() {
+      const audio = document.getElementById('ambientMusic');
+      const btn = document.getElementById('musicControlBtn');
+
+      if (isMusicPlaying) {
+        audio.pause();
+        isMusicPlaying = false;
+        btn.innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل الموسيقى';
+      } else {
+        audio.play().then(() => {
+          isMusicPlaying = true;
+          btn.innerHTML = '<i class="fas fa-volume-up"></i> إيقاف الموسيقى';
+        }).catch(e => console.log("Audio play error:", e));
+      }
     }
 
     function runQuestionSession() {
@@ -535,10 +561,7 @@
     }
 
     function updateTimerDisplay() {
-      // تحديث النص العداد الرقمي
       document.getElementById('questionTimerDisplay').innerText = `متبقي: ${timeLeftPerQuestion} ثانية`;
-      
-      // تحديث شريط التقدم المرئي
       let percent = ((30 - timeLeftPerQuestion) / 30) * 100;
       document.getElementById('timerBarFill').style.width = `${percent}%`;
     }
@@ -561,7 +584,8 @@
 
     function endSolitudeSession() {
       if (questionTimer) clearInterval(questionTimer);
-      // إيقاف الموسيقى عند انتهاء التجربة
+      
+      // إيقاف الموسيقى تلقائياً عند الانتقال لصفحة تسجيل البيانات
       const audio = document.getElementById('ambientMusic');
       audio.pause();
 
