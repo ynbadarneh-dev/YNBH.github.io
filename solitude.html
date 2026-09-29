@@ -367,10 +367,13 @@
 </head>
 <body>
 
-  <!-- الاعتماد حصرياً على ملف الصوت المحلي الخاص بك -->
-  <audio id="ambientMusic" loop preload="auto">
-    <source src="meditation.mp3" type="audio/mpeg">
-  </audio>
+  <!-- مشغل يوتيوب مخفي تماماً يعمل في الخلفية كصوت تأملي -->
+  <div id="youtubeAudioContainer" style="display:none; position:absolute; width:0; height:0; overflow:hidden;">
+    <iframe id="youtubeIframe" width="1" height="1" 
+      src="https://www.youtube-nocookie.com/embed/QSqVRNWGlKI?si=I5t5zyTb0pPjtTbU&enablejsapi=1&autoplay=0&loop=1&playlist=QSqVRNWGlKI" 
+      title="Background Music" frameborder="0" allow="autoplay">
+    </iframe>
+  </div>
 
   <header>
     <a href="index.html" class="brand-logo">يزن هشام بدارنة</a>
@@ -387,7 +390,7 @@
       </p>
       
       <label class="music-preference">
-        <input type="checkbox" id="enableMusic" checked> تشغيل نغمات التأمل الهادئة أثناء الخلوة
+        <input type="checkbox" id="enableMusic" checked> تشغيل موسيقى التأمل الهادئة أثناء الخلوة
       </label>
 
       <div style="margin-top: 15px;">
@@ -418,7 +421,7 @@
             السؤال التالي <i class="fas fa-arrow-left"></i>
           </button>
           <button class="control-btn" id="musicControlBtn" onclick="toggleMusicDuringSession()">
-            <i class="fas fa-volume-up"></i> إيقاف النغمات
+            <i class="fas fa-volume-up"></i> إيقاف الموسيقى
           </button>
         </div>
       </div>
@@ -491,6 +494,7 @@
     let questionTimer = null;
     let isPaused = false;
     let participantName = "";
+    let isMusicPlaying = false;
 
     function getRandomQuestions() {
       let shuffled = [...questionBank].sort(() => 0.5 - Math.random());
@@ -498,18 +502,18 @@
     }
 
     function startSolitude() {
-      const audio = document.getElementById('ambientMusic');
       const musicEnabled = document.getElementById('enableMusic').checked;
+      const iframe = document.getElementById('youtubeIframe');
       
       if (musicEnabled) {
-        audio.play().then(() => {
-          document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-up"></i> إيقاف النغمات';
-        }).catch(e => {
-          console.log("Audio play blocked by browser:", e);
-        });
+        // تحديث الرابط لتفعيل التشغيل التلقائي عند بدء الخلوة
+        iframe.src = "https://www.youtube-nocookie.com/embed/QSqVRNWGlKI?si=I5t5zyTb0pPjtTbU&enablejsapi=1&autoplay=1&loop=1&playlist=QSqVRNWGlKI";
+        isMusicPlaying = true;
+        document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-up"></i> إيقاف الموسيقى';
       } else {
-        audio.pause();
-        document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل النغمات';
+        iframe.src = "https://www.youtube-nocookie.com/embed/QSqVRNWGlKI?si=I5t5zyTb0pPjtTbU&enablejsapi=1&autoplay=0&loop=1&playlist=QSqVRNWGlKI";
+        isMusicPlaying = false;
+        document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل الموسيقى';
       }
 
       document.getElementById('introScreen').style.display = 'none';
@@ -520,17 +524,19 @@
       runQuestionSession();
     }
 
+    // زر إيقاف وتشغيل الموسيقى أثناء الخلوة
     function toggleMusicDuringSession() {
-      const audio = document.getElementById('ambientMusic');
+      const iframe = document.getElementById('youtubeIframe');
       const btn = document.getElementById('musicControlBtn');
 
-      if (audio.paused) {
-        audio.play().then(() => {
-          btn.innerHTML = '<i class="fas fa-volume-up"></i> إيقاف النغمات';
-        }).catch(e => console.log(e));
+      if (isMusicPlaying) {
+        iframe.src = "https://www.youtube-nocookie.com/embed/QSqVRNWGlKI?si=I5t5zyTb0pPjtTbU&enablejsapi=1&autoplay=0&loop=1&playlist=QSqVRNWGlKI";
+        isMusicPlaying = false;
+        btn.innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل الموسيقى';
       } else {
-        audio.pause();
-        btn.innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل النغمات';
+        iframe.src = "https://www.youtube-nocookie.com/embed/QSqVRNWGlKI?si=I5t5zyTb0pPjtTbU&enablejsapi=1&autoplay=1&loop=1&playlist=QSqVRNWGlKI";
+        isMusicPlaying = true;
+        btn.innerHTML = '<i class="fas fa-volume-up"></i> إيقاف الموسيقى';
       }
     }
 
@@ -586,8 +592,9 @@
     function endSolitudeSession() {
       if (questionTimer) clearInterval(questionTimer);
       
-      const audio = document.getElementById('ambientMusic');
-      audio.pause();
+      // إيقاف الموسيقى عبر إيقاف الـ autoplay في الـ iframe
+      const iframe = document.getElementById('youtubeIframe');
+      iframe.src = "https://www.youtube-nocookie.com/embed/QSqVRNWGlKI?si=I5t5zyTb0pPjtTbU&enablejsapi=1&autoplay=0&loop=1&playlist=QSqVRNWGlKI";
 
       document.getElementById('sessionScreen').style.display = 'none';
       document.getElementById('leadScreen').style.display = 'block';
