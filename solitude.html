@@ -43,7 +43,7 @@
         overflow-x: hidden;
     }
 
-    /* خلفية الرخام الأسود والذهبي المتطابقة مع الموقع */
+    /* خلفية الرخام الأسود والذهبي */
     body::before {
         content: "";
         position: fixed;
@@ -56,7 +56,6 @@
         z-index: -1;
     }
 
-    /* Header */
     header {
       text-align: center;
       margin-top: 20px;
@@ -81,7 +80,6 @@
       text-transform: uppercase;
     }
 
-    /* Main Container */
     .chamber-container {
       width: 100%;
       max-width: 780px;
@@ -145,27 +143,33 @@
       box-shadow: 0 0 25px rgba(197, 160, 89, 0.5);
     }
 
-    /* Solitude Session Screen (شاشة التأمل) */
+    /* Session Screen */
     .session-screen {
       display: none;
-      min-height: 280px;
-      display: none;
+      min-height: 300px;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       animation: fadeIn 1s ease forwards;
     }
 
     .solitude-question {
       font-family: var(--font-heading);
-      font-size: 1.9rem;
+      font-size: 1.8rem;
       color: var(--text-main);
-      line-height: 1.6;
-      margin-bottom: 30px;
-      min-height: 120px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      min-height: 140px;
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .session-counter {
+      font-size: 0.95rem;
+      color: var(--accent-gold);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
     }
 
     .timer-bar-container {
@@ -174,7 +178,7 @@
       background: rgba(255, 255, 255, 0.1);
       border-radius: 2px;
       overflow: hidden;
-      margin-top: 20px;
+      margin-bottom: 25px;
     }
 
     .timer-bar-fill {
@@ -184,14 +188,40 @@
       transition: width 1s linear;
     }
 
-    .session-counter {
-      font-size: 0.9rem;
-      color: var(--accent-gold);
-      margin-top: 15px;
-      letter-spacing: 1px;
+    /* لوحة أزرار التحكم بالتأمل (إيقاف، تشغيل، التالي، الموسيقى) */
+    .session-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      width: 100%;
+      border-top: 1px solid rgba(197, 160, 89, 0.15);
+      padding-top: 20px;
     }
 
-    /* Lead Form Screen (شاشة تسجيل الحضور والتاريخ) */
+    .control-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-gold);
+      color: var(--text-main);
+      padding: 10px 22px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .control-btn:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      background: rgba(197, 160, 89, 0.08);
+    }
+
+    /* Lead Form Screen */
     .lead-screen {
       display: none;
       text-align: right;
@@ -243,7 +273,7 @@
       box-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
     }
 
-    /* Final Screen (الخاتمة) */
+    /* Final Screen */
     .final-screen {
       display: none;
       animation: fadeIn 1s ease forwards;
@@ -309,11 +339,16 @@
     @media (max-width: 600px) {
       .chamber-container { padding: 30px 20px; }
       .intro-screen h1 { font-size: 2rem; }
-      .solitude-question { font-size: 1.5rem; }
+      .solitude-question { font-size: 1.4rem; }
     }
   </style>
 </head>
 <body>
+
+  <!-- عنصر الصوت (موسيقى تأملية هادئة تعمل في الخلفية) -->
+  <audio id="ambientMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf7f6.mp3?filename=meditation-ambient-112502.mp3" type="audio/mpeg">
+  </audio>
 
   <header>
     <a href="index.html" class="brand-logo">يزن هشام بدارنة</a>
@@ -322,25 +357,43 @@
 
   <main class="chamber-container">
     
-    <!-- 1. شاشة الترحيب والتنويه -->
+    <!-- 1. شاشة الترحيب -->
     <div class="intro-screen" id="introScreen">
       <h1>محطة العزلة الذهنية</h1>
       <p>
-        "في عالم يعج بالضوضاء والمشتتات، قلّ أن يختلي الإنسان بنقائه الفكري الحقيقي. أنت الآن على وشك دخول محطة عزلة رقمية لمدة 120 ثانية.. لن يُطلب منك إجابة أو خيار، بل الإنصات لأسئلة لا يسألك إياها أحد في الواقع."
+        "في عالم يعج بالضوضاء، قلّ أن يختلي الإنسان بنقائه الفكري. أنت على وشك دخول محطة عزلة رقمية بتجربة تأملية فريدة.. أغمض عينيك، أنصت للأسئلة، وتفاعل بحرية تامة."
       </p>
-      <button class="btn-gold" onclick="startSolitude()">ابدأ رحلة الخلوة (120 ثانية)</button>
+      <button class="btn-gold" onclick="startSolitude()">ابدأ رحلة الخلوة الذهنية</button>
     </div>
 
-    <!-- 2. شاشة التأمل والتجربة الشعورية -->
+    <!-- 2. شاشة التأمل والعرض -->
     <div class="session-screen" id="sessionScreen" style="display: none;">
-      <div class="solitude-question" id="solitudeQuestion">جاري تهيئة العزلة...</div>
-      <div class="session-counter" id="sessionCounter">متبقي: 120 ثانية</div>
-      <div class="timer-bar-container">
-        <div class="timer-bar-fill" id="timerBarFill"></div>
+      <div>
+        <div class="session-counter" id="sessionCounter">السؤال 1 من 4</div>
+        <div class="solitude-question" id="solitudeQuestion">جاري تهيئة العزلة...</div>
+      </div>
+      
+      <div>
+        <div class="timer-bar-container">
+          <div class="timer-bar-fill" id="timerBarFill"></div>
+        </div>
+
+        <!-- أزرار التحكم (إيقاف/تشغيل، السؤال التالي، الموسيقى) -->
+        <div class="session-controls">
+          <button class="control-btn" id="pausePlayBtn" onclick="togglePausePlay()">
+            <i class="fas fa-pause"></i> إيقاف مؤقت
+          </button>
+          <button class="control-btn" onclick="nextQuestionManual()">
+            السؤال التالي <i class="fas fa-arrow-left"></i>
+          </button>
+          <button class="control-btn" id="musicToggleBtn" onclick="toggleMusic()">
+            <i class="fas fa-volume-mute"></i> الموسيقى: صامت
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- 3. شاشة إدخال البيانات لحفظ الأثر (ربط مع Google Sheets) -->
+    <!-- 3. شاشة إدخال البيانات -->
     <div class="lead-screen" id="leadScreen" style="display: none;">
       <h2 class="lead-title">اكتملت خلوتك الذهنية</h2>
       <p class="lead-subtitle">
@@ -372,7 +425,7 @@
       </p>
       <div class="action-btns">
         <a href="index.html" class="btn-gold">العودة للموقع الرئيسي</a>
-        <a href="solitude.html" class="btn-secondary">إعادة التجربة</a>
+        <button class="btn-secondary" onclick="restartSession()">إعادة الخلوة (أسئلة جديدة)</button>
       </div>
     </div>
 
@@ -383,52 +436,122 @@
   </footer>
 
   <script>
-    // الأسئلة الوجودية العميقة التي ستظهر تباعاً خلال الـ 120 ثانية
-    const solitudeSteps = [
-      { text: "في عالم يعج بالآراء الجاهزة.. ما هو المبدأ الوحيد الذي لا يمكنك المساومة عليه أبداً؟", duration: 30 },
-      { text: "كم من أهدافك الحالية هي رغبتك الشخصية حقاً، وليست إرضاءً لصوت مجتمع يراقبك؟", duration: 30 },
-      { text: "لو عاد بك الزمن خمس سنوات.. ما القرار الذي كنت ستتخذ بشجاعة أكبر وتتجنب تردده؟", duration: 30 },
-      { text: "الخوف الأكبر الذي تحمله في ظلك.. هل واجهته يوماً أم أنك تكتفي بالهرب منه؟", duration: 30 }
+    // بنك أسئلة ضخم ومتنوع (15 سؤالاً فلسفياً ونفسياً عميقاً تضمن عدم تكرارها عشوائياً)
+    const questionBank = [
+      "في عالم يعج بالآراء الجاهزة.. ما هو المبدأ الوحيد الذي لا يمكنك المساومة عليه أبداً؟",
+      "كم من أهدافك الحالية هي رغبتك الشخصية حقاً، وليست إرضاءً لصوت مجتمع يراقبك؟",
+      "لو عاد بك الزمن خمس سنوات.. ما القرار الذي كنت ستتخذ بشجاعة أكبر وتتجنب تردده؟",
+      "الخوف الأكبر الذي تحمله في ظلك.. هل واجهته يوماً أم أنك تكتفي بالهرب منه؟",
+      "ما هو الشيء الثمين الذي تمنيت لو أنك استثمرت وقتك فيه قبل فوات الأوان؟",
+      "إذا نظر شخص غريب إلى أفعالك اليوم، هل ستروي قصته إنساناً ناجحاً أم تائهاً؟",
+      "متى كانت آخر مرة فكرت فيها بشكل مستقل تماماً بمعزل عن تأثير وسائل التواصل والناس؟",
+      "ما هي القناعة القديمة التي تخليت عنها مؤخراً واكتشفت أنك كنت مخطئاً بشأنها؟",
+      "لو خيروك بين العيش براحة أبدية وسط الأوهام أو الحقيقة الموجعة.. أي الطريقين تختار؟",
+      "ما هي الفضيلة التي تفتقدها بشدة في عالم اليوم وتريد أن تغرسها في نفسك؟",
+      "ما هو القرار الأشد صعوبة الذي تأجل اتخاذه طويلاً وأنت تعلم أنه الحسم الصحيح؟",
+      "كيف تتأكد أن إنجازاتك الحالية تقربك من ذاتك الحقيقية لا من طموحات الآخرين؟",
+      "لو أتيحت لك فرصة ترك رسالة قصيرة للبشرية جمعاء، ماذا ستكتب في سطر واحد؟",
+      "ما هو أعمق درس تعلمته من تجربة قاسية مررت بها في الماضي القريب؟",
+      "ما هي المساحة الهادئة في عقلك التي لم تمنحها حقها من التأمل والتقدير حتى الآن؟"
     ];
 
+    let currentSelectedQuestions = [];
     let currentStep = 0;
-    let totalTimeLeft = 120;
-    let timerInterval = null;
+    let timeLeftPerQuestion = 30; // 30 ثانية لكل سؤال
+    let questionTimer = null;
+    let isPaused = false;
     let participantName = "";
+    let musicPlaying = false;
+
+    // دالة لاختيار 4 أسئلة عشوائية فريدة تماماً بدون تكرار
+    function getRandomQuestions() {
+      let shuffled = [...questionBank].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, 4);
+    }
 
     function startSolitude() {
       document.getElementById('introScreen').style.display = 'none';
       document.getElementById('sessionScreen').style.display = 'flex';
       
-      runStep();
-      
-      // العد التنازلي الكلي
-      timerInterval = setInterval(() => {
-        totalTimeLeft--;
-        document.getElementById('sessionCounter').innerText = `متبقي: ${totalTimeLeft} ثانية`;
-        
-        let progressPercent = ((120 - totalTimeLeft) / 120) * 100;
-        document.getElementById('timerBarFill').style.width = `${progressPercent}%`;
+      // تشغيل الموسيقى تلقائياً عند البدء برغبة التأمل
+      const audio = document.getElementById('ambientMusic');
+      audio.play().then(() => {
+        musicPlaying = true;
+        document.getElementById('musicToggleBtn').innerHTML = '<i class="fas fa-volume-up"></i> الموسيقى: تعمل';
+      }).catch(e => console.log('Autoplay prevented:', e));
 
-        if (totalTimeLeft <= 0) {
-          clearInterval(timerInterval);
-          endSolitudeSession();
-        }
-      }, 1000);
+      currentSelectedQuestions = getRandomQuestions();
+      currentStep = 0;
+      runQuestionSession();
     }
 
-    function runStep() {
-      if (currentStep < solitudeSteps.length) {
-        document.getElementById('solitudeQuestion').innerText = solitudeSteps[currentStep].text;
-        currentStep++;
+    function runQuestionSession() {
+      if (currentStep < currentSelectedQuestions.length) {
+        document.getElementById('solitudeQuestion').innerText = currentSelectedQuestions[currentStep];
+        document.getElementById('sessionCounter').innerText = `السؤال ${currentStep + 1} من ${currentSelectedQuestions.length}`;
         
-        if (currentStep < solitudeSteps.length) {
-          setTimeout(runStep, 30000); // الانتقال للسؤال التالي كل 30 ثانية
-        }
+        timeLeftPerQuestion = 30;
+        updateTimerBar();
+
+        if (questionTimer) clearInterval(questionTimer);
+
+        questionTimer = setInterval(() => {
+          if (!isPaused) {
+            timeLeftPerQuestion--;
+            updateTimerBar();
+
+            if (timeLeftPerQuestion <= 0) {
+              clearInterval(questionTimer);
+              currentStep++;
+              runQuestionSession();
+            }
+          }
+        }, 1000);
+      } else {
+        endSolitudeSession();
+      }
+    }
+
+    function updateTimerBar() {
+      let percent = ((30 - timeLeftPerQuestion) / 30) * 100;
+      document.getElementById('timerBarFill').style.width = `${percent}%`;
+    }
+
+    // زر الإيقاف والتشغيل المؤقت (Pause / Resume)
+    function togglePausePlay() {
+      isPaused = !isPaused;
+      const btn = document.getElementById('pausePlayBtn');
+      if (isPaused) {
+        btn.innerHTML = '<i class="fas fa-play"></i> استئناف';
+      } else {
+        btn.innerHTML = '<i class="fas fa-pause"></i> إيقاف مؤقت';
+      }
+    }
+
+    // زر الانتقال اليدوي للسؤال التالي فوراً
+    function nextQuestionManual() {
+      if (questionTimer) clearInterval(questionTimer);
+      currentStep++;
+      runQuestionSession();
+    }
+
+    // التحكم بتشغيل أو كتم الموسيقى يدوياً
+    function toggleMusic() {
+      const audio = document.getElementById('ambientMusic');
+      const btn = document.getElementById('musicToggleBtn');
+      if (musicPlaying) {
+        audio.pause();
+        musicPlaying = false;
+        btn.innerHTML = '<i class="fas fa-volume-mute"></i> الموسيقى: صامت';
+      } else {
+        audio.play();
+        musicPlaying = true;
+        btn.innerHTML = '<i class="fas fa-volume-up"></i> الموسيقى: تعمل';
       }
     }
 
     function endSolitudeSession() {
+      if (questionTimer) clearInterval(questionTimer);
       document.getElementById('sessionScreen').style.display = 'none';
       document.getElementById('leadScreen').style.display = 'block';
     }
@@ -438,29 +561,32 @@
       participantName = document.getElementById('userName').value.trim();
       const participantPhone = document.getElementById('userPhone').value.trim();
 
-      // رابط الـ API الخاص بجدول Google Sheets لديك
       const sheetAPI = 'https://api.sheetbest.com/sheets/cbefeb53-406a-4425-8e72-d18f6359cdeb'; 
 
       const payload = {
         name: participantName,
         phone: participantPhone,
-        result: "محطة العزلة الذهنية (120 ثانية)",
+        result: "محطة العزلة الذهنية (تفاعلي متقدم)",
         date: new Date().toLocaleString()
       };
 
-      // إرسال البيانات خلفياً لجدول Google Sheets
       fetch(sheetAPI, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).catch(error => console.error('Error saving data:', error));
 
-      // الانتقال للشاشة الختامية
       document.getElementById('leadScreen').style.display = 'none';
       document.getElementById('finalScreen').style.display = 'block';
       document.getElementById('finalGreeting').innerText = `أهلاً بك يا ${participantName} في سجل أهل الفكر`;
+    }
+
+    // إعادة التجربة بمجموعة أسئلة جديدة كلياً
+    function restartSession() {
+      document.getElementById('finalScreen').style.display = 'none';
+      isPaused = false;
+      document.getElementById('pausePlayBtn').innerHTML = '<i class="fas fa-pause"></i> إيقاف مؤقت';
+      startSolitude();
     }
   </script>
 </body>
