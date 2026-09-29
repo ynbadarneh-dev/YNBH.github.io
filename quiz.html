@@ -44,7 +44,7 @@
         overflow-x: hidden;
     }
 
-    /* خلفية الرخام الأسود والذهبي المرتبطة بملف marble-bg.jpg */
+    /* خلفية الرخام الأسود والذهبي */
     body::before {
         content: "";
         position: fixed;
@@ -110,7 +110,7 @@
         left: 0;
     }
 
-    /* Intro Screen (الشرح التسويقي الراقي) */
+    /* Intro Screen */
     .quiz-intro {
       text-align: right;
     }
@@ -134,7 +134,6 @@
       font-style: italic;
     }
 
-    /* صندوق الشرح التسويقي المنسق */
     .marketing-pitch {
       background: rgba(197, 160, 89, 0.03);
       border: 1px solid rgba(197, 160, 89, 0.2);
@@ -260,7 +259,6 @@
       transform: translateX(-4px);
     }
 
-    /* أزرار التنقل داخل الأسئلة (السابق) */
     .question-nav {
       display: flex;
       justify-content: space-between;
@@ -285,6 +283,55 @@
     .btn-back:hover {
       border-color: var(--accent-gold);
       color: var(--accent-gold);
+    }
+
+    /* شاشة إدخال البيانات */
+    .lead-box {
+      display: none;
+      text-align: center;
+    }
+
+    .lead-title {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+    }
+
+    .lead-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 25px;
+      font-size: 1.05rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--accent-gold-light);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      padding: 14px 18px;
+      color: var(--text-main);
+      font-size: 1rem;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
     }
 
     /* Result Screen */
@@ -347,7 +394,6 @@
       color: var(--text-main);
     }
 
-    /* Figures Grid */
     .figures-title {
       font-family: var(--font-heading);
       font-size: 1.3rem;
@@ -440,7 +486,7 @@
 
   <main class="quiz-container">
     
-    <!-- Intro Screen (الشرح التسويقي الراقي) -->
+    <!-- Intro Screen -->
     <div class="quiz-intro" id="intro-screen">
       <h1 class="quiz-title">البوصلة الفلسفية والنمط الفكري</h1>
       <p class="quiz-subtitle-center">"الفكر هو الأساس الذي تُبنى عليه الخيارات.. وبوصلتك الفلسفية تحدد كيف ترى العالم وتدير قراراتك."</p>
@@ -479,16 +525,37 @@
       <h2 class="question-text" id="question-text">جاري تحميل السؤال...</h2>
       <div class="options-list" id="options-container"></div>
       
-      <!-- زر الرجوع للسؤال السابق -->
       <div class="question-nav">
         <button class="btn-back" id="prev-btn" onclick="prevQuestion()" style="display: none;">← السؤال السابق</button>
         <span style="font-size: 0.85rem; color: var(--text-muted);">البوصلة الفلسفية</span>
       </div>
     </div>
 
+    <!-- Lead Capture Screen (إدخال الاسم ورقم الهاتف) -->
+    <div class="lead-box" id="lead-screen">
+      <h2 class="lead-title">اكتملت إجاباتك بنجاح!</h2>
+      <p class="lead-subtitle">أدخل بياناتك أدناه لتظهر لك نتيجة تحليلك الفكري وشخصيتك المقابلة فوراً:</p>
+      
+      <form id="leadForm" onsubmit="submitLeadAndShowResult(event)">
+        <div class="form-group">
+          <label for="userName">الاسم الكريم:</label>
+          <input type="text" id="userName" class="form-input" placeholder="أدخل اسمك الكامل..." required>
+        </div>
+        
+        <div class="form-group">
+          <label for="userPhone">رقم الهاتف:</label>
+          <input type="tel" id="userPhone" class="form-input" placeholder="07xxxxxxxx" required>
+        </div>
+
+        <div style="margin-top: 30px;">
+          <button type="submit" class="btn-gold">عرض النتيجة الفكرية</button>
+        </div>
+      </form>
+    </div>
+
     <!-- Result Screen -->
     <div class="result-box" id="result-screen">
-      <span class="result-badge">نمطك الفكري الغالب</span>
+      <span class="result-badge" id="greeting-badge">نمطك الفكري الغالب</span>
       <h2 class="result-title" id="result-title">...</h2>
       <p class="result-tagline" id="result-tagline">...</p>
       
@@ -522,7 +589,7 @@
   </footer>
 
   <script>
-    // 1. بيانات الأسئلة الـ 20 والخيارات
+    // 1. بيانات الأسئلة الـ 20
     const questions = [
       {
         q: "كيف نصل إلى الحقيقة أو المعرفة اليقينية عن العالم؟",
@@ -706,108 +773,69 @@
       }
     ];
 
-    // 2. تحليل الأنماط الفكرية والشخصيات
     const profilesData = {
       rationalist: {
         title: "المفكر العقلاني (The Rationalist)",
         tagline: "\"العقل والمنطق هما الميزان الأول لتفكيك العالم.\"",
-        description: "تعتمد على الاستدلال المنطقي والتفكير التحليلي العميق. ترى أن الحقيقة تُكتشف بالتفكر الفلسفي الخالي من التناقضات والافتراضات المسبقة، ولا تقبل الأفكار الجاهزة إلا إذا كانت قائمة على حجج متماسكة.",
-        strengths: [
-          "القدرة العالية على كشف المغالطات المنطقية والتناقضات.",
-          "التفكير المنهجي المُنظم وربط الأفكار بجذورها.",
-          "الاستقلالية الذهنية والقدرة على التجريد."
-        ],
-        biases: [
-          "الوقوع في 'الفخ النظري' وإهمال الواقع العملي.",
-          "الإفراط في التحليل (Analysis Paralysis) مما يؤخر اتخاذ القرار."
-        ],
+        description: "تعتمد على الاستدلال المنطقي والتفكير التحليلي العميق. ترى أن الحقيقة تُكتشف بالتفكر الفلسفي الخالي من التناقضات والافتراضات المسبقة.",
+        strengths: ["كشف المغالطات المنطقية", "التفكير المنهجي", "الاستقلالية الذهنية"],
+        biases: ["الوقوع في الفخ النظري وإهمال الواقع", "الإفراط في التحليل"],
         figures: [
-          { name: "رينيه ديكارت", role: "فيلسوف ورياضي (أبو الفلسفة الحديثة)" },
-          { name: "باروخ سبينوزا", role: "فيلسوف عقلاني ومفكر أخلاقي" },
-          { name: "ألبرت أينشتاين", role: "عالم فيزياء نظرية" }
+          { name: "رينيه ديكارت", role: "أبو الفلسفة الحديثة" },
+          { name: "باروخ سبينوزا", role: "فيلسوف عقلاني" }
         ]
       },
       empiricist: {
         title: "المفكر التجريبي (The Empiricist)",
         tagline: "\"لا حقيقة بدون شواهد، بيانات، وتجربة ملموسة.\"",
-        description: "تتشكك في النظريات المجرّدة ما لم تكن مدعومة بأدلة وملاحظات من الواقع الملموس. تعتمد على المنهج العلمي والتجريب في اتخاذ قراراتك وتطوير وعيك.",
-        strengths: [
-          "الواقعية الشديدة والابتعاد عن الأوهام.",
-          "الاعتماد الراسخ على البيانات والحقائق المثبتة.",
-          "القدرة على التكيف عندما تظهر معطيات جديدة."
-        ],
-        biases: [
-          "استبعاد الأفكار التجريدية القيمة لعدم إمكانية قياسها فوراً.",
-          "الوقوع في الانحياز التأكيدي للبيانات المتاحة فقط."
-        ],
+        description: "تتشكك في النظريات المجرّدة ما لم تكن مدعومة بأدلة وملاحظات من الواقع الملموس.",
+        strengths: ["الواقعية الشديدة", "الاعتماد على البيانات", "التكيف المعرفي"],
+        biases: ["استبعاد الأفكار التجريدية", "الانحياز التأكيدي"],
         figures: [
-          { name: "جون لوك", role: "فيلسوف المدرسة التجريبية" },
-          { name: "ديفيد هيوم", role: "فيلسوف ومؤرخ تجريبي" },
-          { name: "كارل ساغان", role: "عالم فلك ومروج للمنهج العلمي" }
+          { name: "جون لوك", role: "فيلسوف تجريبي" },
+          { name: "ديفيد هيوم", role: "مؤرخ وفيلسوف" }
         ]
       },
       stoic: {
         title: "المفكر الرواقي (The Stoic)",
         tagline: "\"الحكمة تكمن في التركيز على ما تملك السيطرة عليه فقط.\"",
-        description: "تمتلك رصانة عقلية وانضباطاً ذاتياً عالياً. تنظر للأحداث والمشاعر بفرز دقيق بين ما يقع تحت إرادتك وما هو خارج عنها، مما يمنحك ثباتاً واستقراراً ذهنياً في الأزمات.",
-        strengths: [
-          "الصلابة النفسية والاستقرار العاطفي عند مواجهة الضغوط.",
-          "التركيز العالي على الفعل الشخصي والانضباط الذاتي.",
-          "القدرة على اتخاذ قرارات هادئة وموضوعية."
-        ],
-        biases: [
-          "الوقوع في فخ 'السلبية الذهنية' تقبلاً للواقع دون محاولة تغييره.",
-          "كبت العواطف أو الظهور بمظهر الحاد/البارد للآخرين."
-        ],
+        description: "تمتلك رصانة عقلية وانضباطاً ذاتياً عالياً وثباتاً ذهنياً في الأزمات.",
+        strengths: ["الصلابة النفسية", "الاستقرار العاطفي", "الانضباط الذاتي"],
+        biases: ["السلبية الذهنية", "كبت العواطف"],
         figures: [
-          { name: "ماركوس أوريليوس", role: "إمبراطور روماني وفيلسوف رواقي" },
-          { name: "سينيقا", role: "مفكر ورواقي وسياسي" },
-          { name: "فيكطور فرانكل", role: "طبيب نفسي ومؤلف 'الإنسان يبحث عن المعنى'" }
+          { name: "ماركوس أوريليوس", role: "إمبراطور وفيلسوف رواقي" },
+          { name: "سينيقا", role: "مفكر وسياسي" }
         ]
       },
       existentialist: {
         title: "المفكر الوجودي (The Existentialist)",
         tagline: "\"المعنى لا يُكتشف جاهزاً، بل تصنعه عبر حريتك وخياراتك.\"",
-        description: "تقدس الحرية الفردية والمسؤولية الذاتية. ترى أن الإنسان هو من يشكل هويته وقيمته من خلال أفعاله وأصالة قراراته بعيداً عن التبعية الاجتماعية أو الأطر الجاهزة.",
-        strengths: [
-          "الاستقلالية العالية عن التوجهات السائدة.",
-          "البحث الدائم عن الأصالة والمعنى العميق للأفعال.",
-          "الجرأة في اتخاذ القرارات المصيرية وتحمل مسؤلياتها."
-        ],
-        biases: [
-          "القلق الوجودي الزائد من ثقل المسؤولية والتفكير المستمر.",
-          "صعوبة الاندماج مع الأنظمة والقواعد الجماعية الصارمة."
-        ],
+        description: "تقدس الحرية الفردية والمسؤولية الذاتية في صنع الهوية والمعنى.",
+        strengths: ["الاستقلالية", "البحث عن الأصالة", "الجرأة المصيرية"],
+        biases: ["القلق الوجودي الزائد", "صعوبة الاندماج مع الأنظمة"],
         figures: [
-          { name: "جان بول سارتر", role: "فيلسوف وكاتب وجودي" },
-          { name: "ألبير كامو", role: "كاتب ومفكر فلسفي" },
-          { name: "فيودور دوستويفسكي", role: "روائي ومحلل للنفس البشرية" }
+          { name: "جان بول سارتر", role: "كاتب وجودي" },
+          { name: "ألبير كامو", role: "مفكر فلسفي" }
         ]
       },
       pragmatist: {
         title: "المفكر البراغماتي (The Pragmatist)",
         tagline: "\"قيمة الفكرة تُقاس بمدى نجاحها وفائدتها التطبيقية في الواقع.\"",
-        description: "لا تشغلك الجدالات النظرية العقيمة؛ ما يهمك هو الحلول العملية والأثر الحقيقي. تقيِّم النظريات والقرارات بمدى نجاحها الميداني وتأثيرها الملموس.",
-        strengths: [
-          "المرونة العالية وحل المشكلات بفعالية ووسائل مبتكرة.",
-          "التركيز الدائم على النتائج والأثر الحقيقي.",
-          "قدرة ممتازة على التكيف التنفيذي والتطوير."
-        ],
-        biases: [
-          "التضحية بالمبادئ طويلة المدى أحياناً لأجل مكاسب سريعة.",
-          "تجاهل الأبعاد النظرية والفلسفية العميقة."
-        ],
+        description: "ما يهمك هو الحلول العملية والأثر الحقيقي الميداني.",
+        strengths: ["المرونة العالية", "حل المشكلات بفعالية", "التركيز على النتائج"],
+        biases: ["التضحية بالمبادئ طويلة المدى", "تجاهل الأبعاد النظرية"],
         figures: [
-          { name: "جون ديوي", role: "فيلسوف ومصلح تربوي براغماتي" },
-          { name: "تشارلز بيرس", role: "مؤسس النظرية البراغماتية" },
+          { name: "جون ديوي", role: "مصلح تربوي براغماتي" },
           { name: "إيلون ماسك", role: "رائد أعمال ومبتكر تنفيذي" }
         ]
       }
     };
 
-    // 3. إدارة حالة الاختبار
     let currentQuestionIndex = 0;
     let userAnswers = []; 
+    let participantName = "";
+    let winningProfileKey = "";
+
     const scores = {
       rationalist: 0,
       empiricist: 0,
@@ -861,7 +889,11 @@
       if (currentQuestionIndex < questions.length) {
         showQuestion();
       } else {
-        renderResult();
+        // حساب النتيجة وتخزين المفتاح مؤقتاً قبل إظهار شاشة تسجيل البيانات
+        calculateWinningProfile();
+        document.getElementById('progress-box').style.display = 'none';
+        document.getElementById('question-screen').style.display = 'none';
+        document.getElementById('lead-screen').style.display = 'block';
       }
     }
 
@@ -877,23 +909,46 @@
       }
     }
 
-    function renderResult() {
-      document.getElementById('progress-box').style.display = 'none';
-      document.getElementById('question-screen').style.display = 'none';
-      document.getElementById('result-screen').style.display = 'block';
-
-      let winningProfile = 'rationalist';
+    function calculateWinningProfile() {
       let maxScore = -1;
-
       for (const [prof, score] of Object.entries(scores)) {
         if (score > maxScore) {
           maxScore = score;
-          winningProfile = prof;
+          winningProfileKey = prof;
         }
       }
+    }
 
-      const pData = profilesData[winningProfile];
+    // دالة إرسال البيانات إلى Google Sheets وعرض النتيجة فوراً
+    function submitLeadAndShowResult(event) {
+      event.preventDefault();
+      participantName = document.getElementById('userName').value.trim();
+      const participantPhone = document.getElementById('userPhone').value.trim();
+      const pData = profilesData[winningProfileKey];
 
+      // إرسال البيانات خلفياً لجدول Google Sheets (باستخدام Sheet.best أو Google Apps Script)
+      // ملاحظة: يمكنك وضع رابط السكريبت الخاص بك هنا لاحقاً لحفظ البيانات بالجدول تلقائياً
+      const scriptURL = 'ضع_رابط_Google_Apps_Script_هنا_إن_وجد'; 
+      if(scriptURL !== 'ضع_رابط_Google_Apps_Script_هنا_إن_وجد') {
+        const data = {
+          name: participantName,
+          phone: participantPhone,
+          result: pData.title,
+          date: new Date().toLocaleString()
+        };
+        fetch(scriptURL, { method: 'POST', body: JSON.stringify(data) }).catch(e => console.log(e));
+      }
+
+      // الانتقال لعرض شاشة النتائج
+      document.getElementById('lead-screen').style.display = 'none';
+      renderResult();
+    }
+
+    function renderResult() {
+      document.getElementById('result-screen').style.display = 'block';
+      const pData = profilesData[winningProfileKey];
+
+      document.getElementById('greeting-badge').innerText = `أهلاً بك، ${participantName} | نمطك الفكري الغالب`;
       document.getElementById('result-title').innerText = pData.title;
       document.getElementById('result-tagline').innerText = pData.tagline;
       document.getElementById('result-description').innerText = pData.description;
@@ -931,7 +986,7 @@
       if (navigator.share) {
         navigator.share({
           title: 'نمطي الفكري - البوصلة الفلسفية',
-          text: 'اكتشفت نمطي الفكري عبر اختبار البوصلة الفلسفية للموقع الشخصي يزن بدارنة.',
+          text: `اكتشفت أن نمطي الفكري هو ${document.getElementById('result-title').innerText} عبر اختبار البوصلة الفلسفية للموقع الشخصي يزن بدارنة.`,
           url: window.location.href
         });
       } else {
