@@ -531,7 +531,7 @@
       </div>
     </div>
 
-    <!-- Lead Capture Screen (إدخال الاسم ورقم الهاتف) -->
+    <!-- Lead Capture Screen -->
     <div class="lead-box" id="lead-screen">
       <h2 class="lead-title">اكتملت إجاباتك بنجاح!</h2>
       <p class="lead-subtitle">أدخل بياناتك أدناه لتظهر لك نتيجة تحليلك الفكري وشخصيتك المقابلة فوراً:</p>
@@ -589,7 +589,7 @@
   </footer>
 
   <script>
-    // 1. بيانات الأسئلة الـ 20
+    // 1. الأسئلة
     const questions = [
       {
         q: "كيف نصل إلى الحقيقة أو المعرفة اليقينية عن العالم؟",
@@ -712,7 +712,7 @@
         q: "كيف تتصرف تجاه المشاعر والأهوّاء القوية (مثل الغضب أو الخوف)؟",
         options: [
           { text: "أحللها عقلانياً لتفكيك الأسباب المنطقية التي أدت إليها.", profile: "rationalist" },
-          { text: "أدرب نفسي على ضبطها وعدم السماح لها بتوجيه قراراتي.", profile: "stoic" },
+          { text: "أدرب نفسي على ضبطها والعزم على عدم السماح لها بتوجيه قراراتي.", profile: "stoic" },
           { text: "أتقبلها كجزء من التجربة الإنسانية دون كبت وأعبر عنها بأصالة.", profile: "existentialist" },
           { text: "أوجه طاقتها نحو فعل ملموس يغير من الواقع الذي تسبب فيها.", profile: "pragmatist" }
         ]
@@ -889,7 +889,6 @@
       if (currentQuestionIndex < questions.length) {
         showQuestion();
       } else {
-        // حساب النتيجة وتخزين المفتاح مؤقتاً قبل إظهار شاشة تسجيل البيانات
         calculateWinningProfile();
         document.getElementById('progress-box').style.display = 'none';
         document.getElementById('question-screen').style.display = 'none';
@@ -919,27 +918,33 @@
       }
     }
 
-    // دالة إرسال البيانات إلى Google Sheets وعرض النتيجة فوراً
+    // دالة إرسال البيانات مباشرة إلى جدول Google Sheets عبر Sheet.best API
     function submitLeadAndShowResult(event) {
       event.preventDefault();
       participantName = document.getElementById('userName').value.trim();
       const participantPhone = document.getElementById('userPhone').value.trim();
       const pData = profilesData[winningProfileKey];
 
-      // إرسال البيانات خلفياً لجدول Google Sheets (باستخدام Sheet.best أو Google Apps Script)
-      // ملاحظة: يمكنك وضع رابط السكريبت الخاص بك هنا لاحقاً لحفظ البيانات بالجدول تلقائياً
-      const scriptURL = 'ضع_رابط_Google_Apps_Script_هنا_إن_وجد'; 
-      if(scriptURL !== 'ضع_رابط_Google_Apps_Script_هنا_إن_وجد') {
-        const data = {
-          name: participantName,
-          phone: participantPhone,
-          result: pData.title,
-          date: new Date().toLocaleString()
-        };
-        fetch(scriptURL, { method: 'POST', body: JSON.stringify(data) }).catch(e => console.log(e));
-      }
+      // رابط الـ API الخاص بجدولك في Sheet.best
+      const sheetAPI = 'https://api.sheetbest.com/sheets/cbefeb53-406a-4425-8e72-d18f6359cdeb'; 
 
-      // الانتقال لعرض شاشة النتائج
+      const payload = {
+        name: participantName,
+        phone: participantPhone,
+        result: pData.title,
+        date: new Date().toLocaleString()
+      };
+
+      // إرسال البيانات إلى الجدول خلفياً
+      fetch(sheetAPI, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }).catch(error => console.error('Error saving data:', error));
+
+      // الانتقال الفوري لعرض النتيجة للمستخدم
       document.getElementById('lead-screen').style.display = 'none';
       renderResult();
     }
