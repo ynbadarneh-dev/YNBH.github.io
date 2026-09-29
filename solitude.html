@@ -86,7 +86,7 @@
       border: 1px solid var(--border-gold);
       backdrop-filter: blur(16px);
       border-radius: 6px;
-      padding: 50px 40px;
+      padding: 40px 30px;
       box-shadow: var(--shadow-lux);
       position: relative;
       overflow: hidden;
@@ -104,37 +104,37 @@
     /* Intro Screen */
     .intro-screen h1 {
       font-family: var(--font-heading);
-      font-size: 2.6rem;
+      font-size: 2.4rem;
       color: var(--accent-gold);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       font-weight: 700;
     }
 
     .intro-screen p {
       color: var(--text-muted);
-      font-size: 1.15rem;
-      line-height: 2;
-      margin-bottom: 30px;
-      max-width: 650px;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 25px;
+      max-width: 600px;
       margin-left: auto;
       margin-right: auto;
     }
 
     .music-preference {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       color: var(--accent-gold-light);
-      font-size: 1rem;
+      font-size: 0.95rem;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       cursor: pointer;
     }
 
     .music-preference input {
       accent-color: var(--accent-gold);
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       cursor: pointer;
     }
 
@@ -143,8 +143,8 @@
       color: var(--accent-gold);
       border: 1px solid var(--accent-gold);
       font-weight: 600;
-      font-size: 1.1rem;
-      padding: 14px 45px;
+      font-size: 1rem;
+      padding: 12px 35px;
       border-radius: 3px;
       cursor: pointer;
       transition: all 0.4s ease;
@@ -157,13 +157,13 @@
       transform: translateY(-2px);
       background: var(--accent-gold);
       color: var(--bg-color);
-      box-shadow: 0 0 25px rgba(197, 160, 89, 0.5);
+      box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
     }
 
     /* Session Screen */
     .session-screen {
       display: none;
-      min-height: 320px;
+      min-height: 280px;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
@@ -174,21 +174,21 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--accent-gold);
       letter-spacing: 1px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       border-bottom: 1px solid rgba(197, 160, 89, 0.15);
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
 
     .solitude-question {
       font-family: var(--font-heading);
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: var(--text-main);
-      line-height: 1.7;
-      margin-bottom: 20px;
-      min-height: 140px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      min-height: 110px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -200,7 +200,7 @@
       background: rgba(255, 255, 255, 0.1);
       border-radius: 2px;
       overflow: hidden;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     .timer-bar-fill {
@@ -210,11 +210,12 @@
       transition: width 1s linear;
     }
 
+    /* لوحة التحكم بحجم مدمج وأنيق */
     .session-controls {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       width: 100%;
     }
@@ -223,15 +224,15 @@
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--border-gold);
       color: var(--text-main);
-      padding: 10px 18px;
+      padding: 8px 14px;
       border-radius: 4px;
       cursor: pointer;
       font-family: var(--font-body);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .control-btn:hover {
@@ -249,29 +250,30 @@
 
     .lead-title {
       font-family: var(--font-heading);
-      font-size: 2.2rem;
+      font-size: 2rem;
       color: var(--accent-gold);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       text-align: center;
     }
 
     .lead-subtitle {
       color: var(--text-muted);
-      margin-bottom: 30px;
-      font-size: 1.05rem;
+      margin-bottom: 25px;
+      font-size: 1rem;
       text-align: center;
-      line-height: 1.8;
+      line-height: 1.7;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .form-group label {
       display: block;
       color: var(--accent-gold-light);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-weight: 600;
+      font-size: 0.95rem;
     }
 
     .form-input {
@@ -279,9 +281,9 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-gold);
       border-radius: 4px;
-      padding: 14px 18px;
+      padding: 12px 15px;
       color: var(--text-main);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-family: var(--font-body);
       outline: none;
       transition: border-color 0.3s ease;
@@ -300,21 +302,21 @@
 
     .final-title {
       font-family: var(--font-heading);
-      font-size: 2.3rem;
+      font-size: 2.1rem;
       color: var(--accent-gold-light);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .final-desc {
       color: var(--text-muted);
-      font-size: 1.1rem;
-      line-height: 2;
-      margin-bottom: 30px;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 25px;
     }
 
     .action-btns {
       display: flex;
-      gap: 15px;
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -323,12 +325,13 @@
       background: transparent;
       border: 1px solid var(--text-muted);
       color: var(--text-main);
-      padding: 12px 30px;
+      padding: 10px 25px;
       border-radius: 3px;
       cursor: pointer;
       font-family: var(--font-body);
       transition: all 0.3s ease;
       font-weight: 600;
+      font-size: 0.95rem;
       text-decoration: none;
     }
 
@@ -339,8 +342,8 @@
 
     footer {
       text-align: center;
-      margin-top: 30px;
-      font-size: 0.85rem;
+      margin-top: 25px;
+      font-size: 0.8rem;
       color: var(--text-muted);
       letter-spacing: 1px;
     }
@@ -356,9 +359,9 @@
     }
 
     @media (max-width: 600px) {
-      .chamber-container { padding: 30px 20px; }
-      .intro-screen h1 { font-size: 2rem; }
-      .solitude-question { font-size: 1.4rem; }
+      .chamber-container { padding: 25px 15px; }
+      .intro-screen h1 { font-size: 1.8rem; }
+      .solitude-question { font-size: 1.3rem; }
     }
   </style>
 </head>
@@ -379,7 +382,7 @@
       </p>
       
       <label class="music-preference">
-        <input type="checkbox" id="enableMusic" checked> تشغيل النغمات التأملية الهادئة أثناء الخلوة
+        <input type="checkbox" id="enableMusic" checked> تفعيل نغمات التأمل الهادئة أثناء الخلوة
       </label>
 
       <div style="margin-top: 15px;">
@@ -401,6 +404,7 @@
           <div class="timer-bar-fill" id="timerBarFill"></div>
         </div>
 
+        <!-- أزرار تحكم مدمجة وصغيرة الحجم -->
         <div class="session-controls">
           <button class="control-btn" id="pausePlayBtn" onclick="togglePausePlay()">
             <i class="fas fa-pause"></i> إيقاف مؤقت
@@ -433,7 +437,7 @@
           <input type="tel" id="userPhone" class="form-input" placeholder="07xxxxxxxx" required>
         </div>
 
-        <div style="margin-top: 30px; text-align: center;">
+        <div style="margin-top: 25px; text-align: center;">
           <button type="submit" class="btn-gold">حفظ الخلوة والانتقال للخاتمة</button>
         </div>
       </form>
@@ -484,7 +488,7 @@
     let participantName = "";
     let isMusicPlaying = false;
 
-    // محرك توليد نغمات التأمل عبر المتصفح (Web Audio API)
+    // محرك صوتي داخلي مباشر عبر المتصفح (يعمل 100% بدون أي روابط خارجية معطلة)
     let audioCtx = null;
     let ambientInterval = null;
 
@@ -497,36 +501,35 @@
       }
     }
 
-    function playAmbientChord() {
+    function playAmbientTone() {
       if (!isMusicPlaying || !audioCtx) return;
       
-      // نغمات بيانو/تأمل هادئة ومتناسقة (ترددات هادئة)
-      const frequencies = [220, 277.18, 329.63, 392.00, 440]; // نغمات A major هادئة
-      const freq = frequencies[Math.floor(Math.random() * frequencies.length)];
+      const chords = [261.63, 329.63, 392.00, 523.25]; // نغمات بيانو تأملية هادئة (C Major)
+      const freq = chords[Math.floor(Math.random() * chords.length)];
 
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
 
-      osc.type = 'sine'; // موجة ناعمة وهادئة جداً
+      osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
       gain.gain.setValueAtTime(0, audioCtx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 1.5); // رفع الصوت بنعومة
-      gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 5.5);    // خفض الصوت ببطء
+      gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 1); // صوت ناعم جداً ومريح
+      gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 4.5);
 
       osc.connect(gain);
       gain.connect(audioCtx.destination);
 
       osc.start();
-      osc.stop(audioCtx.currentTime + 6);
+      osc.stop(audioCtx.currentTime + 5);
     }
 
     function startAmbientMusic() {
       initAudio();
       isMusicPlaying = true;
       if (ambientInterval) clearInterval(ambientInterval);
-      playAmbientChord();
-      ambientInterval = setInterval(playAmbientChord, 4000); // توليد نغمة كل 4 ثوانٍ
+      playAmbientTone();
+      ambientInterval = setInterval(playAmbientTone, 3500); // توليد نغمة تأملية كل 3.5 ثوانٍ
     }
 
     function stopAmbientMusic() {
