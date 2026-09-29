@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محطة العزلة الذهنية | يزن هشام بدارنة</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+        --bg-color: #030406;
+        --card-bg: rgba(10, 14, 19, 0.94);
+        --accent-gold: #c5a059;
+        --accent-gold-light: #dfc17f;
+        --text-main: #f4f0ea;
+        --text-muted: #abb4be;
+        --border-gold: rgba(197, 160, 89, 0.45);
+        --shadow-lux: 0 15px 35px rgba(0, 0, 0, 0.9);
+        --font-heading: 'Amiri', serif;
+        --font-body: 'Cairo', 'Amiri', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+        font-family: var(--font-body);
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        line-height: 1.9;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* خلفية الرخام الأسود والذهبي المتطابقة مع الموقع */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: 
+            linear-gradient(to bottom, rgba(3, 4, 6, 0.8), rgba(3, 4, 6, 0.95)),
+            url('marble-bg.jpg') no-repeat center center fixed;
+        background-size: cover;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .brand-logo {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--accent-gold);
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      display: inline-block;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .brand-tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Main Container */
+    .chamber-container {
+      width: 100%;
+      max-width: 780px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-gold);
+      backdrop-filter: blur(16px);
+      border-radius: 6px;
+      padding: 50px 40px;
+      box-shadow: var(--shadow-lux);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .chamber-container::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; width: 4px; height: 100%;
+        background: var(--accent-gold);
+        opacity: 0.8;
+    }
+
+    /* Intro Screen */
+    .intro-screen h1 {
+      font-family: var(--font-heading);
+      font-size: 2.6rem;
+      color: var(--accent-gold);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .intro-screen p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      line-height: 2;
+      margin-bottom: 35px;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-gold {
+      background: transparent;
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold);
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 14px 45px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      font-family: var(--font-body);
+      letter-spacing: 1.5px;
+      display: inline-block;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      background: var(--accent-gold);
+      color: var(--bg-color);
+      box-shadow: 0 0 25px rgba(197, 160, 89, 0.5);
+    }
+
+    /* Solitude Session Screen (شاشة التأمل) */
+    .session-screen {
+      display: none;
+      min-height: 280px;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .solitude-question {
+      font-family: var(--font-heading);
+      font-size: 1.9rem;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 30px;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timer-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .timer-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-gold);
+      transition: width 1s linear;
+    }
+
+    .session-counter {
+      font-size: 0.9rem;
+      color: var(--accent-gold);
+      margin-top: 15px;
+      letter-spacing: 1px;
+    }
+
+    /* Lead Form Screen (شاشة تسجيل الحضور والتاريخ) */
+    .lead-screen {
+      display: none;
+      text-align: right;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .lead-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      color: var(--accent-gold);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .lead-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      font-size: 1.05rem;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--accent-gold-light);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      padding: 14px 18px;
+      color: var(--text-main);
+      font-size: 1rem;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
+    }
+
+    /* Final Screen (الخاتمة) */
+    .final-screen {
+      display: none;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .final-title {
+      font-family: var(--font-heading);
+      font-size: 2.3rem;
+      color: var(--accent-gold-light);
+      margin-bottom: 15px;
+    }
+
+    .final-desc {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 2;
+      margin-bottom: 30px;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--text-muted);
+      color: var(--text-main);
+      padding: 12px 30px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.3s ease;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    footer a {
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .chamber-container { padding: 30px 20px; }
+      .intro-screen h1 { font-size: 2rem; }
+      .solitude-question { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="brand-logo">يزن هشام بدارنة</a>
+    <div class="brand-tagline">الفكر هو الأساس</div>
+  </header>
+
+  <main class="chamber-container">
+    
+    <!-- 1. شاشة الترحيب والتنويه -->
+    <div class="intro-screen" id="introScreen">
+      <h1>محطة العزلة الذهنية</h1>
+      <p>
+        "في عالم يعج بالضوضاء والمشتتات، قلّ أن يختلي الإنسان بنقائه الفكري الحقيقي. أنت الآن على وشك دخول محطة عزلة رقمية لمدة 120 ثانية.. لن يُطلب منك إجابة أو خيار، بل الإنصات لأسئلة لا يسألك إياها أحد في الواقع."
+      </p>
+      <button class="btn-gold" onclick="startSolitude()">ابدأ رحلة الخلوة (120 ثانية)</button>
+    </div>
+
+    <!-- 2. شاشة التأمل والتجربة الشعورية -->
+    <div class="session-screen" id="sessionScreen" style="display: none;">
+      <div class="solitude-question" id="solitudeQuestion">جاري تهيئة العزلة...</div>
+      <div class="session-counter" id="sessionCounter">متبقي: 120 ثانية</div>
+      <div class="timer-bar-container">
+        <div class="timer-bar-fill" id="timerBarFill"></div>
+      </div>
+    </div>
+
+    <!-- 3. شاشة إدخال البيانات لحفظ الأثر (ربط مع Google Sheets) -->
+    <div class="lead-screen" id="leadScreen" style="display: none;">
+      <h2 class="lead-title">اكتملت خلوتك الذهنية</h2>
+      <p class="lead-subtitle">
+        لقد عبرت المحطة بوعي تام. لكي تبقى هذه اللحظات مدونة، ولكي تنضم إلى سجل المهتمين بالفكر والوعي، سجّل بياناتك أدناه:
+      </p>
+
+      <form id="solitudeForm" onsubmit="submitSolitudeLead(event)">
+        <div class="form-group">
+          <label for="userName">الاسم الكريم:</label>
+          <input type="text" id="userName" class="form-input" placeholder="أدخل اسمك الكامل..." required>
+        </div>
+        
+        <div class="form-group">
+          <label for="userPhone">رقم الهاتف:</label>
+          <input type="tel" id="userPhone" class="form-input" placeholder="07xxxxxxxx" required>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+          <button type="submit" class="btn-gold">حفظ الخلوة والانتقال للخاتمة</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 4. الشاشة الختامية -->
+    <div class="final-screen" id="finalScreen">
+      <h2 class="final-title" id="finalGreeting">أهلاً بك في سجل أهل الفكر</h2>
+      <p class="final-desc">
+        "الأسئلة التي عشتها اليوم هي مرآة لعمق وعيك. شكراً لأنك خصصت هذا الوقت لنفسك بعيداً عن صخب العالم."
+      </p>
+      <div class="action-btns">
+        <a href="index.html" class="btn-gold">العودة للموقع الرئيسي</a>
+        <a href="solitude.html" class="btn-secondary">إعادة التجربة</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    حقوق الطبع محفوظة © 2026 | <a href="index.html">يزن هشام بدارنة</a>
+  </footer>
+
+  <script>
+    // الأسئلة الوجودية العميقة التي ستظهر تباعاً خلال الـ 120 ثانية
+    const solitudeSteps = [
+      { text: "في عالم يعج بالآراء الجاهزة.. ما هو المبدأ الوحيد الذي لا يمكنك المساومة عليه أبداً؟", duration: 30 },
+      { text: "كم من أهدافك الحالية هي رغبتك الشخصية حقاً، وليست إرضاءً لصوت مجتمع يراقبك؟", duration: 30 },
+      { text: "لو عاد بك الزمن خمس سنوات.. ما القرار الذي كنت ستتخذ بشجاعة أكبر وتتجنب تردده؟", duration: 30 },
+      { text: "الخوف الأكبر الذي تحمله في ظلك.. هل واجهته يوماً أم أنك تكتفي بالهرب منه؟", duration: 30 }
+    ];
+
+    let currentStep = 0;
+    let totalTimeLeft = 120;
+    let timerInterval = null;
+    let participantName = "";
+
+    function startSolitude() {
+      document.getElementById('introScreen').style.display = 'none';
+      document.getElementById('sessionScreen').style.display = 'flex';
+      
+      runStep();
+      
+      // العد التنازلي الكلي
+      timerInterval = setInterval(() => {
+        totalTimeLeft--;
+        document.getElementById('sessionCounter').innerText = `متبقي: ${totalTimeLeft} ثانية`;
+        
+        let progressPercent = ((120 - totalTimeLeft) / 120) * 100;
+        document.getElementById('timerBarFill').style.width = `${progressPercent}%`;
+
+        if (totalTimeLeft <= 0) {
+          clearInterval(timerInterval);
+          endSolitudeSession();
+        }
+      }, 1000);
+    }
+
+    function runStep() {
+      if (currentStep < solitudeSteps.length) {
+        document.getElementById('solitudeQuestion').innerText = solitudeSteps[currentStep].text;
+        currentStep++;
+        
+        if (currentStep < solitudeSteps.length) {
+          setTimeout(runStep, 30000); // الانتقال للسؤال التالي كل 30 ثانية
+        }
+      }
+    }
+
+    function endSolitudeSession() {
+      document.getElementById('sessionScreen').style.display = 'none';
+      document.getElementById('leadScreen').style.display = 'block';
+    }
+
+    function submitSolitudeLead(event) {
+      event.preventDefault();
+      participantName = document.getElementById('userName').value.trim();
+      const participantPhone = document.getElementById('userPhone').value.trim();
+
+      // رابط الـ API الخاص بجدول Google Sheets لديك
+      const sheetAPI = 'https://api.sheetbest.com/sheets/cbefeb53-406a-4425-8e72-d18f6359cdeb'; 
+
+      const payload = {
+        name: participantName,
+        phone: participantPhone,
+        result: "محطة العزلة الذهنية (120 ثانية)",
+        date: new Date().toLocaleString()
+      };
+
+      // إرسال البيانات خلفياً لجدول Google Sheets
+      fetch(sheetAPI, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }).catch(error => console.error('Error saving data:', error));
+
+      // الانتقال للشاشة الختامية
+      document.getElementById('leadScreen').style.display = 'none';
+      document.getElementById('finalScreen').style.display = 'block';
+      document.getElementById('finalGreeting').innerText = `أهلاً بك يا ${participantName} في سجل أهل الفكر`;
+    }
+  </script>
+</body>
+</html>
