@@ -367,6 +367,11 @@
 </head>
 <body>
 
+  <!-- عنصر الصوت الحقيقي المرتبط برابط استماع مباشر وثابت -->
+  <audio id="ambientMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=zen-garden-11000.mp3" type="audio/mpeg">
+  </audio>
+
   <header>
     <a href="index.html" class="brand-logo">يزن هشام بدارنة</a>
     <div class="brand-tagline">الفكر هو الأساس</div>
@@ -382,7 +387,7 @@
       </p>
       
       <label class="music-preference">
-        <input type="checkbox" id="enableMusic" checked> تفعيل نغمات التأمل الهادئة أثناء الخلوة
+        <input type="checkbox" id="enableMusic" checked> تشغيل نغمات التأمل الهادئة أثناء الخلوة
       </label>
 
       <div style="margin-top: 15px;">
@@ -404,7 +409,7 @@
           <div class="timer-bar-fill" id="timerBarFill"></div>
         </div>
 
-        <!-- أزرار تحكم مدمجة وصغيرة الحجم -->
+        <!-- أزرار تحكم مدمجة وأنيقة وبحجم صغير -->
         <div class="session-controls">
           <button class="control-btn" id="pausePlayBtn" onclick="togglePausePlay()">
             <i class="fas fa-pause"></i> إيقاف مؤقت
@@ -486,59 +491,6 @@
     let questionTimer = null;
     let isPaused = false;
     let participantName = "";
-    let isMusicPlaying = false;
-
-    // محرك صوتي داخلي مباشر عبر المتصفح (يعمل 100% بدون أي روابط خارجية معطلة)
-    let audioCtx = null;
-    let ambientInterval = null;
-
-    function initAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-    }
-
-    function playAmbientTone() {
-      if (!isMusicPlaying || !audioCtx) return;
-      
-      const chords = [261.63, 329.63, 392.00, 523.25]; // نغمات بيانو تأملية هادئة (C Major)
-      const freq = chords[Math.floor(Math.random() * chords.length)];
-
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-      gain.gain.setValueAtTime(0, audioCtx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 1); // صوت ناعم جداً ومريح
-      gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 4.5);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      osc.start();
-      osc.stop(audioCtx.currentTime + 5);
-    }
-
-    function startAmbientMusic() {
-      initAudio();
-      isMusicPlaying = true;
-      if (ambientInterval) clearInterval(ambientInterval);
-      playAmbientTone();
-      ambientInterval = setInterval(playAmbientTone, 3500); // توليد نغمة تأملية كل 3.5 ثوانٍ
-    }
-
-    function stopAmbientMusic() {
-      isMusicPlaying = false;
-      if (ambientInterval) {
-        clearInterval(ambientInterval);
-        ambientInterval = null;
-      }
-    }
 
     function getRandomQuestions() {
       let shuffled = [...questionBank].sort(() => 0.5 - Math.random());
@@ -546,13 +498,17 @@
     }
 
     function startSolitude() {
+      const audio = document.getElementById('ambientMusic');
       const musicEnabled = document.getElementById('enableMusic').checked;
       
       if (musicEnabled) {
-        startAmbientMusic();
-        document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-up"></i> إيقاف النغمات';
+        audio.play().then(() => {
+          document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-up"></i> إيقاف النغمات';
+        }).catch(e => {
+          console.log("Audio play blocked by browser:", e);
+        });
       } else {
-        stopAmbientMusic();
+        audio.pause();
         document.getElementById('musicControlBtn').innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل النغمات';
       }
 
@@ -564,15 +520,18 @@
       runQuestionSession();
     }
 
+    // زر إيقاف وتشغيل الموسيقى أثناء الخلوة بشكل مرن ومدمج
     function toggleMusicDuringSession() {
+      const audio = document.getElementById('ambientMusic');
       const btn = document.getElementById('musicControlBtn');
 
-      if (isMusicPlaying) {
-        stopAmbientMusic();
-        btn.innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل النغمات';
+      if (audio.paused) {
+        audio.play().then(() => {
+          btn.innerHTML = '<i class="fas fa-volume-up"></i> إيقاف النغمات';
+        }).catch(e => console.log(e));
       } else {
-        startAmbientMusic();
-        btn.innerHTML = '<i class="fas fa-volume-up"></i> إيقاف النغمات';
+        audio.pause();
+        btn.innerHTML = '<i class="fas fa-volume-mute"></i> تشغيل النغمات';
       }
     }
 
@@ -627,7 +586,9 @@
 
     function endSolitudeSession() {
       if (questionTimer) clearInterval(questionTimer);
-      stopAmbientMusic();
+      
+      const audio = document.getElementById('ambientMusic');
+      audio.pause();
 
       document.getElementById('sessionScreen').style.display = 'none';
       document.getElementById('leadScreen').style.display = 'block';
