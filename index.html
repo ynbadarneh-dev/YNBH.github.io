@@ -648,7 +648,7 @@
             <h2 data-ar="أحدث الأخبار والمستجدات" data-en="Latest News & Updates">أحدث الأخبار والمستجدات</h2>
             <div class="news-slider-container">
                 <div class="news-slider" id="newsSlider">
-                    <!-- جلب الأخبار تلقائياً -->
+                    <!-- جلب الأخبار تلقائياً من Google Sheets -->
                 </div>
             </div>
         </section>
@@ -730,9 +730,10 @@
         <p data-ar="جميع الحقوق محفوظة © 2026 | يزن هشام بدارنة" data-en="All Rights Reserved © 2026 | Yazan Hisham Badarneh">جميع الحقوق محفوظة © 2026 | يزن هشام بدارنة</p>
     </footer>
 
-    <!-- JavaScript التبديل الفوري للغة -->
+    <!-- JavaScript التبديل الفوري للغة وجلب الأخبار الديناميكية -->
     <script>
         let currentLang = 'ar';
+        let globalNewsData = [];
 
         function toggleLanguage() {
             const htmlRoot = document.getElementById('html-root');
@@ -762,46 +763,54 @@
                     }
                 });
             }
+
+            // إعادة عرض الأخبار باللغة الجديدة فوراً
+            renderNews();
         }
-    </script>
 
-    <!-- JavaScript جلب الأخبار من Google Sheets -->
-    <script>
         async function fetchGoogleSheetNews() {
-            const slider = document.getElementById('newsSlider');
-            if (!slider) return;
-
             const sheetID = '1t78_RhUXX0EiGYu48P4SkbIdVBLV4T0ZNakrRZSfGmU';
             const url = `https://opensheet.elk.sh/${sheetID}/1`; 
 
             try {
                 const response = await fetch(url);
-                const rows = await response.json();
-
-                if (rows && rows.length > 0) {
-                    slider.innerHTML = ''; 
-
-                    rows.forEach(row => {
-                        let imgUrl = row.image || row.img || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop';
-                        
-                        const newsCard = `
-                            <a href="${row.link || '#'}" target="_blank" class="news-card">
-                                <div class="news-img-wrapper" style="--bg-img: url('${imgUrl}');">
-                                    <img src="${imgUrl}" alt="خبر" class="news-img" onerror="this.parentElement.style.setProperty('--bg-img', 'url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop)'); this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop'">
-                                </div>
-                                <div class="news-content">
-                                    <span class="news-date">${row.date || ''}</span>
-                                    <h3>${row.title || ''}</h3>
-                                    <p>${row.summary || ''}</p>
-                                    <span class="read-more">اقرأ الخبر كاملاً ←</span>
-                                </div>
-                            </a>
-                        `;
-                        slider.innerHTML += newsCard;
-                    });
-                }
+                globalNewsData = await response.json();
+                renderNews();
             } catch (error) {
                 console.error('تعذر جلب الأخبار من جدول البيانات:', error);
+            }
+        }
+
+        function renderNews() {
+            const slider = document.getElementById('newsSlider');
+            if (!slider) return;
+
+            if (globalNewsData && globalNewsData.length > 0) {
+                slider.innerHTML = ''; 
+
+                globalNewsData.forEach(row => {
+                    let imgUrl = row.image || row.img || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop';
+                    
+                    // اختيار العنوان والملخص حسب اللغة الحالية (العربية أو الإنجليزية)
+                    let title = (currentLang === 'en' && row.title_en) ? row.title_en : (row.title || '');
+                    let summary = (currentLang === 'en' && row.summary_en) ? row.summary_en : (row.summary || '');
+                    let readMoreText = currentLang === 'en' ? 'Read full news &rarr;' : 'اقرأ الخبر كاملاً ←';
+
+                    const newsCard = `
+                        <a href="${row.link || '#'}" target="_blank" class="news-card">
+                            <div class="news-img-wrapper" style="--bg-img: url('${imgUrl}');">
+                                <img src="${imgUrl}" alt="خبر" class="news-img" onerror="this.parentElement.style.setProperty('--bg-img', 'url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop)'); this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop'">
+                            </div>
+                            <div class="news-content">
+                                <span class="news-date">${row.date || ''}</span>
+                                <h3>${title}</h3>
+                                <p>${summary}</p>
+                                <span class="read-more">${readMoreText}</span>
+                            </div>
+                        </a>
+                    `;
+                    slider.innerHTML += newsCard;
+                });
             }
         }
 
