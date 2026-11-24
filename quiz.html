@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>البوصلة الفلسفية | يزن هشام بدارنة</title>
   <!-- Google Fonts -->
@@ -539,9 +538,9 @@
       <p class="lead-subtitle">أدخل بياناتك أدناه لتظهر لك نتيجة تحليلك الفكري وشخصيتك المقابلة فوراً:</p>
       
       <form id="leadForm" onsubmit="submitLeadAndShowResult(event)">
-        <!-- حقل مصيدة البوتات الخفي لمنع الرسائل العشوائية والاسبام -->
-        <div style="display:none !important;" aria-hidden="true">
-          <input type="text" name="company_check_trap" id="quizHoneypot" tabindex="-1" autocomplete="off">
+        <!-- حقل مصيدة البوتات الخفي المطور لمنع الملء التلقائي (Anti-Spam Honeypot) -->
+        <div style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none;" aria-hidden="true">
+          <input type="text" name="b_anti_bot_check_trap" id="quizHoneypot" tabindex="-1" autocomplete="off" value="">
         </div>
 
         <div class="form-group">
@@ -947,9 +946,11 @@
         return;
       }
 
-      const phoneRegex = /^[\d\+\-\s\(\)]{7,20}$/;
-      if (!phoneRegex.test(participantPhone)) {
-        alert('يرجى إدخال رقم هاتف صحيح.');
+      // تنظيف رقم الهاتف والتأكد من الصيغ المحلية (079...) والدولية (+962... أو 00962...)
+      const cleanPhone = participantPhone.replace(/[\s\-\(\)\.]/g, '');
+      const phoneRegex = /^(\+|00)?[0-9]{7,15}$/;
+      if (!phoneRegex.test(cleanPhone)) {
+        alert('يرجى إدخال رقم هاتف صحيح (مثال: 079xxxxxxx أو +96279xxxxxxx).');
         return;
       }
 
