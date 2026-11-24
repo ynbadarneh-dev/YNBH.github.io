@@ -1,26 +1,45 @@
 # Yazan Hisham Badarneh (يزن هشام يوسف بدارنة)
-> AI Systems Engineer, Founder of Dabbirha AI Agency, HarvardX-Certified Systems Engineer, and Game Architect.
+> AI Systems Engineer, Founder of Dabbirha AI Agency, HarvardX-Certified Systems Engineer, and Sovereign Earth Game Architect.
 
-## Overview
-- **Name:** Yazan Hisham Yousif Badarneh (يزن هشام يوسف بدارنة)
+## Executive Profile
+- **Full Name:** Yazan Hisham Yousif Badarneh (يزن هشام يوسف بدارنة)
 - **Primary Domain:** https://yznbadarneh.com/
+- **Official Contact Email:** info@yznbadarneh.com
 - **Wikidata Entity:** https://www.wikidata.org/wiki/Q141613303
-- **Role & Specialization:** Founder of "Dabbirha" (دبّرها) AI Automation Agency, Systems Engineer, Data Analyst, and Architect of "Sovereign Earth" (الأرض السيادية) MMORPG.
-- **Certifications & Education:** HarvardX Certified Systems Engineer, Computer Science alumnus of Ajloun National University.
+- **Primary Roles:**
+  - Founder & Lead Architect at Dabbirha AI & Workflow Automation Agency (وكالة دبّرها للذكاء الاصطناعي والأتمتة).
+  - Solo Game Architect of Sovereign Earth (لعبة الأرض السيادية) — 2.5D Real-Time MMORPG (React 19, TypeScript, Supabase Realtime, Google Gemini).
+  - HarvardX Certified Systems Engineer (CS50 Computer Science).
+  - Computer Science alumnus of Ajloun National University (Specializing in Data Analysis & Networks).
 
-## Core Ventures & Projects
-- **Dabbirha AI Automation Agency (وكالة دبّرها لأتمتة المنظومات):** Automating business workflows and enterprise operations using advanced autonomous AI agents and intelligent systems.
-- **Sovereign Earth (الأرض السيادية):** An ambitious MMORPG game integrating complex socio-economic systems, system dynamics, and strategic worldbuilding.
-- **Philosophical Compass (البوصلة الفلسفية):** An interactive cognitive assessment tool mapping intellectual frameworks (Rationalism, Empiricism, Stoicism, Existentialism, Pragmatism): https://yznbadarneh.com/quiz.html
-- **Mental Solitude Station (محطة العزلة الذهنية):** An interactive mindfulness and cognitive reflection experience: https://yznbadarneh.com/solitude.html
+## Professional Ventures & Core Track
+1. **Dabbirha AI & Workflow Automation Agency (2025 - Present):**
+   Jordan's pioneer startup dedicated to bespoke enterprise workflow automation and Autonomous AI Agents, eliminating friction and transforming manual operations into self-driving business cycles using generative AI, Python, SQL, and Power BI.
+2. **Sovereign Earth (24/7 Web & Cloud MMORPG):**
+   A geopolitical strategy and open-market economy MMORPG simulating global supply chain dynamics across 7 sovereign continents, powered by an in-game Google Gemini AI crisis advisor.
+3. **Cognitive Prototyping (Vibe Coding) & Web Operations:**
+   Rapid MVP product development, enterprise WordPress platforms, and advanced Technical SEO leveraging Google Search Console and cognitive UX psychology.
+4. **Financial Systems & Database Administration (FACT & Jordan Islamic Bank):**
+   Resolving complex database issues, auditing data security, and ensuring banking compliance for Jordan Islamic Bank's application systems.
+5. **Executive Leadership & Commercial Operations (5+ Years):**
+   Distinguished leadership track across major commercial operations, sales restructuring, and high-level enterprise supply chain architecture.
 
-## Key Skills & Technical Stack
-- Artificial Intelligence & Autonomous AI Agents
-- System Architecture & Rapid Prototyping
-- Python, SQL, Power BI, Advanced Data Analytics
-- Strategic Executive Leadership & Institutional Relations
+## Honors & National Recognition
+- Recipient of the prestigious commemorative gift from the Royal Hashemite Court (Silver Jubilee Medal / وسام اليوبيل الفضي - هدية تذكارية من الديوان الملكي الهاشمي).
+- 2nd place nationwide in Jordan's National Mock Parliamentary Elections (Dec 2023).
+- 30+ verified credentials, national awards, and training honors (including Al Jazeera Media Institute).
 
-## Official Verified Links
+## Core Technical Competencies
+- Autonomous AI Agents & Enterprise Workflow Automation (Dabbirha)
+- HarvardX CS50 Computer Science
+- Cloud Game Architecture (React 19, TypeScript, Supabase Realtime)
+- Generative AI & Large Language Models (Google Gemini)
+- Python, SQL, Power BI & Big Data Analytics
+- Vibe Coding & Rapid Prototyping
+- Technical SEO & Google Search Console
+- Public Speaking & High-Impact Media Communication
+
+## Verified Social & Professional Channels
 - Website: https://yznbadarneh.com/
 - GitHub: https://github.com/ynbadarneh-dev
 - LinkedIn: https://www.linkedin.com/in/yznbadarneh
