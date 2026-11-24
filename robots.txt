@@ -1,0 +1,8 @@
+# robots.txt for yznbadarneh.com
+User-agent: *
+Allow: /
+
+# Prevent indexing temporary or private files
+Disallow: /*.pdf$
+
+Sitemap: https://yznbadarneh.com/sitemap.xml

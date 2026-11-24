@@ -10,6 +10,8 @@
     <meta name="keywords" content="يزن بدارنة, يزن هشام بدارنة, Yazan Badarneh, Yazan Hisham Badarneh, yznbadarneh, بدارنة, ذكاء اصطناعي, تحليل بيانات, مزادو, ذوي فكر, الأردن">
     <meta name="author" content="Yazan Badarneh - يزن هشام بدارنة">
     <meta name="robots" content="index, follow">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="canonical" href="https://yznbadarneh.com/">
 
     <!-- ربط محركات البحث باللغات المختلفة (Hreflang for International SEO) -->
@@ -715,10 +717,10 @@
                 <a href="mailto:YZNBADARNEH@GMAIL.COM" class="btn" data-ar="راسلني عبر البريد الإلكتروني" data-en="Email Me Directly">راسلني عبر البريد الإلكتروني</a>
                 <div class="social-links">
                     <a href="mailto:YZNBADARNEH@GMAIL.COM" title="البريد الإلكتروني"><i class="fas fa-envelope"></i></a>
-                    <a href="https://www.instagram.com/7glvy" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://github.com/ynbadarneh-dev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/yznbadarneh" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.wikidata.org/wiki/Q141613303" target="_blank" title="Wikidata Knowledge Graph"><i class="fas fa-globe"></i></a>
+                    <a href="https://www.instagram.com/7glvy" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://github.com/ynbadarneh-dev" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/yznbadarneh" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.wikidata.org/wiki/Q141613303" target="_blank" rel="noopener noreferrer" title="Wikidata Knowledge Graph"><i class="fas fa-globe"></i></a>
                 </div>
             </div>
         </section>
@@ -768,6 +770,24 @@
             renderNews();
         }
 
+        // دالة تعقيم النصوص ضد هجمات XSS
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // دالة فحص وتأمين الروابط
+        function safeUrl(url) {
+            if (!url) return '#';
+            const trimmed = String(url).trim();
+            return /^(https?:|\/|#)/i.test(trimmed) ? trimmed : '#';
+        }
+
         async function fetchGoogleSheetNews() {
             const sheetID = '1t78_RhUXX0EiGYu48P4SkbIdVBLV4T0ZNakrRZSfGmU';
             const url = `https://opensheet.elk.sh/${sheetID}/1`; 
@@ -785,24 +805,29 @@
             const slider = document.getElementById('newsSlider');
             if (!slider) return;
 
-            if (globalNewsData && globalNewsData.length > 0) {
+            if (globalNewsData && Array.isArray(globalNewsData) && globalNewsData.length > 0) {
                 slider.innerHTML = ''; 
 
                 globalNewsData.forEach(row => {
-                    let imgUrl = row.image || row.img || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop';
+                    let rawImg = row.image || row.img || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop';
+                    let imgUrl = safeUrl(rawImg);
+                    let linkUrl = safeUrl(row.link);
                     
-                    // اختيار العنوان والملخص حسب اللغة الحالية (العربية أو الإنجليزية)
-                    let title = (currentLang === 'en' && row.title_en) ? row.title_en : (row.title || '');
-                    let summary = (currentLang === 'en' && row.summary_en) ? row.summary_en : (row.summary || '');
+                    // اختيار العنوان والملخص مع التعقيم
+                    let rawTitle = (currentLang === 'en' && row.title_en) ? row.title_en : (row.title || '');
+                    let rawSummary = (currentLang === 'en' && row.summary_en) ? row.summary_en : (row.summary || '');
+                    let title = escapeHTML(rawTitle);
+                    let summary = escapeHTML(rawSummary);
+                    let date = escapeHTML(row.date || '');
                     let readMoreText = currentLang === 'en' ? 'Read full news &rarr;' : 'اقرأ الخبر كاملاً ←';
 
                     const newsCard = `
-                        <a href="${row.link || '#'}" target="_blank" class="news-card">
+                        <a href="${linkUrl}" target="_blank" rel="noopener noreferrer" class="news-card">
                             <div class="news-img-wrapper" style="--bg-img: url('${imgUrl}');">
-                                <img src="${imgUrl}" alt="خبر" class="news-img" onerror="this.parentElement.style.setProperty('--bg-img', 'url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop)'); this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop'">
+                                <img src="${imgUrl}" alt="${title || 'خبر'}" class="news-img" loading="lazy" onerror="this.parentElement.style.setProperty('--bg-img', 'url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop)'); this.src='https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop'">
                             </div>
                             <div class="news-content">
-                                <span class="news-date">${row.date || ''}</span>
+                                <span class="news-date">${date}</span>
                                 <h3>${title}</h3>
                                 <p>${summary}</p>
                                 <span class="read-more">${readMoreText}</span>

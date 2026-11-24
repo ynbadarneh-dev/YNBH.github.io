@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>البوصلة الفلسفية | يزن هشام بدارنة</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -537,14 +539,19 @@
       <p class="lead-subtitle">أدخل بياناتك أدناه لتظهر لك نتيجة تحليلك الفكري وشخصيتك المقابلة فوراً:</p>
       
       <form id="leadForm" onsubmit="submitLeadAndShowResult(event)">
+        <!-- حقل مصيدة البوتات الخفي لمنع الرسائل العشوائية والاسبام -->
+        <div style="display:none !important;" aria-hidden="true">
+          <input type="text" name="company_check_trap" id="quizHoneypot" tabindex="-1" autocomplete="off">
+        </div>
+
         <div class="form-group">
           <label for="userName">الاسم الكريم:</label>
-          <input type="text" id="userName" class="form-input" placeholder="أدخل اسمك الكامل..." required>
+          <input type="text" id="userName" class="form-input" placeholder="أدخل اسمك الكامل..." required maxlength="60">
         </div>
         
         <div class="form-group">
           <label for="userPhone">رقم الهاتف:</label>
-          <input type="tel" id="userPhone" class="form-input" placeholder="07xxxxxxxx" required>
+          <input type="tel" id="userPhone" class="form-input" placeholder="07xxxxxxxx" required maxlength="25">
         </div>
 
         <div style="margin-top: 30px;">
@@ -918,31 +925,64 @@
       }
     }
 
-    // دالة إرسال البيانات مباشرة إلى جدول Google Sheets عبر Sheet.best API
+    // دالة إرسال البيانات إلى جدول Google Sheets مع التحقق الأمني الكامل
     function submitLeadAndShowResult(event) {
       event.preventDefault();
+
+      // 1. فحص مصيدة البوتات (Honeypot Check)
+      const botTrap = document.getElementById('quizHoneypot');
+      if (botTrap && botTrap.value.trim() !== '') {
+        console.warn('Bot detected and blocked.');
+        document.getElementById('lead-screen').style.display = 'none';
+        renderResult();
+        return;
+      }
+
       participantName = document.getElementById('userName').value.trim();
       const participantPhone = document.getElementById('userPhone').value.trim();
+
+      // 2. التحقق من صحة المدخلات (Input Validation)
+      if (participantName.length < 2 || participantName.length > 60) {
+        alert('يرجى إدخال اسم لائق يتراوح بين حرفين و 60 حرفاً.');
+        return;
+      }
+
+      const phoneRegex = /^[\d\+\-\s\(\)]{7,20}$/;
+      if (!phoneRegex.test(participantPhone)) {
+        alert('يرجى إدخال رقم هاتف صحيح.');
+        return;
+      }
+
       const pData = profilesData[winningProfileKey];
 
-      // رابط الـ API الخاص بجدولك في Sheet.best
-      const sheetAPI = 'https://api.sheetbest.com/sheets/cbefeb53-406a-4425-8e72-d18f6359cdeb'; 
+      // 3. منع الإغراق المتكرر (Rate Limiting via localStorage)
+      const lastSubmitKey = 'yz_quiz_last_submit';
+      const lastSubmitTime = localStorage.getItem(lastSubmitKey);
+      const currentTime = Date.now();
+      const isRateLimited = lastSubmitTime && (currentTime - parseInt(lastSubmitTime, 10) < 30000);
 
-      const payload = {
-        name: participantName,
-        phone: participantPhone,
-        result: pData.title,
-        date: new Date().toLocaleString()
-      };
+      if (!isRateLimited) {
+        localStorage.setItem(lastSubmitKey, currentTime.toString());
 
-      // إرسال البيانات إلى الجدول خلفياً
-      fetch(sheetAPI, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      }).catch(error => console.error('Error saving data:', error));
+        // رابط الـ API الخاص بجدولك في Sheet.best
+        const sheetAPI = 'https://api.sheetbest.com/sheets/cbefeb53-406a-4425-8e72-d18f6359cdeb'; 
+
+        const payload = {
+          name: participantName.substring(0, 60),
+          phone: participantPhone.substring(0, 25),
+          result: pData.title,
+          date: new Date().toLocaleString()
+        };
+
+        // إرسال البيانات إلى الجدول خلفياً
+        fetch(sheetAPI, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        }).catch(error => console.error('Error saving data:', error));
+      }
 
       // الانتقال الفوري لعرض النتيجة للمستخدم
       document.getElementById('lead-screen').style.display = 'none';
