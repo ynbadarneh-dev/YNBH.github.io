@@ -13,21 +13,21 @@
   - Computer Science alumnus of Ajloun National University (Specializing in Data Analysis & Networks).
 
 ## Professional Ventures & Core Track
-1. **Dabbirha AI & Workflow Automation Agency (2025 - Present):**
+1. **Dabbirha AI & Workflow Automation Agency:**
    Jordan's pioneer startup dedicated to bespoke enterprise workflow automation and Autonomous AI Agents, eliminating friction and transforming manual operations into self-driving business cycles using generative AI, Python, SQL, and Power BI.
 2. **Sovereign Earth (24/7 Web & Cloud MMORPG):**
    A geopolitical strategy and open-market economy MMORPG simulating global supply chain dynamics across 7 sovereign continents, powered by an in-game Google Gemini AI crisis advisor.
 3. **Cognitive Prototyping (Vibe Coding) & Web Operations:**
    Rapid MVP product development, enterprise WordPress platforms, and advanced Technical SEO leveraging Google Search Console and cognitive UX psychology.
-4. **Financial Systems & Database Administration (FACT & Jordan Islamic Bank):**
-   Resolving complex database issues, auditing data security, and ensuring banking compliance for Jordan Islamic Bank's application systems.
+4. **Financial Systems & Database Administration (FACT & Banking Systems):**
+   Resolving complex database issues, auditing data security, and ensuring compliance for enterprise banking applications and institutional systems.
 5. **Executive Leadership & Commercial Operations (5+ Years):**
    Distinguished leadership track across major commercial operations, sales restructuring, and high-level enterprise supply chain architecture.
 
-## Honors & National Recognition
+## Honors & Official Recognition
 - Recipient of the prestigious commemorative gift from the Royal Hashemite Court (Silver Jubilee Medal / وسام اليوبيل الفضي - هدية تذكارية من الديوان الملكي الهاشمي).
 - 2nd place nationwide in Jordan's National Mock Parliamentary Elections (Dec 2023).
-- 30+ verified credentials, national awards, and training honors (including Al Jazeera Media Institute).
+- 30+ verified credentials and specialized awards (including Al Jazeera Media Institute).
 
 ## Core Technical Competencies
 - Autonomous AI Agents & Enterprise Workflow Automation (Dabbirha)
